@@ -5,12 +5,15 @@ public class Grid {
     private int playerY;
     private ArrayList<ArrayList<Tile>> gridState;
     //private gridValue
-
+    private int gridXMax;
+    private int gridYMax;
 
     Grid () {
         this.playerX = 3;
         this.playerY = 0; 
-        this.gridState = generateGrid(6, 5);
+        this.gridXMax = 6;
+        this.gridYMax = 6;
+        this.gridState = generateGrid(gridXMax, gridYMax);
     }
 
     public static void main(String[] args) {
@@ -18,6 +21,19 @@ public class Grid {
 		Grid testGrid = new Grid();
         
         System.out.print(testGrid.toString());
+        testGrid.updateGrid("d");
+        System.out.println("new grid");
+        System.out.print(testGrid.toString());
+        testGrid.updateGrid("s");
+        System.out.println("new grid");
+        System.out.print(testGrid.toString());
+        testGrid.updateGrid("a");
+        System.out.println("new grid");
+        System.out.print(testGrid.toString());
+        testGrid.updateGrid("w");
+        System.out.println("new grid");
+        System.out.print(testGrid.toString());
+        
 	}
     @Override
     public String toString() {
@@ -42,7 +58,32 @@ public class Grid {
         }
         return result;
     }
-
+    public void updateGrid(String direction) {
+        switch (direction) {
+            case "s":
+                if(canMove(this.playerX, this.playerY+1)) {
+                    setPlayerPosition(this.playerX, this.playerY+1);
+                }
+                break;
+            case "w":
+                if(canMove(this.playerX, this.playerY-1)) {
+                    setPlayerPosition(this.playerX, this.playerY-1);
+                }
+                break;
+            case "a":
+                if(canMove(this.playerX-1, this.playerY)) {
+                    setPlayerPosition(this.playerX-1, this.playerY);
+                }
+                break;
+            case "d":
+                if(canMove(this.playerX+1, this.playerY)) {
+                    setPlayerPosition(this.playerX+1, this.playerY);
+                }
+                break;
+            default:
+                break;
+        }
+    }
     /**
      * @return the playerPosition as an array [x, y]
      */
@@ -61,7 +102,20 @@ public class Grid {
         this.playerX = playerX;
         this.playerY = playerY;
     }
+    private boolean canMove (int x, int y) {
+        if ( x < 0 || y < 0) {
+            return false;
+        }
+        if ( x > gridXMax || y > gridYMax) {
+            return false; 
+        } 
+        Tile tileAtXY = this.gridState.get(x).get(y);
+        if (tileAtXY.getIsPermeable() == false) {
+            return false;
+        }
 
+        return true;
+    }
     private ArrayList<ArrayList<Tile>> generateGrid (int x , int y) {
         ArrayList<ArrayList<Tile>> grid = new ArrayList<ArrayList<Tile>>();
         for(int i = 0; i < x; i++) {
