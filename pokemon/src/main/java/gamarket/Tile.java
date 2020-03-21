@@ -1,4 +1,6 @@
-public class Tile {
+package gamarket;
+
+class Tile {
     private boolean isPermeable;
     public enum Type {
         GRASS, ROAD
