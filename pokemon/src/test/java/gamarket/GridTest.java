@@ -9,12 +9,12 @@ import static org.junit.Assert.assertArrayEquals;
  */
 public class GridTest 
 {
-    
+    public static int[] startSpot = {0, 0};
+
     @Test
     public void playerStartPostiion_is_0_0 () {
         Grid testGrid = new Grid();
-        assertEquals(0, testGrid.getPlayerPosition()[0]);
-        assertEquals(0, testGrid.getPlayerPosition()[1]);
+        assertArrayEquals(startSpot, testGrid.getPlayerPosition());
     }
     @Test
     public void s_Makes_Player_Go_Down () {
@@ -48,5 +48,23 @@ public class GridTest
         testGrid.updateGrid("a");
         int[] oneRight = {0, 0};
         assertArrayEquals(oneRight, testGrid.getPlayerPosition());
+    }
+
+    @Test
+    public void player_Cant_Move_off_Grid () {
+        Grid testGrid = new Grid();
+        testGrid.updateGrid("w");
+        assertArrayEquals(startSpot, testGrid.getPlayerPosition());
+
+        testGrid.updateGrid("a");
+        assertArrayEquals(startSpot, testGrid.getPlayerPosition());
+    }
+
+    @Test
+    public void player_Cant_Move_into_nonPerme () {
+        Grid testGrid = new Grid(); 
+        testGrid.changeTile(1, 0, Tile.Type.TREE);
+        testGrid.updateGrid("d");
+        assertArrayEquals(startSpot, testGrid.getPlayerPosition());
     }
 }

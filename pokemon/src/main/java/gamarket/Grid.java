@@ -1,6 +1,8 @@
 package gamarket;
 import java.util.ArrayList;
 
+import gamarket.Tile.Type;
+
 /**
  * Grid class object that represents the board that the player is on.
  * Is made consists of tiles and keeps track of player position.
@@ -51,7 +53,7 @@ public class Grid {
     }
     /**
      * Way to move the player. First checks if player can move in the choosen direction
-     * w=up, s=down, a=left, d=right
+     * w=up, s=down, a=left, d=right does nothing if invalid input
      * @param direction "wsda commands moves char in direction"
      */
     public void updateGrid(String direction) {
@@ -77,6 +79,7 @@ public class Grid {
                 }
                 break;
             default:
+                //invalid input
                 break;
         }
     }
@@ -133,11 +136,21 @@ public class Grid {
         for(int i = 0; i < x; i++) {
             ArrayList<Tile> row = new ArrayList<Tile>();
             for(int j = 0; j < y; j++) {
-                Tile newTile = new Tile(Tile.Type.ROAD, true);
+                Tile newTile = new Tile(Tile.Type.ROAD);
                 row.add(newTile);
             }
             grid.add(row);
         }
         return grid;
     }
+    /**
+     * change Tile at x, y to a new type
+     * @param x valid x cordinate
+     * @param y valid y cordinate
+     * @param newType
+     */
+	public void changeTile(int x, int y, Type newType) {
+        Tile tileAtXY = this.gridState.get(x).get(y);
+        tileAtXY.setType(newType);
+	}
 }
