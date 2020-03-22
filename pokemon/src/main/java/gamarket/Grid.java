@@ -1,45 +1,38 @@
+package gamarket;
 import java.util.ArrayList;
 
+import gamarket.Tile.Type;
+
+/**
+ * Grid class object that represents the board that the player is on.
+ * Is made consists of tiles and keeps track of player position.
+ */
 public class Grid {
     private int playerX;
     private int playerY;
     private ArrayList<ArrayList<Tile>> gridState;
-    //private gridValue
     private int gridXMax;
     private int gridYMax;
 
     Grid () {
-        this.playerX = 3;
+        this.playerX = 0;
         this.playerY = 0; 
         this.gridXMax = 6;
         this.gridYMax = 6;
         this.gridState = generateGrid(gridXMax, gridYMax);
     }
 
-    public static void main(String[] args) {
-		
-		Grid testGrid = new Grid();
-        
-        System.out.print(testGrid.toString());
-        testGrid.updateGrid("d");
-        System.out.println("new grid");
-        System.out.print(testGrid.toString());
-        testGrid.updateGrid("s");
-        System.out.println("new grid");
-        System.out.print(testGrid.toString());
-        testGrid.updateGrid("a");
-        System.out.println("new grid");
-        System.out.print(testGrid.toString());
-        testGrid.updateGrid("w");
-        System.out.println("new grid");
-        System.out.print(testGrid.toString());
-        
-	}
+    /**
+     * @return the string representation of the Grid as a string
+     *  tell player (x, y) position
+     *  prints tile types and a P for the player position
+     */
     @Override
     public String toString() {
         int rows = this.gridState.size();
         int cols = this.gridState.get(0).size();
-        String result = "";
+        String result = "Player position is (" + this.playerX + ", " + this.playerY +") \n";
+        result += "The grid State: \n";
         for(int i = 0; i < rows; i++) {
             //ArrayList<Tile> row = new ArrayList<Tile>();
             for(int j = 0; j < cols; j++) {
@@ -58,6 +51,11 @@ public class Grid {
         }
         return result;
     }
+    /**
+     * Way to move the player. First checks if player can move in the choosen direction
+     * w=up, s=down, a=left, d=right does nothing if invalid input
+     * @param direction "wsda commands moves char in direction"
+     */
     public void updateGrid(String direction) {
         switch (direction) {
             case "s":
@@ -81,6 +79,7 @@ public class Grid {
                 }
                 break;
             default:
+                //invalid input
                 break;
         }
     }
@@ -94,14 +93,23 @@ public class Grid {
 
 
     /**
+     * set players new x,y cordinate    
      * @param playerX x cordinate
      * @param playerY y cordinate
-     *  set players new x,y cordinate    
+     *  
      */
     public void setPlayerPosition(int playerX, int playerY) {
         this.playerX = playerX;
         this.playerY = playerY;
     }
+
+    /**
+     * Checks if location can be moved to. 
+     * Player cannot move out of the grid or to tiles that are not permeable 
+     * @param x
+     * @param y
+     * @return True then player can move to spot false if not 
+     */
     private boolean canMove (int x, int y) {
         if ( x < 0 || y < 0) {
             return false;
@@ -116,16 +124,33 @@ public class Grid {
 
         return true;
     }
+
+    /**
+     * utility function to generate grid of given x, y demensions 
+     * @param x max width of the grid
+     * @param y max height of the grid
+     * @return
+     */
     private ArrayList<ArrayList<Tile>> generateGrid (int x , int y) {
         ArrayList<ArrayList<Tile>> grid = new ArrayList<ArrayList<Tile>>();
         for(int i = 0; i < x; i++) {
             ArrayList<Tile> row = new ArrayList<Tile>();
             for(int j = 0; j < y; j++) {
-                Tile newTile = new Tile(Tile.Type.ROAD, true);
+                Tile newTile = new Tile(Tile.Type.ROAD);
                 row.add(newTile);
             }
             grid.add(row);
         }
         return grid;
     }
+    /**
+     * change Tile at x, y to a new type
+     * @param x valid x cordinate
+     * @param y valid y cordinate
+     * @param newType
+     */
+	public void changeTile(int x, int y, Type newType) {
+        Tile tileAtXY = this.gridState.get(x).get(y);
+        tileAtXY.setType(newType);
+	}
 }
