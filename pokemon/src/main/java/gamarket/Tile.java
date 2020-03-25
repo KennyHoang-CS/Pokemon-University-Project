@@ -7,7 +7,7 @@ class Tile {
      * note if new type is added make changes to toString and setPermeable
      */
     public enum Type {
-        GRASS, ROAD, HOUSE, TREE, CUTTABLE_TREE, WATER, UNSURFABLE, WHIRLPOOL
+        GRASS, ROAD, HOUSE, TREE, CUTTABLE_TREE, WATER, UNSURFABLE, WHIRLPOOL, UNRECOGNIZED
     } ; 
     private Type tileType;
 
@@ -45,7 +45,7 @@ class Tile {
     }
 
     /**
-     * sets type based on 
+     * based on type set is permeable value
      * @param type
      */
     public void setPermeable (Type type) {
@@ -77,5 +77,24 @@ class Tile {
 	public void setType(Type newType) {
         this.tileType = newType;
         setPermeable(newType);
+    }
+    
+    /**
+     * Takes char representation of type and returns the coresponding Type
+     * @param typeChar 
+     * @return Type 
+     */
+	public static Type charToType(char typeChar) {
+        switch(typeChar) {
+            case 'G': return Type.GRASS;
+            case 'R': return Type.ROAD;
+            case 'H': return Type.HOUSE;
+            case 'T': return Type.TREE;
+            case 'C': return Type.CUTTABLE_TREE;
+            case 'W': return Type.WATER;
+            case 'U': return Type.UNSURFABLE;
+            case 'L': return Type.WHIRLPOOL;
+            default: return Type.UNRECOGNIZED;
+        }    
 	}
 }

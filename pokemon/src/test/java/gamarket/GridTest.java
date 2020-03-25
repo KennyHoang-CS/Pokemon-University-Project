@@ -1,8 +1,13 @@
 package gamarket;
 
-
 import org.junit.Test;
+
+import gamarket.Tile.Type;
+
 import static org.junit.Assert.assertEquals;
+
+import java.io.File;
+
 import static org.junit.Assert.assertArrayEquals;
 /**
  * Unit test for simple App.
@@ -66,5 +71,24 @@ public class GridTest
         testGrid.changeTile(1, 0, Tile.Type.TREE);
         testGrid.updateGrid("d");
         assertArrayEquals(startSpot, testGrid.getPlayerPosition());
+    }
+
+    @Test
+    public void save_Load_test () {
+        Grid testGrid = new Grid(8, 8, 7, 7);
+        testGrid.changeTile(3, 2, Type.WATER);
+
+        testGrid.save("./save_Loadtest");
+        Grid freshGrid = new Grid();
+        freshGrid.loadData("./save_Loadtest");
+        
+        System.out.println(freshGrid.toString());
+        assertEquals(Type.WATER, freshGrid.getTile(3, 2).getType() );
+        
+        int[] expectedLoc = { 7, 7};
+        assertArrayEquals(expectedLoc, freshGrid.getPlayerPosition());
+
+        File file = new File("./save_Loadtest_gridData.txt");
+        file.delete();
     }
 }

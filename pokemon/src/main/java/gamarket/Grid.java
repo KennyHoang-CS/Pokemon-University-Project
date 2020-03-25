@@ -1,5 +1,9 @@
 package gamarket;
+
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import gamarket.Tile.Type;
 
@@ -14,6 +18,9 @@ public class Grid {
     private int gridXMax;
     private int gridYMax;
 
+    /**
+     * default constructor mainly used for testing
+     */
     Grid () {
         this.playerX = 0;
         this.playerY = 0; 
@@ -21,7 +28,20 @@ public class Grid {
         this.gridYMax = 6;
         this.gridState = generateGrid(gridXMax, gridYMax);
     }
-
+    /**
+     * set up grid of x, y demensions and start player at playerStartX, playerStartY
+     * @param xMax any valid int
+     * @param yMax any valid int
+     * @param playerStartX any int i | i > 0 && i < xMax
+     * @param playerStartY any int i | i > 0 && i < yMax
+     */
+    Grid (int xMax, int yMax, int playerStartX, int playerStartY ) {
+        this.gridXMax = xMax;
+        this.gridYMax = yMax;
+        this.playerX = playerStartX;
+        this.playerY = playerStartY;
+        this.gridState = generateGrid(xMax, yMax);
+    }
     /**
      * @return the string representation of the Grid as a string
      *  tell player (x, y) position
@@ -29,20 +49,19 @@ public class Grid {
      */
     @Override
     public String toString() {
-        int rows = this.gridState.size();
-        int cols = this.gridState.get(0).size();
-        String result = "Player position is (" + this.playerX + ", " + this.playerY +") \n";
+        String result = "Grid demensions:" + Integer.toString(this.gridXMax) + "," + Integer.toString(this.gridYMax) +"\n";
+        result +="Player position is:" + this.playerX + "," + this.playerY +"\n";
         result += "The grid State: \n";
-        for(int i = 0; i < rows; i++) {
+        for(int i = 0; i < this.gridXMax; i++) {
             //ArrayList<Tile> row = new ArrayList<Tile>();
-            for(int j = 0; j < cols; j++) {
-
+            for(int j = 0; j < this.gridYMax; j++) {
+                Tile tileAtIJ = this.gridState.get(i).get(j);
                 if(this.playerX == j && this.playerY == i) {
-                    result += "P "; 
+                    result += tileAtIJ + "P "; 
                 }
                 else
                  {
-                    Tile tileAtIJ = this.gridState.get(i).get(j);
+                    
                     result += tileAtIJ.toString() + " " ;
                 }
                 
@@ -117,7 +136,7 @@ public class Grid {
         if ( x > gridXMax || y > gridYMax) {
             return false; 
         } 
-        Tile tileAtXY = this.gridState.get(x).get(y);
+        Tile tileAtXY = getTile(x, y);
         if (tileAtXY.getIsPermeable() == false) {
             return false;
         }
@@ -144,13 +163,103 @@ public class Grid {
         return grid;
     }
     /**
-     * change Tile at x, y to a new type
+     * Change Tile at x, y to a new type
      * @param x valid x cordinate
      * @param y valid y cordinate
-     * @param newType
+     * @param newType must be valid or will assign Unrecognized 
      */
 	public void changeTile(int x, int y, Type newType) {
-        Tile tileAtXY = this.gridState.get(x).get(y);
-        tileAtXY.setType(newType);
+        getTile(x,y).setType(newType);
+    }
+
+    /**
+     * Utility Function for retrieving Tiles at X,Y 
+     * @param x valid x grid coordinate 
+     * @param y valid y gird coordinate
+     * @return The tile at X,Y
+     */
+    public Tile getTile(int x, int y) {
+		return this.gridState.get(x).get(y);
 	}
+    
+    /**
+     * Converts grid to a string and saves to the given filename.
+     * Appends _gridData.txt to filename
+     * @param saveToFileName - name wanted for gridData file
+     */
+    public void save(String saveToFileName) {
+		File file = new File(saveToFileName + "_gridData.txt");
+		try {
+			FileWriter writer = new FileWriter(file);
+			
+			writer.write(this.toString());
+			
+			//writer.write(str);
+			writer.flush();
+			writer.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+    }
+
+    /**
+     * loads and transforms current grid to data for filename given to
+     * function. Appends _gridData.txt to filename to help gitignore
+     * assumes that file exists and is properly formatted.
+     * Proper Fomat 
+     * Grid demensions:xMax,yMax\n
+     * Player position is:playerX,playerY\n
+     * The grid State:\n
+     * tileValue grid space separated 
+     *  @param savedFileName - name of file wish to retreive
+     */
+    public void loadData(String savedFileName) {
+        //add so easy to find and for gitignore
+		File file = new File(savedFileName+ "_gridData.txt"); 
+		String lineString;
+		Scanner sc;
+		try {
+			sc = new Scanner(file); 
+			while (sc.hasNextLine()){
+                lineString = sc.nextLine();
+                String[] splitString = lineString.split(":");
+                
+                switch(splitString[0]) {
+                    case "Grid demensions":{
+                        String[] demensions = splitString[1].split(",");
+                        this.gridXMax = Integer.parseInt(demensions[0]);
+                        this.gridYMax = Integer.parseInt(demensions[1]);
+                        this.gridState = generateGrid(this.gridXMax, this.gridYMax);
+                        break;
+                    } 
+                    case "Player position is": {
+                        String[] demensions = splitString[1].split(",");
+                        this.playerX = Integer.parseInt(demensions[0]);
+                        this.playerY = Integer.parseInt(demensions[1]);
+                        break;
+                    } 
+                    case "The grid State": {
+                        for(int i = 0; i < this.gridYMax; i++) {
+                            lineString = sc.nextLine();
+                            String[] rowArr = lineString.split(" ");
+                            for(int j = 0; j < this.gridXMax; j++) {
+                                Tile.Type newType = Tile.charToType(rowArr[j].charAt(0));
+                                changeTile(i, j, newType); 
+                            }
+                        }
+                        break;
+                    }
+                    default:
+                }
+
+				
+			}
+			sc.close();
+		} catch (Exception e) {
+            System.out.println(e);
+			System.out.println("error reading file");
+		}		
+	}
+
+	
 }
