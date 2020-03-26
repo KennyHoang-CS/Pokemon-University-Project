@@ -1,0 +1,5 @@
+1,Flareon,Male,Fire,100,334,394,240,317,350,251
+2,Gengar,Male,Ghost Poison,100,324,251,240,394,263,350
+3,Pikachu,Male,Electric,100,274,229,196,218,218,306
+4,Poliwrath,Male,Water Fighting,100,384,317,317,262,306,262
+5,Sandslash,Male,Ground,100,354,328,350,207,229,251
