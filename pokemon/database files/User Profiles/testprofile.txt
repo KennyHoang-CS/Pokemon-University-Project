@@ -1,0 +1,3 @@
+testprofile,email,password
+badges,moneey,totalPokemon
+originalDate,totalTime,savedFilename_gridData.txt
