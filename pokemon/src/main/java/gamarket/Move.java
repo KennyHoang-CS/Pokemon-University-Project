@@ -1,135 +1,113 @@
 package gamarket;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Arrays;
-
 /**
- * Represents all the moves in the Pokemon universe. 
- * A Pokemon will be able to hold at most 4 moves in its move-set. 
+ * Represents the traits within a Move.
  */
-public class MoveCollection {
-	
-	/** The current number of MOVEs in the array */
-	private int numMoves; 
-	
-	/** The array to contain all the MOVEs in the Pokemon Universe*/
-	private Move moveArray[]; 
+public class Move {
 	
 	/**
-	 * The MoveCollection constructor.
-	 * It sets the numMoves to zero. 
-	 * It allocates a new array of Move type to 7. 
-	 * 
+	 * The Move's name.
 	 */
-	public MoveCollection()
-	{
-		numMoves = 0; 
-		moveArray = new Move[7];
-	}
+	private String moveName; 
 	
 	/**
-	 * The addOrModifyMove fucntion of type void.
-	 * The function adds a new move to the move collection, if the new move does not exist.
-	 * If it does exist, the move information will get updated. 
-	 * @param name This is the Move's name. Should have the Move's name(Tackle). 
-	 * @param type This is the Move's type. Should have the Move's type(Normal). 
-	 * @param category This is the Move's category. Should have the Move's category(Physical).
-	 * @param damage This is the Move's damage. Should have the Move's damage(60). 
+	 * The Move's type.
 	 */
-	public void addOrModifyMove(String name, String type, String category, String damage)
-	{
-		try {	// running time error prevention.   
-				// double the size of the array if the current array is full. 
-			if(numMoves == moveArray.length-1)
-			{
-				moveArray = Arrays.copyOf(moveArray, moveArray.length * 2);
-			}
-				
-			// change the Strings back into type Integer. 
-			int myDmg = Integer.parseInt(damage);
-			boolean moveExists = false; 
-				
-			// traverse the array to see if the MOVE already "exists" in the collection.
-			for(int i = 0; i < numMoves && moveExists != true; i++)
-				{
-					// if both MOVEs are equal, then the MOVE "exists". 
-					if(moveArray[i].getMoveName().compareToIgnoreCase(name) == 0)
-					{
-						// proceed to modify the move-type, move-type-category, move-damage. 
-						moveArray[i].setMoveType(type);
-						moveArray[i].setMoveCategory(category);
-						moveArray[i].setMoveDmg(myDmg);
-						moveExists = true; 
-					}
-				}
-
-				// if the new MOVE does NOT already exist in the collection, then add the new MOVE to the array. 
-				if(moveExists == false) 
-				{
-					Move newMove = new Move(name, type, category, myDmg);
-					moveArray[numMoves++] = newMove;
-				}
-				}catch(NumberFormatException e)
-				{
-					System.out.println("Error has occurred from MoveCollection() function...");
-				}
-			}
-		
-	/**
-	 * The function loadData of type void.
-	 * The function loads in a given data text file (movedata.txt).
-	 * Each line in the text file will have data: Move's name, Move's type, Move's category, and Move's damage separated by commas. 
-	 * @param filename This is the name of the file that is being read (movedata.txt). 
-	 */
-	public void loadData(String filename) 
-	{
-		// create a buffered reader to read in text.
-	    BufferedReader br;
-	      
-	    try {
-	         // to read in data from the file.
-	         br = new BufferedReader(new FileReader(filename));
-	         String line = br.readLine();
-	          
-	         // read line by line with each token: move-name, move-type, move-type-category, move-damage separated by commas.
-	         while(line != null && !line.isEmpty())
-	         {
-	              String[] moveData = line.split(",");
-	              addOrModifyMove(moveData[0], moveData[1], moveData[2], moveData[3]);
-	              line = br.readLine();
-             }
-	          
-	         // close the buffered reader.
-	         br.close();
-	       }catch(IOException e) {
-	           e.printStackTrace();
-	       }
-    }
-
-	/**
-	 * The function printAllMoves of type void.
-	 * The function prints out all the moves available in the Pokemon universe. 
-	 */
-	public void printAllMoves()
-	{
-		System.out.println("Move's Name / Move's Type / Move's Category / Move's Damage");
-		for(int i = 0; i < numMoves; i++)
-		{
-			System.out.println(moveArray[i].toString());
-		}
-	}
+	private String moveType;
 	
 	/**
-	 * The function getNumMoves of type int.
-	 * The function prints out the current number of moves that exist in the Pokemon universe.
-	 * @return this total number of moves.  
+	 * The Move's type category.
 	 */
-	public int getNumMoves()
+	private String moveTypeCategory;
+	
+	/**
+	 * The Move's damage. 
+	 */
+	private int moveDmg; 
+	
+	/**
+	 * The Move Constructor. 
+	 * It changes the new Move traits: name, type, category, and damage.
+	 * @param moveName This is the new Move's name. Should be a name for the move(Tackle).
+	 * @param moveType This is the new Move's type. Should be a type for the move(Normal).
+	 * @param moveTypeCategory This is the new Move's type category. Should be a category for the move(Physical).
+	 * @param moveDmg This is the new Move's damage. Should be a damage for the move(Damage). 
+	 */
+	public Move(String moveName, String moveType, String moveTypeCategory, int moveDmg)
 	{
-		return numMoves;
+		this.moveName = moveName;
+		this.moveType = moveType;
+		this.moveTypeCategory = moveTypeCategory;
+		this.moveDmg = moveDmg; 
 	}
 		
-		
+	/**
+	 * The public function setMoveName of type void.
+	 * It changes the Move's name. 
+	 * @param thisMoveName This is the new Move's name. Should have the Move's name. 
+	 */
+	public void setMoveName(String thisMoveName) { this.moveName = thisMoveName; }
+	
+	/**
+	 * The public function setMoveType of type void.
+	 * It changes the Move's type.
+	 * @param thisMoveType This is the new Move's type. Should have the Move's type.
+	 */
+	public void setMoveType(String thisMoveType) { this.moveType = thisMoveType; }
+	
+	/**
+	 * The public function setMoveCategory of type void.
+	 * It changes the Move's category. 
+	 * @param thisMoveTypeCat This is the new Move's Category. Should have the Move's category. 
+	 */
+	public void setMoveCategory(String thisMoveTypeCat) { this.moveTypeCategory = thisMoveTypeCat; }
+	
+	/**
+	 * The public function setMoveDmg of type void.
+	 * It changes the Move's damage. 
+	 * @param thisMoveDmg This is the new Move's damage. Should have the Move's damage. 
+	 */
+	public void setMoveDmg(int thisMoveDmg) { this.moveDmg = thisMoveDmg; }
+	
+	/**
+	 * The public function getMoveName of type String.
+	 * It returns the Move's name as a String. 
+	 * @return this Move's name. 
+	 */
+	public String getMoveName() { return moveName; }
+	
+	/**
+	 * The public function getMoveType of type String.
+	 * It returns the Move's type as a String
+	 * @return this Move's type.
+	 */
+	public String getMoveType() { return moveType; }
+	
+	/**
+	 * The public function getMoveTypeCat of type String.
+	 * It returns the Move's category as a String.
+	 * @return this Move's category. 
+	 */
+	public String getMoveTypeCat() { return moveTypeCategory; }
+	
+	/**
+	 * The public function getMoveDamage of type int.
+	 * It returns the Move's damage as an integer.
+	 * @return this Move's damage. 
+	 */
+	public int getMoveDamage() { return moveDmg; }
+	
+	/**
+	 * The public function toString of type String.
+	 * It returns the Move traits: name, type, category, and damage as a String. 
+	 * @return this Move's traits. 
+	 */
+	public String toString()
+	{
+		String temp = this.moveName + " / " +
+					  this.moveType + " / " +
+				      this.moveTypeCategory + " / " + 
+					  this.moveDmg; 
+		return temp;
+	}
 } 
