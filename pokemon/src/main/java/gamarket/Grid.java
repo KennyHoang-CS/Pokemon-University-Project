@@ -29,7 +29,7 @@ public class Grid {
         this.gridState = generateGrid(gridXMax, gridYMax);
     }
     /**
-     * set up grid of x, y demensions and start player at playerStartX, playerStartY
+     * set up grid of x, y dimensions and start player at playerStartX, playerStartY
      * @param xMax any valid int
      * @param yMax any valid int
      * @param playerStartX any int i | i > 0 && i < xMax
@@ -49,7 +49,7 @@ public class Grid {
      */
     @Override
     public String toString() {
-        String result = "Grid demensions:" + Integer.toString(this.gridXMax) + "," + Integer.toString(this.gridYMax) +"\n";
+        String result = "Grid dimensions:" + Integer.toString(this.gridXMax) + "," + Integer.toString(this.gridYMax) +"\n";
         result +="Player position is:" + this.playerX + "," + this.playerY +"\n";
         result += "The grid State: \n";
         for(int i = 0; i < this.gridXMax; i++) {
@@ -145,7 +145,7 @@ public class Grid {
     }
 
     /**
-     * utility function to generate grid of given x, y demensions 
+     * utility function to generate grid of given x, y dimensions 
      * @param x max width of the grid
      * @param y max height of the grid
      * @return
@@ -207,7 +207,7 @@ public class Grid {
      * function. Appends _gridData.txt to filename to help gitignore
      * assumes that file exists and is properly formatted.
      * Proper Fomat 
-     * Grid demensions:xMax,yMax\n
+     * Grid dimensions:xMax,yMax\n
      * Player position is:playerX,playerY\n
      * The grid State:\n
      * tileValue grid space separated 
@@ -220,22 +220,22 @@ public class Grid {
 		Scanner sc;
 		try {
 			sc = new Scanner(file); 
-			while (sc.hasNextLine()){
+			while (sc.hasNextLine()) {
                 lineString = sc.nextLine();
                 String[] splitString = lineString.split(":");
                 
                 switch(splitString[0]) {
-                    case "Grid demensions":{
-                        String[] demensions = splitString[1].split(",");
-                        this.gridXMax = Integer.parseInt(demensions[0]);
-                        this.gridYMax = Integer.parseInt(demensions[1]);
+                    case "Grid dimensions":{
+                        String[] dimensions = splitString[1].split(",");
+                        this.gridXMax = Integer.parseInt(dimensions[0]);
+                        this.gridYMax = Integer.parseInt(dimensions[1]);
                         this.gridState = generateGrid(this.gridXMax, this.gridYMax);
                         break;
                     } 
                     case "Player position is": {
-                        String[] demensions = splitString[1].split(",");
-                        this.playerX = Integer.parseInt(demensions[0]);
-                        this.playerY = Integer.parseInt(demensions[1]);
+                        String[] dimensions = splitString[1].split(",");
+                        this.playerX = Integer.parseInt(dimensions[0]);
+                        this.playerY = Integer.parseInt(dimensions[1]);
                         break;
                     } 
                     case "The grid State": {
@@ -260,6 +260,4 @@ public class Grid {
 			System.out.println("error reading file");
 		}		
 	}
-
-	
 }
