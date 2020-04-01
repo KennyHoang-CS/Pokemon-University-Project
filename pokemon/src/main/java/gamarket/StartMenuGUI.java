@@ -82,7 +82,7 @@ public class StartMenuGUI extends Application {
 
     public void verifyUser(String un, String pw){
         //verifyUser function checks wether the user input matches what is found in the database
-        String filePath = "./pokemon/database files/UserDataBase.txt";
+        String filePath = "./pokemon/databaseFiles/UserDataBase.txt";
         File inFile = new File(filePath);
 
         Scanner userDB = null;
