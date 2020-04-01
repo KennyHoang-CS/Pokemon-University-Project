@@ -101,7 +101,7 @@ public class Player {
      *                 pokeTeamFile,pokedexFile,
      **/
     public void loadData(String fileName) {
-        String filePath = "./pokemon/database files/User Profiles/" + fileName + "_profile.txt";
+        String filePath = "./pokemon/databaseFiles/userProfiles/" + fileName + "_profile.txt";
         File inFile = new File(filePath);
 
         Scanner scanner = null;
@@ -169,7 +169,7 @@ public class Player {
      * pokeTeamFile,pokeDexFile
      **/
     public void saveData() {
-        File file = new File("./pokemon/database files/User Profiles/" + this.name + "_profile.txt");
+        File file = new File("./pokemon/databaseFiles/userProfiles/" + this.name + "_profile.txt");
 
         try {
             if (file.exists() == false){
