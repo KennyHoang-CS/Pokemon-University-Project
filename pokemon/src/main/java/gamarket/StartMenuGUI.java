@@ -57,6 +57,7 @@ public class StartMenuGUI extends Application {
             setUsername(name);
             setPassword(pass);
             newUser = true;
+            //this.window.close();
         });
         grid.add(registerBtn, 0,2);
 
@@ -65,6 +66,7 @@ public class StartMenuGUI extends Application {
             String name = nameInput.getText();
             String pass = passInput.getText();
             verifyUser(name, pass);
+            //this.window.close();
         });
         grid.add(loginBtn, 1,2);
 
@@ -80,7 +82,7 @@ public class StartMenuGUI extends Application {
 
     public void verifyUser(String un, String pw){
         //verifyUser function checks wether the user input matches what is found in the database
-        String filePath = "./pokemon/files/UserDataBase.txt";
+        String filePath = "./pokemon/database files/UserDataBase.txt";
         File inFile = new File(filePath);
 
         Scanner userDB = null;
@@ -121,7 +123,7 @@ public class StartMenuGUI extends Application {
     }
 
     public Boolean getNewUser(){
-        return getNewUser();
+        return newUser;
     }
 
 
