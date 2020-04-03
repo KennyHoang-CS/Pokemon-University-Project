@@ -7,7 +7,7 @@ public class Client{
     private double encounterTable[] = {10, 8.5,6.75,3.33,1.25};
     private String startInput;
     private String interFaceInput;
-    StartMenuGUI startMenuGUI;
+    public StartMenuGUI startMenuGUI;
     private Grid grid;
     private Tile tile;
     private Player player;
@@ -38,7 +38,7 @@ public class Client{
     }
 
     public void startMenu(){
-        startMenuGUI = new StartMenuGUI();
+        this.startMenuGUI = new StartMenuGUI();
     }
 
 
