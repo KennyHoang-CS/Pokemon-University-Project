@@ -1,30 +1,43 @@
+package gamarket;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 
+/**
+ * Represents all the moves in the Pokemon universe. 
+ * A Pokemon will be able to hold at most 4 moves in its move-set. 
+ */
 public class MoveCollection {
 	
 	/** The current number of MOVEs in the array */
 	private int numMoves; 
 	
-	/** The array to contain the MOVEs */
+	/** The array to contain all the MOVEs in the Pokemon Universe*/
 	private Move moveArray[]; 
 	
-	/** The name of the data file that contains MOVEs-set data */
-	private String sourceName;
-		
-	/** Boolean flag to indicate whether the MOVEs-set collection was
-		    modified since it was last saved. */
-	private boolean modified;
-	
+	/**
+	 * The MoveCollection constructor.
+	 * It sets the numMoves to zero. 
+	 * It allocates a new array of Move type to 7. 
+	 * 
+	 */
 	public MoveCollection()
 	{
 		numMoves = 0; 
 		moveArray = new Move[7];
 	}
 	
-	// A method to add/modify a move to the array. 
+	/**
+	 * The addOrModifyMove fucntion of type void.
+	 * The function adds a new move to the move collection, if the new move does not exist.
+	 * If it does exist, the move information will get updated. 
+	 * @param name This is the Move's name. Should have the Move's name(Tackle). 
+	 * @param type This is the Move's type. Should have the Move's type(Normal). 
+	 * @param category This is the Move's category. Should have the Move's category(Physical).
+	 * @param damage This is the Move's damage. Should have the Move's damage(60). 
+	 */
 	public void addOrModifyMove(String name, String type, String category, String damage)
 	{
 		try {	// running time error prevention.   
@@ -49,7 +62,6 @@ public class MoveCollection {
 						moveArray[i].setMoveCategory(category);
 						moveArray[i].setMoveDmg(myDmg);
 						moveExists = true; 
-						modified = true;	// modified is true because move-type, move-category, move-damage was changed. 
 					}
 				}
 
@@ -65,7 +77,12 @@ public class MoveCollection {
 				}
 			}
 		
-	// A method to load in data from a given file.
+	/**
+	 * The function loadData of type void.
+	 * The function loads in a given data text file (movedata.txt).
+	 * Each line in the text file will have data: Move's name, Move's type, Move's category, and Move's damage separated by commas. 
+	 * @param filename This is the name of the file that is being read (movedata.txt). 
+	 */
 	public void loadData(String filename) 
 	{
 		// create a buffered reader to read in text.
@@ -74,7 +91,6 @@ public class MoveCollection {
 	    try {
 	         // to read in data from the file.
 	         br = new BufferedReader(new FileReader(filename));
-	         sourceName = filename;
 	         String line = br.readLine();
 	          
 	         // read line by line with each token: move-name, move-type, move-type-category, move-damage separated by commas.
@@ -92,25 +108,28 @@ public class MoveCollection {
 	       }
     }
 
-	// A method to print out all the MOVE object data
-	public String toString()
+	/**
+	 * The function printAllMoves of type void.
+	 * The function prints out all the moves available in the Pokemon universe. 
+	 */
+	public void printAllMoves()
 	{
-		String temp = "";
-			
+		System.out.println("Move's Name / Move's Type / Move's Category / Move's Damage");
 		for(int i = 0; i < numMoves; i++)
 		{
-			temp += moveArray[i].getMoveName() + "/" +
-					moveArray[i].getMoveType() + "/" +
-					moveArray[i].getMoveTypeCat() + "/" +
-					Integer.toString(moveArray[i].getMoveDamage()) + "\n";
+			System.out.println(moveArray[i].toString());
 		}
-	return temp;
 	}
-		
+	
+	/**
+	 * The function getNumMoves of type int.
+	 * The function prints out the current number of moves that exist in the Pokemon universe.
+	 * @return this total number of moves.  
+	 */
 	public int getNumMoves()
 	{
 		return numMoves;
 	}
 		
 		
-} // end of MoveCollection class
+} 
