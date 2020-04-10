@@ -14,10 +14,7 @@ public class PokemonCollection {
 		
 	/** The current number of POKEMONs in the Pokemon Collection. */
 	private int numPOKEs;
-	
-	/** The current number of POKEMONS in the player team. */
-	private int numTEAM; 
-		
+
 	/** The array to contain the entire Pokemon that exists in the game */
 	private Pokemon[] pokeArray;
 		
@@ -26,8 +23,7 @@ public class PokemonCollection {
 	 * It allocates the Pokemon array 'pokeArray' to size 7. 
 	 */
 	public PokemonCollection() {
-		numPOKEs = 0;
-		numTEAM = 0; 
+		numPOKEs = 0; 
 		pokeArray = new Pokemon[7];		
 	}
 		
