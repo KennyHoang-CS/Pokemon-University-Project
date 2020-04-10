@@ -21,10 +21,10 @@ public class Player {
     private String joinDate;
     private String time1;
     private String time2;
-    private String totalTime; //changing to string, deal with later
+    private String totalTime;
     private Grid grid;
-    private PokemonCollection pokeTeam;
-    private PokemonCollection pokeDex;
+    private PokemonCollection pokeTeam; //TODO
+    private PokemonCollection pokeDex; //TODO
 
     /**
      * Player constructor initializes either a new player or returning player
@@ -51,6 +51,9 @@ public class Player {
             this.name = un;
             this.password = pw;
             loadData(this.name);
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+            Date currentTime = new Date();
+            this.time1 = timeFormat.format(currentTime);
 
         }
     }
@@ -97,8 +100,7 @@ public class Player {
      *                 Proper player profile format:
      *                 playerName,email,password
      *                 amountOfBadges,money,totalPokemon
-     *                 joinDate,totalTime,gridFileName
-     *                 pokeTeamFile,pokedexFile,
+     *                 joinDate,totalTime,
      **/
     public void loadData(String fileName) {
         String filePath = "./pokemon/databaseFiles/userProfiles/" + fileName + "_profile.txt";
@@ -107,66 +109,33 @@ public class Player {
         Scanner scanner = null;
         try {
             scanner = new Scanner(inFile);
+            String data = scanner.nextLine();
+            String temp[] = data.split(",");
+            this.name = temp[0];
+            this.email = temp[1];
+            this.password = temp[2];
+            this.badges = Integer.parseInt(temp[3]);
+            this.money = Double.parseDouble(temp[4]);
+            this.totalPokemon = Integer.parseInt(temp[5]);
+            this.joinDate = temp[6];
+            this.totalTime = temp[7];
+        /* These lines of code are commented out due to errors when calling respective class methods
+        due to source files are not set up correctly yet
+        this.grid.loadData(name);
+        this.pokeTeam.loadData(name);
+        this.pokeDex.loadData(name);
+         */
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        int line = 1;
-        while (scanner.hasNextLine()) {
-            String data = scanner.nextLine();
-            String temp1;
-            String temp2;
-            String temp3;
-            switch (line) {
-                case 1:
-                    int indexOfFirstComma = data.indexOf(",");
-                    int indexOfLastComma = data.lastIndexOf(",");
-                    temp1 = data.substring(0, indexOfFirstComma);
-                    temp2 = data.substring((indexOfFirstComma + 1), indexOfLastComma);
-                    temp3 = data.substring((indexOfLastComma + 1), data.length());
-                    this.name = temp1;
-                    this.email = temp2;
-                    this.password = temp3;
-                    break;
-                case 2:
-                    indexOfFirstComma = data.indexOf(",");
-                    indexOfLastComma = data.lastIndexOf(",");
-                    temp1 = data.substring(0, indexOfFirstComma);
-                    temp2 = data.substring((indexOfFirstComma + 1), indexOfLastComma);
-                    temp3 = data.substring((indexOfLastComma + 1), data.length());
-                    this.badges = Integer.parseInt(temp1);
-                    this.money = Double.parseDouble(temp2);
-                    this.totalPokemon = Integer.parseInt(temp3);
-                    break;
-                case 3:
-                    indexOfFirstComma = data.indexOf(",");
-                    indexOfLastComma = data.lastIndexOf(",");
-                    temp1 = data.substring(0, indexOfFirstComma);
-                    temp2 = data.substring((indexOfFirstComma + 1), indexOfLastComma);
-                    temp3 = data.substring((indexOfLastComma + 1), data.length());
-                    this.joinDate = temp1;
-                    this.totalTime = temp2;
-                    this.grid.loadData(temp3);
-                    break;
-                case 4:
-                    indexOfFirstComma = data.indexOf(",");
-                    indexOfLastComma = data.lastIndexOf(",");
-                    temp1 = data.substring(0, indexOfFirstComma);
-                    temp2 = data.substring((indexOfFirstComma + 1), indexOfLastComma);
-                    this.pokeTeam.loadData(temp1);
-                    this.pokeDex.loadData(temp2);
-                    break;
-            }
-            line++;
-        }
+
     }
 
     /**
      * saveData saves the user's data in the proper format
      * Proper player profile format:
-     * playerName,email,password
-     * amountOfBadges,money,totalPokemon
-     * joinDate,totalTime,gridFileName
-     * pokeTeamFile,pokeDexFile
+     * playerName,email,password,amountOfBadges,money,totalPokemon,joinDate,totalTime
      **/
     public void saveData() {
         File file = new File("./pokemon/databaseFiles/userProfiles/" + this.name + "_profile.txt");
@@ -184,13 +153,9 @@ public class Player {
            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
            Date currentTime = new Date();
            totalTime = calculateTime(timeFormat.format(currentTime));
-           writer.write(this.name + "," + this.email + "," + this.password + "\n"
-                   + this.badges + "," + this.money + "," + this.totalPokemon + "\n"
-                   + this.joinDate + "," + this.totalTime + "," + this.name + "\n"
-                   + this.name + "," + this.name + ",");
-
-
-
+           writer.write(this.name + "," + this.email + "," + this.password + ","
+                   + this.badges + "," + this.money + "," + this.totalPokemon + ","
+                   + this.joinDate + "," + this.totalTime);
             writer.flush();
             writer.close();
         } catch (IOException e) {
@@ -207,7 +172,7 @@ public class Player {
     private String calculateTime(String time) {
         System.out.println(time1);
         time2 = time;
-        System.out.println(time2);
+        System.out.println(time2 );
 
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
 
@@ -218,10 +183,10 @@ public class Player {
              date2 = timeFormat.parse(time2);
              long diff = date2.getTime() - date1.getTime();
              time1 = timeFormat.format(new Date(diff));
+             time1 = time1.replaceFirst("16", "00");
         } catch (ParseException e) {
-            e.printStackTrace();
+             e.printStackTrace();
         }
-
         System.out.println("The diff is "+ time1);
 
         return time1;
@@ -236,7 +201,7 @@ public class Player {
                 "\nTotal Pokemon: " + this.totalPokemon +
                 "\nJoin date: " + this.joinDate +
                 "\nPlayed Time: " + this.totalTime +
-                "\nPokemon Team: " + this.pokeTeam.toString() +
-                "\nPokedex: " + this.pokeDex.getNumPokes();
+                "\nPokemon Team: " + "TODO" +
+                "\nPokedex: " + "TODO";
     }
 }
