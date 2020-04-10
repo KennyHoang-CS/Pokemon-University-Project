@@ -8,10 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.EventHandler;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -69,9 +65,6 @@ public class StartMenuGUI extends Application {
             //this.window.close();
         });
         grid.add(loginBtn, 1,2);
-
-
-
 
         Scene scene = new Scene(grid, 300,100);
         window.setScene(scene);

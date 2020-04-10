@@ -1,40 +1,32 @@
 package gamarket;
 
+
+import javafx.application.Application;
+import javafx.stage.Stage;
+
 import java.util.*;
 
-public class Client{
+public class Client extends Application {
     private int encnounterChance = 200;
     private double encounterTable[] = {10, 8.5,6.75,3.33,1.25};
     private String startInput;
     private String interFaceInput;
-    StartMenuGUI startMenuGUI;
+    public StartMenuGUI startMenuGUI; //temporarily public for testing purposes
     private Grid grid;
     private Tile tile;
     private Player player;
 
     static Client client = new Client ();
-
     private Client(){
         //constructor
-        startMenu();
-       /* while(startMenu.window.isShowing()) {
-            System.out.println("!");
-            if (startMenu.getNewUser()) {
-                player = new Player(true, startMenu.getUsername(), startMenu.getPassword());
-                System.out.println("new user created!");
-                startMenu.window.close();
-            } else if (startMenu.verified == true) {
-                player = new Player(false, startMenu.getUsername(), startMenu.getPassword());
-                System.out.println("user data retrieved");
-                startMenu.window.close();
-            }
-        }
-        */
-
     }
-
     public static Client getInstance(){
         return client;
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+
     }
 
     public void startMenu(){
