@@ -1,4 +1,1 @@
-david,email,password
-8,123.45,5
-01/01/2020,00:00:00,gridFilename
-pokeTeamFile,pokedexFile,
+david,email,password,5,123.45,5,01/01/2020,00:00:05
