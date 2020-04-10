@@ -11,7 +11,8 @@ public class Client extends Application {
     private double encounterTable[] = {10, 8.5,6.75,3.33,1.25};
     private String startInput;
     private String interFaceInput;
-    public StartMenuGUI startMenuGUI; //temporarily public for testing purposes
+    public StartMenuGUI startMenuGUI;
+
     private Grid grid;
     private Tile tile;
     private Player player;
@@ -30,7 +31,7 @@ public class Client extends Application {
     }
 
     public void startMenu(){
-        startMenuGUI = new StartMenuGUI();
+        this.startMenuGUI = new StartMenuGUI();
     }
 
 
