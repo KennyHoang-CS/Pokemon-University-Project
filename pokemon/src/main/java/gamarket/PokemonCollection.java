@@ -12,10 +12,13 @@ import java.util.*;
  */
 public class PokemonCollection {
 		
-	/** The current number of POKEMONs in the array */
+	/** The current number of POKEMONs in the Pokemon Collection. */
 	private int numPOKEs;
+	
+	/** The current number of POKEMONS in the player team. */
+	private int numTEAM; 
 		
-	/** The array to contain the POKEMONs */
+	/** The array to contain the entire Pokemon that exists in the game */
 	private Pokemon[] pokeArray;
 		
 	/** 
@@ -24,7 +27,8 @@ public class PokemonCollection {
 	 */
 	public PokemonCollection() {
 		numPOKEs = 0;
-		pokeArray = new Pokemon[7];				
+		numTEAM = 0; 
+		pokeArray = new Pokemon[7];		
 	}
 		
 	/**
@@ -43,10 +47,10 @@ public class PokemonCollection {
 				{
 					pokeArray = Arrays.copyOf(pokeArray, pokeArray.length * 2);
 				}
-			pokeArray[numPOKEs++] = myPoke;	
+				pokeArray[numPOKEs++] = myPoke;	
 			}catch(NumberFormatException e)
 			{
-				System.out.println("Error has occurred from addOrModifyPokemon() function ...");
+				System.out.println("Error has occurred from addPokemon() function ...");
 			}
 	}
 		
@@ -96,7 +100,6 @@ public class PokemonCollection {
 					
 	                // add the pokemon object to the pokeArray. 
 		        	addPokemon(myPoke);  	         
-	                
 	                line = br.readLine();
 		        }
 		        // close the buffered reader.
@@ -130,14 +133,12 @@ public class PokemonCollection {
 		}
 	}
 	
-	public static void main(String[] args)
+	/** Helper Function.
+	 * Returns a Pokemon at the specified index. 
+	 * @return this Pokemon. 
+	 */
+	public Pokemon getPokemonAtIndex(int i)
 	{
-		PokemonCollection pc = new PokemonCollection();
-		pc.loadData("C:\\Users\\etern\\Desktop\\PokemonMain\\pokedata.txt");
-		pc.printCollection();
-		
-		MoveCollection mc = new MoveCollection();
-		mc.loadData("C:\\Users\\etern\\Desktop\\PokemonMain\\movedata.txt");
-		mc.printAllMoves();
+		return pokeArray[i];
 	}
 } 

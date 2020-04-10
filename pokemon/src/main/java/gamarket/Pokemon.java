@@ -85,12 +85,17 @@ public class Pokemon {
 	 * The function toString() of the Pokemon class. 
 	 * It creates a variable temp of type String to hold the Pokemon's identity, offensive, 
 	 * and defensive status. It converts integer data into type String for temp able to contain. 
+	 * @param format specifies how the String data should either be: output to screen or output to file.  
 	 * @return this Pokemon's id, name, gender, type, level, attack, special attack, speed, health
 	 * , defense, and special defense.  
 	 */
-	public String toString()
+	public String toString(String format)
 	{
-		String temp = "Pokemon ID: " + Integer.toString(this.IS.getID()) + " / " 
+		String temp = "";
+		
+		if(format.equals("other"))
+		{
+			temp = "Pokemon ID: " + Integer.toString(this.IS.getID()) + " / " 
 					   + "Name: " + this.IS.getName() + " / "
 					   + "Gender: " + this.IS.getGender() + " / "
 					   + "Type: " + this.IS.getType() + " / "
@@ -101,7 +106,22 @@ public class Pokemon {
 				       + "Health: " + Integer.toString(this.DS.getHP()) + " / "
 				       + "Defense: " + Integer.toString(this.DS.getDEF()) + " / "
 					   + "Sp. Defense: " + Integer.toString(this.DS.getSPDEF()) + "\n";
-	    
+		}
+		if(format.equals("file"))	//  need to preserve the read-in data format: data1,data2,...,dataN.
+		{
+			temp = Integer.toString(this.IS.getID()) + ","
+				   + this.IS.getName() + ","
+				   + this.IS.getGender() + ","
+				   + this.IS.getType() + ","
+				   + Integer.toString(this.IS.getLevel()) + "," 
+				   + Integer.toString(this.OS.getATK()) + ","
+				   + Integer.toString(this.OS.getSPATK()) + ","
+				   + Integer.toString(this.OS.getSpeed()) + ","
+			       + Integer.toString(this.DS.getHP()) + ","
+			       + Integer.toString(this.DS.getDEF()) + ","
+				   + Integer.toString(this.DS.getSPDEF());
+	    }
+		
 		return temp; 
 	}
 } 
