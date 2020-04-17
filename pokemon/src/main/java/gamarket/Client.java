@@ -1,48 +1,85 @@
 package gamarket;
 
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
 import java.util.*;
 
-public class Client{
+public class Client extends Application {
     private int encnounterChance = 200;
     private double encounterTable[] = {10, 8.5,6.75,3.33,1.25};
     private String startInput;
     private String interFaceInput;
-    StartMenuGUI startMenuGUI;
+    private StartMenuGUI startMenu;
     private Grid grid;
-    private Tile tile;
     private Player player;
+    Stage window;
 
-    static Client client = new Client ();
+    //static Client client = new Client ();
 
-    private Client(){
-        //constructor
-        startMenu();
-       /* while(startMenu.window.isShowing()) {
-            System.out.println("!");
-            if (startMenu.getNewUser()) {
-                player = new Player(true, startMenu.getUsername(), startMenu.getPassword());
-                System.out.println("new user created!");
-                startMenu.window.close();
-            } else if (startMenu.verified == true) {
-                player = new Player(false, startMenu.getUsername(), startMenu.getPassword());
-                System.out.println("user data retrieved");
-                startMenu.window.close();
-            }
-        }
+    public Client(){
+        /*
+        window = new Stage();
+        window.setTitle("Pokemon");
+
+        StartMenuGUI start = new StartMenuGUI();
+        start.launch();
+
+        GridPane grid = new GridPane();
+        grid.setPadding(new Insets(10,10,10,10));
+        grid.setVgap(8);
+        grid.setHgap(10);
+
+
+        Scene scene = new Scene(startMenu(), 300,100);
+        window.setScene(scene);
+        window.show();
         */
 
     }
 
-    public static Client getInstance(){
-        return client;
+    public static void main(String args[]){
+        launch(args);
     }
 
-    public void startMenu(){
-        startMenuGUI = new StartMenuGUI();
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        primaryStage.setTitle("Pokemon: East Bay");
+        //startMenu = new StartMenuGUI();
+        Scene scene = new Scene(gameInterface());
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+
+
     }
 
+    //public static Client getInstance(){ return client; }
 
-    public void gameInterface(){
+
+    public GridPane gameInterface(){
+        GridPane root = new GridPane();
+        root.setStyle("-fx-background-color: #a3a3a3;");
+        root.setPrefSize(800,800);
+
+        root.setHgap(1.0);
+        root.setVgap(1.0);
+
+        grid = new Grid();
+        grid.setPlayerPosition(3,3);
+        Tile tile;
+
+        for (int y = 0; y < 20; y++) {
+            for (int x = 0; x < 20; x++) {
+                tile = grid.getTile(x,y);
+                System.out.println(tile.toString());
+                root.add(tile, x, y);
+            }
+        }
+        return root;
 
     }
 
@@ -65,7 +102,7 @@ public class Client{
         int encounterFormula = (int) Math.floor(encnounterChance/encounterType);
         rand = random.nextInt(encnounterChance);
         int position[];
-
+/*
         switch(move){
             case "W":
                 grid.updateGrid("W");
@@ -108,6 +145,7 @@ public class Client{
                 }
                 break;
         }
+        */
     }
 
     public void encouter(){
