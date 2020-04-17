@@ -230,4 +230,31 @@ class Tile extends StackPane {
 	public ImageView getIv(){
 	    return tileImg;
     }
+
+	void toggleHasPlayer () {
+        if(this.player == false) {
+            this.player = true;
+            renderPlayer();
+        }
+        else if (this.player == true) {
+            this.player = false;
+            removePlayer();
+        }
+        
+    }
+    void renderPlayer () {
+        File file = new File("./pokemon/imgs/player.png");
+        Image image =  new Image(file.toURI().toString());
+        playerImg = new ImageView(image);
+
+        tileImg.setFitHeight(40);
+        tileImg.setFitWidth(40);
+        playerImg.setFitWidth(40);
+        playerImg.setFitHeight(40);
+        getChildren().addAll(playerImg);
+    }
+
+    void removePlayer () {
+        getChildren().remove(playerImg);
+    }
 }

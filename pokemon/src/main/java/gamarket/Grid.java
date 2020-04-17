@@ -22,8 +22,8 @@ public class Grid {
      * default constructor mainly used for testing
      */
     Grid () {
-        this.playerX = 0;
-        this.playerY = 0; 
+        this.playerX = 19;
+        this.playerY = 19; 
         this.gridXMax = 20;
         this.gridYMax = 20;
         this.gridState = generateGrid(gridXMax, gridYMax);
@@ -118,9 +118,15 @@ public class Grid {
      *  
      */
     public void setPlayerPosition(int playerX, int playerY) {
+        Tile oldPlayerPos = getTile(this.playerX, this.playerY);
+        oldPlayerPos.toggleHasPlayer();
         this.playerX = playerX;
         this.playerY = playerY;
+        
 
+        Tile tileAtXY = getTile(playerX, playerY);
+        tileAtXY.toggleHasPlayer();
+        System.out.println("i wwas called");
     }
 
     /**
