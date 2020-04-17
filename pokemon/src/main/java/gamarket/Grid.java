@@ -24,8 +24,8 @@ public class Grid {
     Grid () {
         this.playerX = 0;
         this.playerY = 0; 
-        this.gridXMax = 6;
-        this.gridYMax = 6;
+        this.gridXMax = 20;
+        this.gridYMax = 20;
         this.gridState = generateGrid(gridXMax, gridYMax);
     }
     /**
@@ -120,6 +120,7 @@ public class Grid {
     public void setPlayerPosition(int playerX, int playerY) {
         this.playerX = playerX;
         this.playerY = playerY;
+
     }
 
     /**
@@ -155,7 +156,12 @@ public class Grid {
         for(int i = 0; i < x; i++) {
             ArrayList<Tile> row = new ArrayList<Tile>();
             for(int j = 0; j < y; j++) {
-                Tile newTile = new Tile(Tile.Type.ROAD);
+                Tile newTile;
+                if(this.playerX == j && playerY == i){
+                    newTile = new Tile(Type.GRASS, true);
+                }else{
+                    newTile = new Tile(Type.GRASS);
+                }
                 row.add(newTile);
             }
             grid.add(row);
