@@ -1,8 +1,11 @@
 package gamarket;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -51,9 +54,60 @@ public class Client extends Application {
         //startMenu = new StartMenuGUI();
         Scene scene = new Scene(gameInterface());
         primaryStage.setScene(scene);
+        System.out.println("Position: " + grid.getPlayerPosition()[0] + ", " + grid.getPlayerPosition()[1]);
+
+        ArrayList<String> input = new ArrayList<String>();
+
+        scene.setOnKeyPressed(
+                new EventHandler<KeyEvent>()
+                {
+                    public void handle(KeyEvent e)
+                    {
+                        String code = e.getCode().toString();
+
+                        // only add once... prevent duplicates
+                        if ( !input.contains(code) )
+                            input.add( code );
+                    }
+                });
+
+        scene.setOnKeyReleased(
+                new EventHandler<KeyEvent>()
+                {
+                    public void handle(KeyEvent e)
+                    {
+                        String code = e.getCode().toString();
+                        input.remove( code );
+                    }
+                });
+
+        new AnimationTimer()
+        {
+            public void handle(long currentNanoTime) {
+
+                if (input.contains("W")){
+                    System.out.println("Position: " + grid.getPlayerPosition()[0] + ", " + grid.getPlayerPosition()[1]);
+                    grid.updateGrid("w");
+                    System.out.println("Position: " + grid.getPlayerPosition()[0] + ", " + grid.getPlayerPosition()[1]);
+                }else if(input.contains("A")){
+                    System.out.println("Position: " + grid.getPlayerPosition()[0] + ", " + grid.getPlayerPosition()[1]);
+                    System.out.println("left");
+                    grid.updateGrid("a");
+                    System.out.println("Position: " + grid.getPlayerPosition()[0] + ", " + grid.getPlayerPosition()[1]);
+                }else if (input.contains("S")) {
+                    System.out.println("Position: " + grid.getPlayerPosition()[0] + ", " + grid.getPlayerPosition()[1]);
+                    grid.updateGrid("s");
+                    System.out.println("Position: " + grid.getPlayerPosition()[0] + ", " + grid.getPlayerPosition()[1]);
+                }else if(input.contains("D")) {
+                    System.out.println("Position: " + grid.getPlayerPosition()[0] + ", " + grid.getPlayerPosition()[1]);
+                    grid.updateGrid("d");
+                    System.out.println("Position: " + grid.getPlayerPosition()[0] + ", " + grid.getPlayerPosition()[1]);
+                }
+            }
+        }.start();
+
+
         primaryStage.show();
-
-
 
     }
 
@@ -69,16 +123,16 @@ public class Client extends Application {
         root.setVgap(1.0);
 
         grid = new Grid();
-        grid.setPlayerPosition(3,3);
+        grid.setPlayerPosition(10,10);
         Tile tile;
 
         for (int y = 0; y < 20; y++) {
             for (int x = 0; x < 20; x++) {
                 tile = grid.getTile(x,y);
-                System.out.println(tile.toString());
                 root.add(tile, x, y);
             }
         }
+
         return root;
 
     }

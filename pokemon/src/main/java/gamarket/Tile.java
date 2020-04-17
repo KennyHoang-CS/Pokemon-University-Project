@@ -1,5 +1,6 @@
 package gamarket;
 
+import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -21,75 +22,15 @@ class Tile extends StackPane {
     } ; 
     private Type tileType;
 
-    Tile(Type tType){
-        this.tileType = tType;
-        setPermeable(tType);
-
-        File file;
-        Image image;
-
-        switch(tType){
-            case GRASS:
-                file = new File("./pokemon/imgs/grass.png");
-                image = new Image(file.toURI().toString());
-                tileImg= new ImageView(image);
-                break;
-            case ROAD:
-                file = new File("./pokemon/imgs/road.png");
-                image = new Image(file.toURI().toString());
-                tileImg= new ImageView(image);
-                break;
-            case HOUSE:
-                file = new File("./pokemon/imgs/house.png");
-                image = new Image(file.toURI().toString());
-                tileImg= new ImageView(image);
-                break;
-            case TREE:
-                file = new File("./pokemon/imgs/tree.png");
-                image = new Image(file.toURI().toString());
-                tileImg= new ImageView(image);
-                break;
-            case CUTTABLE_TREE:
-                file = new File("./pokemon/imgs/cuttable_tree.png");
-                image = new Image(file.toURI().toString());
-                tileImg= new ImageView(image);
-                break;
-            case WATER:
-                file = new File("./pokemon/imgs/water.png");
-                image = new Image(file.toURI().toString());
-                tileImg= new ImageView(image);
-                break;
-            case UNSURFABLE:
-                file = new File("./pokemon/imgs/unsurfable.png");
-                image = new Image(file.toURI().toString());
-                tileImg= new ImageView(image);
-                break;
-            case WHIRLPOOL:
-                file = new File("./pokemon/imgs/whirlpool.png");
-                image = new Image(file.toURI().toString());
-                tileImg= new ImageView(image);
-                break;
-            case UNRECOGNIZED:
-                file = new File("./pokemon/imgs/unrecognized.png");
-                image = new Image(file.toURI().toString());
-                tileImg= new ImageView(image);
-                break;
-        }
-
-        tileImg.setFitHeight(40);
-        tileImg.setFitWidth(40);
-        getChildren().addAll(tileImg);
-    }
-
     Tile(Type tType, boolean player){
         this.player = player;
         this.tileType = tType;
         setPermeable(tType);
 
-
         File file = new File("./pokemon/imgs/player.png");
         Image image =  new Image(file.toURI().toString());
         playerImg = new ImageView(image);
+
         switch(tType){
             case GRASS:
                 file = new File("./pokemon/imgs/grass.png");
@@ -140,9 +81,13 @@ class Tile extends StackPane {
 
         tileImg.setFitHeight(40);
         tileImg.setFitWidth(40);
-        playerImg.setFitWidth(40);
-        playerImg.setFitHeight(40);
-        getChildren().addAll(tileImg, playerImg);
+        if(player){
+            playerImg.setFitWidth(40);
+            playerImg.setFitHeight(40);
+            getChildren().addAll(tileImg, playerImg);
+        }else{
+            getChildren().addAll(tileImg);
+        }
     }
     /**
      * returns string representaion of Tile

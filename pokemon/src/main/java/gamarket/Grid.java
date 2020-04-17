@@ -122,11 +122,10 @@ public class Grid {
         oldPlayerPos.toggleHasPlayer();
         this.playerX = playerX;
         this.playerY = playerY;
-        
+
 
         Tile tileAtXY = getTile(playerX, playerY);
         tileAtXY.toggleHasPlayer();
-        System.out.println("i wwas called");
     }
 
     /**
@@ -166,7 +165,7 @@ public class Grid {
                 if(this.playerX == j && playerY == i){
                     newTile = new Tile(Type.GRASS, true);
                 }else{
-                    newTile = new Tile(Type.GRASS);
+                    newTile = new Tile(Type.GRASS, false);
                 }
                 row.add(newTile);
             }
