@@ -6,6 +6,11 @@ public class Driver {
 
     public static void main(String args[]){
 
+        //Client client = Client.getInstance();
+
+
+
+/* Test stuff
         Player player = new Player(true, "joe", "password");
         player.setEmail("joe@email.com");
         player.saveData();
@@ -26,6 +31,6 @@ public class Driver {
         }
 
         player.saveData();
-
+*/
     }
 }
