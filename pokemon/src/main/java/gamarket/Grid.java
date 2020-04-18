@@ -199,7 +199,7 @@ public class Grid {
      * @param saveToFileName - name wanted for gridData file
      */
     public void save(String saveToFileName) {
-		File file = new File(saveToFileName + "_gridData.txt");
+		File file = new File("./pokemon/databaseFiles/gridFiles/" + saveToFileName + "_gridData.txt");
 		try {
 			FileWriter writer = new FileWriter(file);
 			
@@ -226,7 +226,7 @@ public class Grid {
      */
     public void loadData(String savedFileName) {
         //add so easy to find and for gitignore
-		File file = new File(savedFileName+ "_gridData.txt"); 
+		File file = new File("./pokemon/databaseFiles/gridFiles/" + savedFileName+ "_gridData.txt");
 		String lineString;
 		Scanner sc;
 		try {

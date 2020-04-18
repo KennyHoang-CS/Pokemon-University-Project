@@ -59,8 +59,7 @@ public class Client extends Application {
         ArrayList<String> input = new ArrayList<String>();
 
         scene.setOnKeyPressed(
-                new EventHandler<KeyEvent>()
-                {
+                new EventHandler<KeyEvent>() {
                     public void handle(KeyEvent e)
                     {
                         String code = e.getCode().toString();
@@ -72,8 +71,7 @@ public class Client extends Application {
                 });
 
         scene.setOnKeyReleased(
-                new EventHandler<KeyEvent>()
-                {
+                new EventHandler<KeyEvent>() {
                     public void handle(KeyEvent e)
                     {
                         String code = e.getCode().toString();
@@ -81,28 +79,37 @@ public class Client extends Application {
                     }
                 });
 
-        new AnimationTimer()
-        {
-            public void handle(long currentNanoTime) {
+        new AnimationTimer() {
+            private long lastUpdate; // Last time in which `handle()` was called
 
-                if (input.contains("W")){
-                    System.out.println("Position: " + grid.getPlayerPosition()[0] + ", " + grid.getPlayerPosition()[1]);
-                    grid.updateGrid("w");
-                    System.out.println("Position: " + grid.getPlayerPosition()[0] + ", " + grid.getPlayerPosition()[1]);
-                }else if(input.contains("A")){
-                    System.out.println("Position: " + grid.getPlayerPosition()[0] + ", " + grid.getPlayerPosition()[1]);
-                    System.out.println("left");
-                    grid.updateGrid("a");
-                    System.out.println("Position: " + grid.getPlayerPosition()[0] + ", " + grid.getPlayerPosition()[1]);
-                }else if (input.contains("S")) {
-                    System.out.println("Position: " + grid.getPlayerPosition()[0] + ", " + grid.getPlayerPosition()[1]);
-                    grid.updateGrid("s");
-                    System.out.println("Position: " + grid.getPlayerPosition()[0] + ", " + grid.getPlayerPosition()[1]);
-                }else if(input.contains("D")) {
-                    System.out.println("Position: " + grid.getPlayerPosition()[0] + ", " + grid.getPlayerPosition()[1]);
-                    grid.updateGrid("d");
-                    System.out.println("Position: " + grid.getPlayerPosition()[0] + ", " + grid.getPlayerPosition()[1]);
-                }
+            private double speed = 50 ; // The snake moves 50 pixels per second
+
+            @Override
+            public void start() {
+                lastUpdate = System.nanoTime();
+                super.start();
+            }
+
+            public void handle(long currentNanoTime) {
+                long elapsedNanoSeconds = currentNanoTime - lastUpdate;
+
+                // 1 second = 1,000,000,000 (1 billion) nanoseconds
+
+                double elapsedSeconds = elapsedNanoSeconds / 99_000_000_000.0;
+
+                if (input.contains("W")) {
+                        grid.updateGrid("w");
+                    } else if (input.contains("A")) {
+                        grid.updateGrid("a");
+                    } else if (input.contains("S")) {
+                        grid.updateGrid("s");
+                    } else if (input.contains("D")) {
+                        grid.updateGrid("d");
+                    }else if(input.contains("E")){
+                        System.out.println("menu selected");
+                    }
+
+                lastUpdate = currentNanoTime;
             }
         }.start();
 
@@ -119,8 +126,8 @@ public class Client extends Application {
         root.setStyle("-fx-background-color: #a3a3a3;");
         root.setPrefSize(800,800);
 
-        root.setHgap(1.0);
-        root.setVgap(1.0);
+        root.setHgap(0.0);
+        root.setVgap(0.0);
 
         grid = new Grid();
         grid.setPlayerPosition(10,10);

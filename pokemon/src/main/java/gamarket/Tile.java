@@ -176,7 +176,7 @@ class Tile extends StackPane {
 	    return tileImg;
     }
 
-	void toggleHasPlayer () {
+	public void toggleHasPlayer () {
         if(this.player == false) {
             this.player = true;
             renderPlayer();
@@ -187,7 +187,7 @@ class Tile extends StackPane {
         }
         
     }
-    void renderPlayer () {
+    private void renderPlayer () {
         File file = new File("./pokemon/imgs/player.png");
         Image image =  new Image(file.toURI().toString());
         playerImg = new ImageView(image);
@@ -199,7 +199,7 @@ class Tile extends StackPane {
         getChildren().addAll(playerImg);
     }
 
-    void removePlayer () {
+    private void removePlayer () {
         getChildren().remove(playerImg);
     }
 }
