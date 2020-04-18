@@ -1,0 +1,3 @@
+david@mail.com,david,password
+kenny@mail.com,kenny,password2
+joe@mail.com,joe,password3
