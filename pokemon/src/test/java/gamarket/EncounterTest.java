@@ -12,6 +12,21 @@ public class EncounterTest
 
     @Test
     public void defaultContructorTest () {
-        Encounter testEncounter = new Encounter();
+        Player testPlayer = new Player(false, "david", "password");
+        Encounter testEncounter = new Encounter(testPlayer);
+        Pokemon wild = testEncounter.getWildPokemon();
+        String wildString  = wild.toString("other");
+        boolean isAvalidPokemon = false;
+        PokemonCollection collection = new PokemonCollection();
+        collection.loadData("./databaseFiles/pokedata.txt");
+        for( int i =0; i < collection.getNumPokes() ; i++) {
+            Pokemon pokemonAtIndex = collection.getPokemonAtIndex(i);
+            String iString = pokemonAtIndex.toString("other");
+            if(wildString.equals(iString)) {
+                isAvalidPokemon = true;
+            }
+        }
+
+        assertEquals(true, isAvalidPokemon);
     }
 }
