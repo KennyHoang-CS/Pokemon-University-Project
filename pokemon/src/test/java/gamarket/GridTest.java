@@ -63,6 +63,7 @@ public class GridTest
 
         testGrid.updateGrid("a");
         assertArrayEquals(startSpot, testGrid.getPlayerPosition());
+
     }
 
     @Test

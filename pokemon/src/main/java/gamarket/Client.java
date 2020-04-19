@@ -94,17 +94,13 @@ public class Client extends Application {
                     lastUpdate = currentNanoTime;
                     if (input.contains("W")) {
                         updateGUI("w");
-                        grid.updateGrid("w");
                         System.out.println("Position: " + grid.getPlayerPosition()[0] + ", " + grid.getPlayerPosition()[1]);
                     } else if (input.contains("A")) {
                         updateGUI("a");
-                        grid.updateGrid("a");
                     } else if (input.contains("S")) {
                         updateGUI("s");
-                        grid.updateGrid("s");
                     } else if (input.contains("D")) {
                         updateGUI("d");
-                        grid.updateGrid("d");
                     }else if(input.contains("E")){
                         System.out.println("menu selected");
                     }
@@ -128,12 +124,11 @@ public class Client extends Application {
         root.setVgap(1.0);
 
         grid = new Grid();
-        grid.setPlayerPosition(0,0);
 
         TileGUI tile;
 
-        for (int y = 0; y < 10; y++) {
-            for (int x = 0; x < 10; x++) {
+        for (int y = 0; y < grid.getYMax(); y++) {
+            for (int x = 0; x < grid.getXMax(); x++) {
                 tile = new TileGUI(grid.getTile(x,y));
                 root.add(tile, x, y);
             }
@@ -202,27 +197,42 @@ public class Client extends Application {
     private void updateGUI(String direction){
         int location = grid.getPlayerPosition()[0] + (grid.getPlayerPosition()[1] * grid.getYMax());
         TileGUI player = (TileGUI)root.getChildren().get(location);
-        player.toggleHasPlayer();
+        player.removePlayer();
+        System.out.println(grid.getPlayerPosition()[0] + ", " + grid.getPlayerPosition()[1]);
         System.out.println("OG Location: "+location);
-
+        int x = grid.getPlayerPosition()[0];
+        int y = grid.getPlayerPosition()[1];
         switch (direction){
             case "w":
-                location += grid.getYMax() - 1 ;
+                if(grid.canMove(x, y-1)) {
+                    grid.updateGrid("w");
+                    location -= grid.getXMax() ;
+                }
                 break;
             case "a":
-                location--;
+                if(grid.canMove(x-1, y)) {
+                    grid.updateGrid("a");
+                    location--;
+                }
                 break;
             case "s":
-                location -= grid.getYMax()- 1;
+                if(grid.canMove(x, y+1)) {
+                    grid.updateGrid("s");
+                    location += grid.getXMax();
+                }
                 break;
             case "d":
-                location++;
+                if(grid.canMove(x+1, y)) {
+                    grid.updateGrid("d");
+                    location += 1;
+                }
                 break;
         }
+        System.out.println(grid.getPlayerPosition()[0] + ", " + grid.getPlayerPosition()[1]);
         System.out.println("Location: "+location +"\n");
 
-        player = (TileGUI)root.getChildren().get(location);
-        player.toggleHasPlayer();
+        TileGUI playerNew = (TileGUI)root.getChildren().get(location);
+        playerNew.renderPlayer();
     }
 
 

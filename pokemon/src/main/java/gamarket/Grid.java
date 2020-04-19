@@ -92,7 +92,7 @@ public class Grid {
                     setPlayerPosition(this.playerX-1, this.playerY);
                 }
                 break;
-            case "":
+            case "d":
                 if(canMove(this.playerX+1, this.playerY)) {
                     setPlayerPosition(this.playerX+1, this.playerY);
                 }
@@ -118,13 +118,16 @@ public class Grid {
      *  
      */
     public void setPlayerPosition(int playerX, int playerY) {
-        TileGUI oldPlayerPos = new TileGUI(getTile(this.playerX, this.playerY));
-        oldPlayerPos.toggleHasPlayer();
+        // TileGUI oldPlayerPos = new TileGUI(getTile(this.playerX, this.playerY));
+        // oldPlayerPos.removePlayer();
+        Tile old = getTile(this.playerX, this.playerY);
+        old.togglePlayer();
         this.playerX = playerX;
         this.playerY = playerY;
-
-        TileGUI tileAtXY = new TileGUI(getTile(playerX, playerY));
-        tileAtXY.toggleHasPlayer();
+        Tile newPosition = getTile(playerX, playerY);
+        newPosition.togglePlayer();
+        // TileGUI tileAtXY = new TileGUI(getTile(playerX, playerY));
+        // tileAtXY.renderPlayer();
 
     }
 
@@ -135,11 +138,11 @@ public class Grid {
      * @param y
      * @return True then player can move to spot false if not 
      */
-    private boolean canMove (int x, int y) {
+    public boolean canMove (int x, int y) {
         if ( x < 0 || y < 0) {
             return false;
         }
-        if ( x > gridXMax || y > gridYMax) {
+        if ( x >= gridXMax || y >= gridYMax) {
             return false; 
         } 
         Tile tileAtXY = getTile(x, y);
