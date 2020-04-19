@@ -19,6 +19,7 @@ public class Client extends Application {
     private StartMenuGUI startMenu;
     private Grid grid;
     private Player player;
+    private GridPane root;
     Stage window;
 
     //static Client client = new Client ();
@@ -63,8 +64,6 @@ public class Client extends Application {
                     public void handle(KeyEvent e)
                     {
                         String code = e.getCode().toString();
-
-                        // only add once... prevent duplicates
                         if ( !input.contains(code) )
                             input.add( code );
                     }
@@ -72,17 +71,14 @@ public class Client extends Application {
 
         scene.setOnKeyReleased(
                 new EventHandler<KeyEvent>() {
-                    public void handle(KeyEvent e)
-                    {
+                    public void handle(KeyEvent e){
                         String code = e.getCode().toString();
                         input.remove( code );
                     }
                 });
 
         new AnimationTimer() {
-            private long lastUpdate; // Last time in which `handle()` was called
-
-            private double speed = 50 ; // The snake moves 50 pixels per second
+            private long lastUpdate;
 
             @Override
             public void start() {
@@ -93,29 +89,26 @@ public class Client extends Application {
             public void handle(long currentNanoTime) {
                 long elapsedNanoSeconds = currentNanoTime - lastUpdate;
 
-                // 1 second = 1,000,000,000 (1 billion) nanoseconds
-
                 double elapsedSeconds = elapsedNanoSeconds / 1000000000.0;
                 if(elapsedSeconds >= .1) {
-                    System.out.println(elapsedSeconds);
                     lastUpdate = currentNanoTime;
                     if (input.contains("W")) {
+                        updateGUI("w");
                         grid.updateGrid("w");
+                        System.out.println("Position: " + grid.getPlayerPosition()[0] + ", " + grid.getPlayerPosition()[1]);
                     } else if (input.contains("A")) {
+                        updateGUI("a");
                         grid.updateGrid("a");
                     } else if (input.contains("S")) {
+                        updateGUI("s");
                         grid.updateGrid("s");
                     } else if (input.contains("D")) {
+                        updateGUI("d");
                         grid.updateGrid("d");
                     }else if(input.contains("E")){
                         System.out.println("menu selected");
                     }
                 }
-                
-
-                
-
-                
             }
         }.start();
 
@@ -127,7 +120,7 @@ public class Client extends Application {
 
 
     public GridPane gameInterface(){
-        GridPane root = new GridPane();
+        root = new GridPane();
         root.setStyle("-fx-background-color: #a3a3a3;");
         root.setPrefSize(800,800);
 
@@ -135,15 +128,18 @@ public class Client extends Application {
         root.setVgap(1.0);
 
         grid = new Grid();
-        grid.setPlayerPosition(10,10);
-        Tile tile;
+        grid.setPlayerPosition(0,0);
 
-        for (int y = 0; y < 20; y++) {
-            for (int x = 0; x < 20; x++) {
-                tile = grid.getTile(x,y);
+        TileGUI tile;
+
+        for (int y = 0; y < 10; y++) {
+            for (int x = 0; x < 10; x++) {
+                tile = new TileGUI(grid.getTile(x,y));
                 root.add(tile, x, y);
             }
         }
+        int location = grid.getPlayerPosition()[0] + (grid.getPlayerPosition()[1] * grid.getXMax());
+        System.out.println("location: "+ location);
 
         return root;
 
@@ -162,8 +158,6 @@ public class Client extends Application {
     }
 
     public void encounterCheck(String move){
-
-
         switch(move){
             case "W":
                 grid.updateGrid("W");
@@ -203,6 +197,32 @@ public class Client extends Application {
         //         encouter();
         //     }
         // }
+    }
+
+    private void updateGUI(String direction){
+        int location = grid.getPlayerPosition()[0] + (grid.getPlayerPosition()[1] * grid.getYMax());
+        TileGUI player = (TileGUI)root.getChildren().get(location);
+        player.toggleHasPlayer();
+        System.out.println("OG Location: "+location);
+
+        switch (direction){
+            case "w":
+                location += grid.getYMax() - 1 ;
+                break;
+            case "a":
+                location--;
+                break;
+            case "s":
+                location -= grid.getYMax()- 1;
+                break;
+            case "d":
+                location++;
+                break;
+        }
+        System.out.println("Location: "+location +"\n");
+
+        player = (TileGUI)root.getChildren().get(location);
+        player.toggleHasPlayer();
     }
 
 

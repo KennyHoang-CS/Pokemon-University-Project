@@ -22,10 +22,10 @@ public class Grid {
      * default constructor mainly used for testing
      */
     Grid () {
-        this.playerX = 19;
-        this.playerY = 19; 
-        this.gridXMax = 20;
-        this.gridYMax = 20;
+        this.playerX = 0;
+        this.playerY = 0;
+        this.gridXMax = 10;
+        this.gridYMax = 10;
         this.gridState = generateGrid(gridXMax, gridYMax);
     }
     /**
@@ -92,7 +92,7 @@ public class Grid {
                     setPlayerPosition(this.playerX-1, this.playerY);
                 }
                 break;
-            case "d":
+            case "":
                 if(canMove(this.playerX+1, this.playerY)) {
                     setPlayerPosition(this.playerX+1, this.playerY);
                 }
@@ -118,14 +118,14 @@ public class Grid {
      *  
      */
     public void setPlayerPosition(int playerX, int playerY) {
-        Tile oldPlayerPos = getTile(this.playerX, this.playerY);
+        TileGUI oldPlayerPos = new TileGUI(getTile(this.playerX, this.playerY));
         oldPlayerPos.toggleHasPlayer();
         this.playerX = playerX;
         this.playerY = playerY;
 
-
-        Tile tileAtXY = getTile(playerX, playerY);
+        TileGUI tileAtXY = new TileGUI(getTile(playerX, playerY));
         tileAtXY.toggleHasPlayer();
+
     }
 
     /**
@@ -271,4 +271,12 @@ public class Grid {
 			System.out.println("error reading file");
 		}		
 	}
+
+    public int getYMax() {
+        return gridYMax;
+    }
+
+    public int getXMax() {
+        return gridXMax;
+    }
 }
