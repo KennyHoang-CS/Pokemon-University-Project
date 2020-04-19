@@ -60,17 +60,6 @@ public class TileGUI extends StackPane {
         }
     }
 
-    public void toggleHasPlayer () {
-        if(this.ogTile.hasPlayer() == false) {
-            renderPlayer();
-        }
-        else if (this.ogTile.hasPlayer() == true) {
-            removePlayer();
-        }
-
-        this.ogTile.togglePlayer();
-    }
-
     public void renderPlayer () {
         File file = new File("./pokemon/imgs/player.png");
         Image image =  new Image(file.toURI().toString());

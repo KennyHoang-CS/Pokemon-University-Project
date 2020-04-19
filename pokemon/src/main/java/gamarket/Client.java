@@ -94,7 +94,6 @@ public class Client extends Application {
                     lastUpdate = currentNanoTime;
                     if (input.contains("W")) {
                         updateGUI("w");
-                        System.out.println("Position: " + grid.getPlayerPosition()[0] + ", " + grid.getPlayerPosition()[1]);
                     } else if (input.contains("A")) {
                         updateGUI("a");
                     } else if (input.contains("S")) {
@@ -198,8 +197,6 @@ public class Client extends Application {
         int location = grid.getPlayerPosition()[0] + (grid.getPlayerPosition()[1] * grid.getYMax());
         TileGUI player = (TileGUI)root.getChildren().get(location);
         player.removePlayer();
-        System.out.println(grid.getPlayerPosition()[0] + ", " + grid.getPlayerPosition()[1]);
-        System.out.println("OG Location: "+location);
         int x = grid.getPlayerPosition()[0];
         int y = grid.getPlayerPosition()[1];
         switch (direction){
@@ -228,12 +225,7 @@ public class Client extends Application {
                 }
                 break;
         }
-        System.out.println(grid.getPlayerPosition()[0] + ", " + grid.getPlayerPosition()[1]);
-        System.out.println("Location: "+location +"\n");
-
         TileGUI playerNew = (TileGUI)root.getChildren().get(location);
         playerNew.renderPlayer();
     }
-
-
 }
