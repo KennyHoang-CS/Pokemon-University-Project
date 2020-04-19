@@ -33,6 +33,7 @@ public class Move {
 	 * @param moveTypeCategory This is the new Move's type category. Should be a category for the move(Physical).
 	 * @param moveDmg This is the new Move's damage. Should be a damage for the move(Damage). 
 	 */
+
 	public Move(String moveName, String moveType, String moveTypeCategory, int moveDmg)
 	{
 		this.moveName = moveName;
@@ -111,8 +112,3 @@ public class Move {
 		return temp;
 	}
 } 
-
-	
-
-
-

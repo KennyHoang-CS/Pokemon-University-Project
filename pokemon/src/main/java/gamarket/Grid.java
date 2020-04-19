@@ -22,10 +22,10 @@ public class Grid {
      * default constructor mainly used for testing
      */
     Grid () {
-        this.playerX = 0;
-        this.playerY = 0; 
-        this.gridXMax = 6;
-        this.gridYMax = 6;
+        this.playerX = 19;
+        this.playerY = 19; 
+        this.gridXMax = 20;
+        this.gridYMax = 20;
         this.gridState = generateGrid(gridXMax, gridYMax);
     }
     /**
@@ -118,8 +118,14 @@ public class Grid {
      *  
      */
     public void setPlayerPosition(int playerX, int playerY) {
+        Tile oldPlayerPos = getTile(this.playerX, this.playerY);
+        oldPlayerPos.toggleHasPlayer();
         this.playerX = playerX;
         this.playerY = playerY;
+
+
+        Tile tileAtXY = getTile(playerX, playerY);
+        tileAtXY.toggleHasPlayer();
     }
 
     /**
@@ -155,7 +161,12 @@ public class Grid {
         for(int i = 0; i < x; i++) {
             ArrayList<Tile> row = new ArrayList<Tile>();
             for(int j = 0; j < y; j++) {
-                Tile newTile = new Tile(Tile.Type.ROAD);
+                Tile newTile;
+                if(this.playerX == j && playerY == i){
+                    newTile = new Tile(Type.GRASS, true);
+                }else{
+                    newTile = new Tile(Type.GRASS, false);
+                }
                 row.add(newTile);
             }
             grid.add(row);
@@ -188,7 +199,7 @@ public class Grid {
      * @param saveToFileName - name wanted for gridData file
      */
     public void save(String saveToFileName) {
-		File file = new File(saveToFileName + "_gridData.txt");
+		File file = new File("./pokemon/databaseFiles/gridFiles/" + saveToFileName + "_gridData.txt");
 		try {
 			FileWriter writer = new FileWriter(file);
 			
@@ -215,7 +226,7 @@ public class Grid {
      */
     public void loadData(String savedFileName) {
         //add so easy to find and for gitignore
-		File file = new File(savedFileName+ "_gridData.txt"); 
+		File file = new File("./pokemon/databaseFiles/gridFiles/" + savedFileName+ "_gridData.txt");
 		String lineString;
 		Scanner sc;
 		try {

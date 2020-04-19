@@ -12,13 +12,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class StartMenuGUI extends Application {
-    Stage window;
+public class StartMenuGUI {
     private String username;
     private String password;
-    public Boolean verified = null;
-    public Boolean newUser = null;
-
+    private Boolean verified = null;
+    private Boolean newUser = null;
+/*
     public static void main(String args[]){
         launch(args);
     }
@@ -65,12 +64,53 @@ public class StartMenuGUI extends Application {
             //this.window.close();
         });
         grid.add(loginBtn, 1,2);
-
         Scene scene = new Scene(grid, 300,100);
         window.setScene(scene);
         window.show();
 
 
+    }*/
+
+
+    public GridPane getPane(){
+        GridPane grid = new GridPane();
+        grid.setPadding(new Insets(10,10,10,10));
+        grid.setVgap(8);
+        grid.setHgap(10);
+
+        Label nameLabel = new Label("Username:");
+        grid.add(nameLabel, 0, 0);
+
+        final TextField nameInput = new TextField();
+        grid.add(nameInput,0,1);
+
+        Label passLabel = new Label("Password:");
+        grid.add(passLabel,1,0);
+
+        final TextField passInput = new TextField();
+        grid.add(passInput,1,1);
+
+        Button registerBtn = new Button("Register");
+        registerBtn.setOnAction(e -> {
+            System.out.println("register!");
+            String name = nameInput.getText();
+            String pass = passInput.getText();
+            setUsername(name);
+            setPassword(pass);
+            newUser = true;
+            //this.window.close();
+        });
+        grid.add(registerBtn, 0,2);
+
+        Button loginBtn = new Button("Login");
+        loginBtn.setOnAction(e -> {
+            String name = nameInput.getText();
+            String pass = passInput.getText();
+            verifyUser(name, pass);
+            //this.window.close();
+        });
+        grid.add(loginBtn, 1,2);
+        return grid;
     }
 
     public void verifyUser(String un, String pw){
