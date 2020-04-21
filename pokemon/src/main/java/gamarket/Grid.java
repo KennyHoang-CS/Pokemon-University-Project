@@ -53,7 +53,6 @@ public class Grid {
         result +="Player position is:" + this.playerX + "," + this.playerY +"\n";
         result += "The grid State: \n";
         for(int i = 0; i < this.gridXMax; i++) {
-            //ArrayList<Tile> row = new ArrayList<Tile>();
             for(int j = 0; j < this.gridYMax; j++) {
                 Tile tileAtIJ = this.gridState.get(i).get(j);
                 if(this.playerX == j && this.playerY == i) {
@@ -118,16 +117,12 @@ public class Grid {
      *  
      */
     public void setPlayerPosition(int playerX, int playerY) {
-        // TileGUI oldPlayerPos = new TileGUI(getTile(this.playerX, this.playerY));
-        // oldPlayerPos.removePlayer();
         Tile old = getTile(this.playerX, this.playerY);
         old.togglePlayer();
         this.playerX = playerX;
         this.playerY = playerY;
         Tile newPosition = getTile(playerX, playerY);
         newPosition.togglePlayer();
-        // TileGUI tileAtXY = new TileGUI(getTile(playerX, playerY));
-        // tileAtXY.renderPlayer();
 
     }
 
@@ -164,12 +159,7 @@ public class Grid {
         for(int i = 0; i < x; i++) {
             ArrayList<Tile> row = new ArrayList<Tile>();
             for(int j = 0; j < y; j++) {
-                Tile newTile;
-                if(this.playerX == j && playerY == i){
-                    newTile = new Tile(Type.GRASS, true);
-                }else{
-                    newTile = new Tile(Type.GRASS, false);
-                }
+                Tile newTile = new Tile(Type.UNRECOGNIZED, false);
                 row.add(newTile);
             }
             grid.add(row);
@@ -207,8 +197,7 @@ public class Grid {
 			FileWriter writer = new FileWriter(file);
 			
 			writer.write(this.toString());
-			
-			//writer.write(str);
+
 			writer.flush();
 			writer.close();
 		} catch (Exception e) {
@@ -229,8 +218,8 @@ public class Grid {
      */
     public void loadData(String savedFileName) {
         //add so easy to find and for gitignore
-		File file = new File("./pokemon/databaseFiles/gridFiles/" + savedFileName+ "_gridData.txt");
-		String lineString;
+        File file = new File("./pokemon/databaseFiles/gridFiles/" + savedFileName+ "_gridData.txt");
+        String lineString;
 		Scanner sc;
 		try {
 			sc = new Scanner(file); 
