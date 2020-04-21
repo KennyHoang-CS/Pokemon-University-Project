@@ -22,7 +22,6 @@ public class Player {
     private String time1;
     private String time2;
     private String totalTime;
-    private Grid grid;
     private PokemonCollection pokeTeam; //TODO
     private PokemonCollection pokeDex; //TODO
 
@@ -44,7 +43,6 @@ public class Player {
             this.totalPokemon = 0;
             SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
             this.joinDate = formatter.format(originalDate);
-            this.grid = new Grid();
             formatter = new SimpleDateFormat("HH:mm:ss");
             this.time1 = formatter.format(originalDate);
         } else {
@@ -119,12 +117,11 @@ public class Player {
             this.totalPokemon = Integer.parseInt(temp[5]);
             this.joinDate = temp[6];
             this.totalTime = temp[7];
-        /* These lines of code are commented out due to errors when calling respective class methods
-        due to source files are not set up correctly yet
-        this.grid.loadData(name);
-        this.pokeTeam.loadData(name);
-        this.pokeDex.loadData(name);
-         */
+            /* These lines of code are commented out due to errors when calling respective class methods
+            due to source files are not set up correctly yet
+            this.pokeTeam.loadData(name);
+            this.pokeDex.loadData(name);
+             */
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -141,14 +138,6 @@ public class Player {
         File file = new File("./pokemon/databaseFiles/userProfiles/" + this.name + "_profile.txt");
 
         try {
-            if (file.exists() == false){
-                if (file.createNewFile()) {
-                    System.out.println("File created: " + file.getName());
-                } else {
-                    System.out.println("File already exists.");
-                }
-            }
-
            FileWriter writer = new FileWriter(file);
            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
            Date currentTime = new Date();
@@ -161,7 +150,6 @@ public class Player {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -170,10 +158,7 @@ public class Player {
      * @return returns a string of the calculated time
      **/
     private String calculateTime(String time) {
-        System.out.println(time1);
         time2 = time;
-        System.out.println(time2 );
-
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
 
         Date date1;
@@ -187,7 +172,6 @@ public class Player {
         } catch (ParseException e) {
              e.printStackTrace();
         }
-        System.out.println("The diff is "+ time1);
 
         return time1;
     }
