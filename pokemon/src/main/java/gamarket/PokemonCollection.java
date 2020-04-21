@@ -12,19 +12,21 @@ import java.util.*;
  */
 public class PokemonCollection {
 		
-	/** The current number of POKEMONs in the Pokemon Collection. */
+	/** The current number of POKEMONs in the array */
 	private int numPOKEs;
-
-	/** The array to contain the entire Pokemon that exists in the game */
-	private Pokemon[] pokeArray;
 		
+	/** The array to contain the POKEMONs */
+	private static Pokemon[] pokeArray; 
+	private MoveCollection mc;
+	
 	/** 
 	 * A constructor. It sets the number of Pokemons 'numPOKEs' to zero. 
 	 * It allocates the Pokemon array 'pokeArray' to size 7. 
 	 */
-	public PokemonCollection() {
-		numPOKEs = 0; 
-		pokeArray = new Pokemon[7];		
+	public PokemonCollection(MoveCollection mc) {
+		numPOKEs = 0;
+		pokeArray = new Pokemon[7];	
+		this.mc = mc; 
 	}
 		
 	/**
@@ -43,10 +45,10 @@ public class PokemonCollection {
 				{
 					pokeArray = Arrays.copyOf(pokeArray, pokeArray.length * 2);
 				}
-				pokeArray[numPOKEs++] = myPoke;	
+			pokeArray[numPOKEs++] = myPoke;	
 			}catch(NumberFormatException e)
 			{
-				System.out.println("Error has occurred from addPokemon() function ...");
+				System.out.println("Error has occurred from addOrModifyPokemon() function ...");
 			}
 	}
 		
@@ -90,12 +92,13 @@ public class PokemonCollection {
 		        	Stats.DefensiveStats myDS = new Stats().new DefensiveStats(Integer.parseInt(pokeData[8]),
 	                														   Integer.parseInt(pokeData[9]),
 	                														   Integer.parseInt(pokeData[10]));
-		        	
+		        			        	
 	                // create the Pokemon object with all the stats we just read in: Identification, Offensive, Defensive stats. 
 	                Pokemon myPoke = new Pokemon(myIS, myOS, myDS);
 					
 	                // add the pokemon object to the pokeArray. 
 		        	addPokemon(myPoke);  	         
+	                
 	                line = br.readLine();
 		        }
 		        // close the buffered reader.
@@ -117,7 +120,7 @@ public class PokemonCollection {
 	
 	/**
 	 * A public function printCollection of type void.
-	 * The function uses a for loop to traverse the Pokemon array 
+	 * What it does: the function uses a for loop to traverse the Pokemon array 
 	 * and prints out the Pokemon Collection via its Pokemon class 
 	 * object status: identity, offensive, and defensive. 
 	 */
@@ -125,15 +128,73 @@ public class PokemonCollection {
 	{
 		for(int i = 0; i < numPOKEs; i++)
 		{
-			System.out.println(pokeArray[i].toString());
+			System.out.println(pokeArray[i].toString("other"));
 		}
+	}
+	
+	/**
+	 * A public function printThemMoves of type void.
+	 * What it does: it prints out the Pokemon's name along with its four moves.
+	 * @return nothing. 
+	 */
+	public void printThemMoves()
+	{
+		for(int i = 0; i < numPOKEs; i++)
+		{
+			System.out.println(pokeArray[i].getIdentStats().getName() + "'s Move-Set:");
+			pokeArray[i].printPokemonMoves();
+			System.out.println(); 
+		}
+	}
+	
+	/**
+	 * A public function fillDefaultMoves of type void.
+	 * What it does: the function gives each Pokemon its default moves. 
+	 * @return nothing. 
+	 */
+	public void setDefaultMoves()
+	{	
+		// Flareon
+		Move m1 = mc.getMoveAtIndex(10);	// Fire Fang
+		Move m2 = mc.getMoveAtIndex(9);		// Flare blitz
+		Move m3 = mc.getMoveAtIndex(3); 	// Slam
+		Move m4 = mc.getMoveAtIndex(4);		// Quick Attack 
+		pokeArray[0].setDefaultMoves(m1, m2, m3, m4);
+		
+		// Gengar
+		m1 = mc.getMoveAtIndex(8);			// Phantom Force
+		m2 = mc.getMoveAtIndex(13);			// Physic
+		m3 = mc.getMoveAtIndex(7);  		// Drain Punch
+		m4 = mc.getMoveAtIndex(5);			// Shadow Ball
+		pokeArray[1].setDefaultMoves(m1, m2, m3, m4);
+		
+		// Pikachu
+		m1 = mc.getMoveAtIndex(0);			// Electric Ball	
+		m2 = mc.getMoveAtIndex(1);			// Thunder
+		m3 = mc.getMoveAtIndex(4);			// Quick Attack	
+		m4 = mc.getMoveAtIndex(3);			// Slam
+		pokeArray[2].setDefaultMoves(m1, m2, m3, m4);
+		
+		// Poliwrath 
+		m1 = mc.getMoveAtIndex(2);			// Water Pulse	
+		m2 = mc.getMoveAtIndex(12);			// Ice Punch	
+		m3 = mc.getMoveAtIndex(13);			// Physic
+		m4 = mc.getMoveAtIndex(14);			// Earthquake
+		pokeArray[3].setDefaultMoves(m1, m2, m3, m4);
+		
+		// Sandslash
+		m1 = mc.getMoveAtIndex(16);			// Slash	
+		m2 = mc.getMoveAtIndex(17);			// Drill Run
+		m3 = mc.getMoveAtIndex(18);			// Rock Slide
+		m4 = mc.getMoveAtIndex(12);			// Bite
+		pokeArray[4].setDefaultMoves(m1, m2, m3, m4);
 	}
 	
 	/** Helper Function.
 	 * Returns a Pokemon at the specified index. 
 	 * @return this Pokemon. 
 	 */
-	public Pokemon getPokemonAtIndex(int i)
+	public static Pokemon getPokemonAtIndex(int i)
 	{
 		return pokeArray[i];
 	}

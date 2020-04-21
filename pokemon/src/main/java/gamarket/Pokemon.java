@@ -4,7 +4,7 @@ package gamarket;
  * Represents a Pokemon in the Pokemon universe. A Pokemon can have many traits: identify status, offensive status,
  * and defensive status.  
  */
-public class Pokemon {
+public class Pokemon{
 	
 	/** 
 	 * 	To hold the id, name, gender, type, and level of the Pokemon
@@ -21,6 +21,8 @@ public class Pokemon {
 	 */
 	private Stats.DefensiveStats DS;
 	
+	private Move[] moveSet;
+	
 	/** 
 	 * A constructor that changes the identity, offensive, and defensive status of this Pokemon. 
 	 * @param IS This is the Pokemon identity status. Should have id, name, gender, type, and level.
@@ -32,6 +34,7 @@ public class Pokemon {
 		this.IS = IS;
 		this.OS = OS;
 		this.DS = DS; 
+		moveSet = new Move[4];
 	}
 	
 	/**
@@ -43,6 +46,7 @@ public class Pokemon {
 		this.IS = null;
 		this.OS = null;
 		this.DS = null; 
+		this.moveSet = null;
 	}
 	
 	/**
@@ -123,5 +127,57 @@ public class Pokemon {
 	    }
 		
 		return temp; 
+	}
+	
+	/**
+	 * The function printPokemonMoves of type void.
+	 * What it does: prints the Pokemon's move-set of four moves. 
+	 * @return nothing. 
+	 */
+	public void printPokemonMoves()
+	{
+		for(int i = 0; i < 4; i++)
+		{
+			if(moveSet[i] == null)
+			{
+				return; 
+			}
+			System.out.println("Move #" + (i+1) + " " + moveSet[i].getMoveName());
+		}
+	}
+	
+	/**
+	 * The function changeMove of type void.
+	 * What it does: It allows to change one Pokemon's current move to a new move. 
+	 * @param newMove this should be the Pokemon's new move.
+	 * @param oldMove this should be the Pokemon's old move.
+	 * @param mc this is needed to obtain data from the MoveCollection database. 
+	 */
+	public void changeMove(String newMove, String oldMove, MoveCollection mc)
+	{
+		for(int i = 0; i < 4; i++)
+		{
+			if(moveSet[i].getMoveName().toUpperCase().equals(oldMove.toUpperCase()))
+			{	
+				moveSet[i] = mc.searchMove(newMove);
+			}
+		}
+	}
+	
+	/**
+	 * The function setDefaultMoves of type void.
+	 * What it does: It sets the Pokemon's move-set with four moves. 
+	 * @param m1 this is the Pokemon's move number 1.
+	 * @param m2 this is the Pokemon's move number 2.
+	 * @param m3 this is the Pokemon's move number 3.
+	 * @param m4 this is the Pokemon's move number 4. 
+	 * @return nothing. 
+	 */
+	public void setDefaultMoves(Move m1, Move m2, Move m3, Move m4)
+	{
+		moveSet[0] = m1;
+		moveSet[1] = m2; 
+		moveSet[2] = m3; 
+		moveSet[3] = m4; 
 	}
 } 

@@ -110,9 +110,5 @@ public class Move {
 					  this.moveDmg; 
 		return temp;
 	}
+
 } 
-
-	
-
-
-
