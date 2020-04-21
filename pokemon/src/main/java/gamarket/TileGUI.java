@@ -11,6 +11,10 @@ public class TileGUI extends StackPane {
     ImageView playerImg;
     ImageView tileImg;
 
+    /**
+     * Tile constructor renders the tile for the GUI with or without the player
+     * @param tile
+     */
     TileGUI(Tile tile){
         this.ogTile = tile;
         ogTile.getType();
@@ -60,6 +64,9 @@ public class TileGUI extends StackPane {
         }
     }
 
+    /**
+     * renders the player sprite on the GUI
+     */
     public void renderPlayer () {
         File file = new File("./pokemon/imgs/player.png");
         Image image =  new Image(file.toURI().toString());
@@ -72,10 +79,17 @@ public class TileGUI extends StackPane {
         getChildren().addAll(playerImg);
     }
 
+    /**
+     * removes the player sprit from the GUI
+     */
     public void removePlayer () {
         getChildren().remove(playerImg);
     }
 
+    /**
+     * renders the tile for the GUI
+     * @param type tells the method which tile image to load in
+     */
     private void renderTile(String type){
         File file = new File("./pokemon/imgs/"+ type +".png");
         Image image = new Image(file.toURI().toString());
