@@ -8,67 +8,46 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.util.*;
 
 public class Client extends Application {
-    private int encnounterChance = 200;
-    private double encounterTable[] = {10, 8.5,6.75,3.33,1.25};
     private String startInput;
     private String interFaceInput;
     private StartMenuGUI startMenu;
     private Grid grid;
     private Player player;
     private GridPane root;
-    Stage window;
-
-    //static Client client = new Client ();
-
-    public Client(){
-        /*
-        window = new Stage();
-        window.setTitle("Pokemon");
-
-        StartMenuGUI start = new StartMenuGUI();
-        start.launch();
-
-        GridPane grid = new GridPane();
-        grid.setPadding(new Insets(10,10,10,10));
-        grid.setVgap(8);
-        grid.setHgap(10);
-
-
-        Scene scene = new Scene(startMenu(), 300,100);
-        window.setScene(scene);
-        window.show();
-        */
-
-    }
+    private int width = 800;
+    private int height = 800;
 
     public static void main(String args[]){
         launch(args);
     }
 
     @Override
+    /**
+     * start begins the application and is the main controller of it
+     */
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Pokemon: East Bay");
-        //startMenu = new StartMenuGUI();
-        Scene scene = new Scene(gameInterface());
+        primaryStage.setResizable(false);
+        startMenu = new StartMenuGUI();
+        startMenu.display();
+        Scene scene = new Scene(gameInterface(startMenu.getNewUser(), startMenu.getUsername(), startMenu.getPassword()));
+
         primaryStage.setScene(scene);
-        System.out.println("Position: " + grid.getPlayerPosition()[0] + ", " + grid.getPlayerPosition()[1]);
 
         ArrayList<String> input = new ArrayList<String>();
-
         scene.setOnKeyPressed(
                 new EventHandler<KeyEvent>() {
-                    public void handle(KeyEvent e)
-                    {
+                    public void handle(KeyEvent e){
                         String code = e.getCode().toString();
-                        if ( !input.contains(code) )
+                        if (!input.contains(code))
                             input.add( code );
                     }
                 });
-
         scene.setOnKeyReleased(
                 new EventHandler<KeyEvent>() {
                     public void handle(KeyEvent e){
@@ -76,30 +55,30 @@ public class Client extends Application {
                         input.remove( code );
                     }
                 });
-
         new AnimationTimer() {
             private long lastUpdate;
-
             @Override
             public void start() {
                 lastUpdate = System.nanoTime();
                 super.start();
             }
-
             public void handle(long currentNanoTime) {
                 long elapsedNanoSeconds = currentNanoTime - lastUpdate;
-
                 double elapsedSeconds = elapsedNanoSeconds / 1000000000.0;
                 if(elapsedSeconds >= .1) {
                     lastUpdate = currentNanoTime;
                     if (input.contains("W")) {
                         updateGUI("w");
+                        encounterCheck();
                     } else if (input.contains("A")) {
                         updateGUI("a");
+                        encounterCheck();
                     } else if (input.contains("S")) {
                         updateGUI("s");
+                        encounterCheck();
                     } else if (input.contains("D")) {
                         updateGUI("d");
+                        encounterCheck();
                     }else if(input.contains("E")){
                         System.out.println("menu selected");
                     }
@@ -107,92 +86,97 @@ public class Client extends Application {
             }
         }.start();
 
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                save();
+                primaryStage.close();
+                System.exit(0);
+            }
+        });
 
         primaryStage.show();
     }
 
-    //public static Client getInstance(){ return client; }
+    /**
+     * gameInterface loads up the appropriate grid depending on whether the player is new or returning,
+     * instantiates the player class and loads in their new or saved information, and creates the GUI.
+     * @param newPlayer lets gameInterface know whether we have a new player
+     * @param username is used to instantiate the player
+     * @param password is usded to instantiate the player
+     * @return returns the GUI
+     */
+    public GridPane gameInterface(boolean newPlayer, String username, String password){
 
+        if(!newPlayer){
+            player = new Player(false, username, password);
+            grid = new Grid();
+            grid.loadData(startMenu.getUsername());
+        }else{
+            player = new Player(true, username, password);
+            grid = new Grid();
+            grid.loadData("new");
+        }
 
-    public GridPane gameInterface(){
         root = new GridPane();
         root.setStyle("-fx-background-color: #a3a3a3;");
-        root.setPrefSize(800,800);
-
-        root.setHgap(1.0);
-        root.setVgap(1.0);
-
-        grid = new Grid();
+        root.setPrefSize(width, height);
+        root.setHgap(0.0);
+        root.setVgap(0.0);
 
         TileGUI tile;
-
         for (int y = 0; y < grid.getYMax(); y++) {
             for (int x = 0; x < grid.getXMax(); x++) {
                 tile = new TileGUI(grid.getTile(x,y));
                 root.add(tile, x, y);
             }
         }
-        int location = grid.getPlayerPosition()[0] + (grid.getPlayerPosition()[1] * grid.getXMax());
-        System.out.println("location: "+ location);
-
+        updateGUI("a");
+        updateGUI("d");
         return root;
 
     }
 
+    /**
+     * save saves the current players data and grid
+     */
     public void save(){
-    //implemented in player class?
-    }
-
-    public void quitSave(){
-
+        player.saveData();
+        grid.save(player.getName());
     }
 
     public void displayTeam(){
-
-    }
-
-    public void encounterCheck(String move){
-        switch(move){
-            case "W":
-                grid.updateGrid("W");
-                tileCheck();
-                break;
-            case "A":
-                grid.updateGrid("A");
-                tileCheck();
-                break;
-            case "S":
-                grid.updateGrid("S");
-                tileCheck();
-                break;
-            case "D":
-                grid.updateGrid("D");
-                tileCheck();
-                break;
-        }
-        
+        //TO-DO
     }
 
     public void encouter(){
+        System.out.println("Pokemon encountered!");
+    }
+
+    /**
+     * encounterCheck checks the tile the player moved on.
+     * If the tile is grass, checks the probablity of encountering a pokemon,
+     * and calls the encounter method if a pokemon is encounterd.
+     */
+    private void encounterCheck(){
+         Random random = new Random();
+         int rand = random.nextInt(10);
+         int rand2 = random.nextInt(10);
+
+         Tile tile = grid.getTile(grid.getPlayerPosition()[0], grid.getPlayerPosition()[1]);
+
+         if(tile.getType() == Tile.Type.GRASS){
+              if(rand == rand2){
+                 encouter();
+             }
+         }
 
     }
 
-    private void tileCheck(){
-        // Random random = new Random();
-        // int rand = random.nextInt(5);
-        // double encounterType = encounterTable[rand];
-        // int encounterFormula = (int) Math.floor(encounterChance/encounterType);
-        // rand = random.nextInt(encounterChance);
-        // int position[] = grid.getPlayerPosition();
-        // tile = grid.getTile(position[0], position[1]);
-
-        // if(tile.getType() == Tile.Type.GRASS){
-        //     if(rand == encounterFormula){
-        //         encouter();
-        //     }
-        // }
-    }
-
+    /**
+     * updatesGUI updates the player sprite location on the gui
+     * @param direction lets the method know in which direection to move the sprite
+     */
     private void updateGUI(String direction){
         int location = grid.getPlayerPosition()[0] + (grid.getPlayerPosition()[1] * grid.getYMax());
         TileGUI player = (TileGUI)root.getChildren().get(location);
