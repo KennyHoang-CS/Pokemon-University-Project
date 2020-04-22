@@ -27,6 +27,7 @@ public class MoveCollection {
 	{
 		numMoves = 0; 
 		moveArray = new Move[7];
+		loadData();
 	}
 	
 	/**
@@ -83,8 +84,15 @@ public class MoveCollection {
 	 * Each line in the text file will have data: Move's name, Move's type, Move's category, and Move's damage separated by commas. 
 	 * @param filename This is the name of the file that is being read (movedata.txt). 
 	 */
-	public void loadData(String filename) 
+	public void loadData(boolean... test) 
 	{
+
+		String filename;
+		if(test.length > 0 && test[0]==true){
+            filename = "./databaseFiles/movedata.txt";
+        }else{
+            filename = "./pokemon/databaseFiles/movedata.txt";
+        }
 		// create a buffered reader to read in text.
 	    BufferedReader br;
 	      
