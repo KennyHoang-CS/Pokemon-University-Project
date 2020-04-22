@@ -29,6 +29,8 @@ public class PokemonCollection {
 		numPOKEs = 0;
 		pokeArray = new Pokemon[7];	
 		this.mc = mc; 
+		loadData();
+		setDefaultMoves();
 	}
 		
 	/**
@@ -59,8 +61,14 @@ public class PokemonCollection {
 	 * The file should have id, name, gender, type, level, attack, special attack, speed, health, 
 	 * defense, special defense. 
 	 */
-	public void loadData(String filename) 
+	public void loadData(Boolean... test) 
 	{
+		String filename;
+		if(test.length > 0 && test[0] == true){
+            filename = "./databaseFiles/pokedata.txt";
+        }else{
+            filename = "./pokemon/databaseFiles/pokedata.txt";
+        }
 		// create a buffered reader to read in text.
 	    BufferedReader br;
 		      
