@@ -191,8 +191,13 @@ public class Grid {
      * Appends _gridData.txt to filename
      * @param saveToFileName - name wanted for gridData file
      */
-    public void save(String saveToFileName) {
-		File file = new File("./pokemon/databaseFiles/gridFiles/" + saveToFileName + "_gridData.txt");
+    public void save(String saveToFileName, boolean test) {
+        File file;
+        if(test){
+            file = new File("./databaseFiles/gridFiles/" + saveToFileName + "_gridData.txt");
+        }else{
+            file = new File("./pokemon/databaseFiles/gridFiles/" + saveToFileName + "_gridData.txt");
+        }
 		try {
 			FileWriter writer = new FileWriter(file);
 			
@@ -216,9 +221,14 @@ public class Grid {
      * tileValue grid space separated 
      *  @param savedFileName - name of file wish to retreive
      */
-    public void loadData(String savedFileName) {
+    public void loadData(String savedFileName, boolean test) {
         //add so easy to find and for gitignore
-        File file = new File("./pokemon/databaseFiles/gridFiles/" + savedFileName+ "_gridData.txt");
+        File file;
+        if(test){
+            file = new File("./databaseFiles/gridFiles/" + savedFileName+ "_gridData.txt");
+        }else{
+            file = new File("./pokemon/databaseFiles/gridFiles/" + savedFileName+ "_gridData.txt");
+        }
         String lineString;
 		Scanner sc;
 		try {

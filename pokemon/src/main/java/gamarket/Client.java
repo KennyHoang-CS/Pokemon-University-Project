@@ -13,8 +13,6 @@ import javafx.stage.WindowEvent;
 import java.util.*;
 
 public class Client extends Application {
-    private String startInput;
-    private String interFaceInput;
     private StartMenuGUI startMenu;
     private Grid grid;
     private Player player;
@@ -111,11 +109,11 @@ public class Client extends Application {
         if(!newPlayer){
             player = new Player(false, username, password);
             grid = new Grid();
-            grid.loadData(startMenu.getUsername());
+            grid.loadData(startMenu.getUsername(), false);
         }else{
             player = new Player(true, username, password);
             grid = new Grid();
-            grid.loadData("new");
+            grid.loadData("new",false);
         }
 
         root = new GridPane();
@@ -142,7 +140,7 @@ public class Client extends Application {
      */
     public void save(){
         player.saveData();
-        grid.save(player.getName());
+        grid.save(player.getName(), false);
     }
 
     public void displayTeam(){
