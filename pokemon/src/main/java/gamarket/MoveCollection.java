@@ -117,7 +117,7 @@ public class MoveCollection {
 		System.out.println("Move's Name / Move's Type / Move's Category / Move's Damage");
 		for(int i = 0; i < numMoves; i++)
 		{
-			System.out.println(moveArray[i].toString());
+			System.out.println("Move #" + i + " " + moveArray[i].toString());
 		}
 	}
 	
@@ -130,6 +130,35 @@ public class MoveCollection {
 	{
 		return numMoves;
 	}
-		
-		
+	
+	/**
+	 * The function getMoveAtIndex of type Move class.
+	 * What it does: it obtains the move at the specified index in the moveArray.
+	 * @param i this should be the specified index/location of the move. 
+	 * @return the move at this specified index. 
+	 */
+	public Move getMoveAtIndex(int i)
+	{
+		return moveArray[i];
+	}
+	
+	/**
+	 * The function searchMove of type Move class.
+	 * What it does: traverse the move collection array to locate the position of the move,
+	 * which the move is indicated by the move's name(findMove).
+	 * @param findMove this should be the move to be located. 
+	 * @return this move.
+	 */
+	public Move searchMove(String findMove)
+	{
+		int position = 0;
+		for(int i = 0; i < numMoves; i++)
+		{
+			if(moveArray[i].getMoveName().toUpperCase().equals(findMove.toUpperCase()))
+			{
+				position = i; 
+			}
+		}
+		return moveArray[position];
+	}
 } 
