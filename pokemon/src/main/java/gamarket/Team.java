@@ -49,7 +49,10 @@ public class Team {
     		System.out.println((i+1) + ". " + "Level " + myTeam[i].getIdentStats().getLevel() + " " + myTeam[i].getIdentStats().getName()); 
 		}
 	}
-    
+
+    public Pokemon getPokemonAtIndex(int index) {
+		return myTeam[index];
+	}
     /**
      * The public function switchPokemonInTeam of type void.
      * What it does: each Pokemon will have a numbered index/position, you can switch them around. 
@@ -186,4 +189,14 @@ public class Team {
 			           e.printStackTrace();
 			    }
     }
+
+	public boolean hasActivePokemon() {
+		boolean hasActive = false;
+		for(int i = 0; i < this.numOfPokesInTeam; i++) {
+			if(myTeam[i].hasPokemonFainted() == false) {
+				hasActive = true;
+			}
+		}
+		return hasActive;
+	}
 }

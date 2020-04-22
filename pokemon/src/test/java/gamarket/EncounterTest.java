@@ -11,22 +11,46 @@ public class EncounterTest
     public static int[] startSpot = {0, 0};
 
     @Test
-    public void defaultContructorTest () {
+    public void wildGeneratedPokemonIsValid () {
         Player testPlayer = new Player(false, "david", "password");
-        Encounter testEncounter = new Encounter(testPlayer);
-        Pokemon wild = testEncounter.getWildPokemon();
-        String wildString  = wild.toString("other");
+        PokemonCollection collection = new PokemonCollection();
+        collection.loadData("./databaseFiles/pokedata.txt");
+        Encounter testEncounter = new Encounter(testPlayer, collection);
+        Pokemon wildTest = testEncounter.getWildPokemon();
+        boolean wildIsValid = isAvalidPokemon(wildTest);
+
+        assertEquals(true, wildIsValid);
+    }
+    @Test
+    public void resolveAttack_Gives_Expected_Value () {
+        Player testPlayer = new Player(false, "david", "password");
+        PokemonCollection collection = gPokemonCollection();
+        Encounter testEncounter = new Encounter(testPlayer, collection);
+        Pokemon testAttacker = collection.getPokemonAtIndex(2);
+        Move move0 = new Move("tackle", "normal", "physical", 20);
+        
+    }
+
+    public PokemonCollection gPokemonCollection () {
+        PokemonCollection collection = new PokemonCollection();
+        collection.loadData("./databaseFiles/pokedata.txt");
+        return collection;
+    }
+    // @Test
+    // public void 
+
+    public boolean isAvalidPokemon(Pokemon poke) {
         boolean isAvalidPokemon = false;
+        String pokeString = poke.toString("other");
         PokemonCollection collection = new PokemonCollection();
         collection.loadData("./databaseFiles/pokedata.txt");
         for( int i =0; i < collection.getNumPokes() ; i++) {
             Pokemon pokemonAtIndex = collection.getPokemonAtIndex(i);
             String iString = pokemonAtIndex.toString("other");
-            if(wildString.equals(iString)) {
+            if(pokeString.equals(iString)) {
                 isAvalidPokemon = true;
             }
         }
-
-        assertEquals(true, isAvalidPokemon);
+        return isAvalidPokemon;
     }
 }

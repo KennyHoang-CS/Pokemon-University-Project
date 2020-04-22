@@ -45,6 +45,9 @@ public class Pokemon {
 		this.DS = null; 
 	}
 	
+	public boolean hasPokemonFainted() {
+		return this.DS.getHPCurrent() == 0;
+	}
 	/**
 	 * Changes the identity status of this Pokemon.
 	 * @param IS The Pokemon's new identity status. Should have id, name, gender, type, and level. 

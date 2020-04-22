@@ -212,8 +212,8 @@ public class Stats {
 		/**
 		 * The Pokemon's health.
 		 */
-		private int hp;
-
+		private int hpMax;
+		private int hpCurrent; 
 		/**
 		 * The Pokemon's defense.
 		 */
@@ -233,7 +233,8 @@ public class Stats {
 		 */
 		public DefensiveStats(int hp, int def, int spdef)
 		{
-			this.hp = hp;
+			this.hpMax = hp;
+			this.hpCurrent = hp;
 			this.def = def;
 			this.spdef = spdef; 
 		}
@@ -243,8 +244,15 @@ public class Stats {
 	     * This changes the Pokemon's health.
 	     * @param thisHP This is the Pokemon's health. Should have the Pokemon's health. 
 	     */
-		public void setHP(int thisHP) {	this.hp = thisHP; }
+		public void setHPMax(int thisHP) {	this.hpMax = thisHP; }
 		
+		public void setHPCurrent (int newHPCurrent) { this.hpCurrent = newHPCurrent; } 
+		public void takeDamage (int damage) {
+			this.hpCurrent -= damage;
+			if(this.hpCurrent < 0) {
+				this.hpCurrent = 0;
+			}
+		}
 		/**
 		 * The function setDEF of type void.
 		 * This changes the Pokemon's defense. 
@@ -264,8 +272,10 @@ public class Stats {
 		 * It returns the Pokemon's health as an integer. 
 		 * @return this Pokemon's health.
 		 */
-		public int getHP() { return hp; }
+		public int getHP() { return this.hpMax; }
 		
+		public int getHPCurrent() { return this.hpCurrent; }
+
 		/**
 		 * The function getDEF of type int. 
 		 * It returns the Pokemon's defense as an integer. 

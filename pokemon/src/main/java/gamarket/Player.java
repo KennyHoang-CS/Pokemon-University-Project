@@ -23,7 +23,7 @@ public class Player {
     private String time2;
     private String totalTime;
     private Grid grid;
-    private PokemonCollection pokeTeam; //TODO
+    private Team pokeTeam; //TODO
     private PokemonCollection pokeDex; //TODO
 
     /**
@@ -90,7 +90,7 @@ public class Player {
 
     public int getTotalPokemon(){ return totalPokemon; }
 
-    public PokemonCollection getPokeTeam(){ return pokeTeam; }
+    public Team getPokeTeam(){ return pokeTeam; }
 
     public PokemonCollection getPokeDex(){ return pokeDex; }
 
