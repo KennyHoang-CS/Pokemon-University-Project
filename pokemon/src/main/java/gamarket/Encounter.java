@@ -26,10 +26,7 @@ public class Encounter {
 
     private Pokemon getPlayerActivePokemon() {
         //TODO actually take from Player's team 
-        //
-        
-        collection.loadData("pokemon/databaseFiles/pokedata.txt");
-        return collection.getPokemonAtIndex(4);
+        return PokemonCollection.getPokemonAtIndex(4);
     }
 
     public static void main(String args[]) {
@@ -48,7 +45,7 @@ public class Encounter {
 
     private Pokemon generateWildPokemon() {
         int randomInt =  generateRandomInt(0,  this.collection.getNumPokes() );//(int) (Math.random() * ( collection.getNumPokes() - 0 ));
-        Pokemon generated =  this.collection.getPokemonAtIndex(randomInt);
+        Pokemon generated =  PokemonCollection.getPokemonAtIndex(randomInt);
         return generated;
     }
 
@@ -84,6 +81,7 @@ public class Encounter {
         String message = this.attacker ? "You are attacking":"You are deffending";
         System.out.println(message);
         System.out.println("Displaying " + this.activePlayerPokemon.getIdentStats().getName() + "'s moves");
+        System.out.println(this.activePlayerPokemon.printPokemonMoves());
         String inputString = getInput();
         if(inputString.equals("b")) {
             return ; 
@@ -100,14 +98,14 @@ public class Encounter {
         if(this.attacker) {
             attacker = this.activePlayerPokemon;
             deffender = this.wildPokemon;
-            attackMove = getPokemonMove(attacker, moveNum);
-            deffMove =  getPokemonMove(deffender,  generateRandomInt(0, 4));
+            attackMove = attacker.getMove(moveNum); //getPokemonMove(attacker, moveNum);
+            deffMove =  deffender.getMove(generateRandomInt(0, 3)); //getPokemonMove(deffender,  generateRandomInt(0, 4));
         }
         else { 
             attacker = this.wildPokemon;
             deffender = this.activePlayerPokemon;
-            attackMove = getPokemonMove(attacker, generateRandomInt(0, 4));
-            deffMove =  getPokemonMove(deffender, moveNum );
+            attackMove = attacker.getMove(generateRandomInt(0, 3));
+            deffMove =  deffender.getMove(moveNum);
         }
         
         
