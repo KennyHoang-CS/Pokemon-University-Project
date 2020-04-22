@@ -3,7 +3,7 @@ Pokemon East Bay will be a massive multiplayer role playing game based on the or
 Requriements Doc:   
 https://docs.google.com/document/d/1hUuHRxLStxmLUak55xkoUh83zUcuoZug7ryd5zLbfdU/edit?usp=sharing   
 Gant Chart:   
-https://docs.google.com/spreadsheets/d/1tlQL4H3i91bhaEs3EUX0X4y_gtTNmYOKaKWqEP0f3Xk/edit?usp=sharing
+https://docs.google.com/spreadsheets/d/1tlQL4H3i91bhaEs3EUX0X4y_gtTNmYOKaKWqEP0f3Xk/edit?usp=sharing   
 UML:   
 https://drive.google.com/file/d/1Faqxy9UVmBNxEuZB0MQNQwAky1edkUGO/view?usp=sharing
 
