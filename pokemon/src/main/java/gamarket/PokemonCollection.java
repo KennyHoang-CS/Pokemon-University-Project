@@ -12,23 +12,26 @@ import java.util.*;
  */
 public class PokemonCollection {
 		
-	/** The current number of POKEMONs in the Pokemon Collection. */
+	/** The current number of POKEMONs in the array */
 	private int numPOKEs;
-
-	/** The array to contain the entire Pokemon that exists in the game */
-	private Pokemon[] pokeArray;
 		
+	/** The array to contain the POKEMONs */
+	private static Pokemon[] pokeArray; 
+	
+	/** To gain access to the MoveCollection database that has the moves. */
+	private MoveCollection mc;
+	
 	/** 
 	 * A constructor. It sets the number of Pokemons 'numPOKEs' to zero. 
 	 * It allocates the Pokemon array 'pokeArray' to size 7. 
 	 */
-	public PokemonCollection() {
-		numPOKEs = 0; 
-		pokeArray = new Pokemon[7];		
+	public PokemonCollection(MoveCollection mc) {
+		numPOKEs = 0;
+		pokeArray = new Pokemon[7];	
+		this.mc = mc; 
 	}
 		
 	/**
-	 * The public function 'addPokemon' of void type.
 	 * It adds a new Pokemon class object to the Pokemon Collection. 
 	 * @param myPoke This Pokemon identity, offensive, and defensive status.
 	 * It should have id, name, gender, type, level, attack, special attack, speed,
@@ -43,15 +46,14 @@ public class PokemonCollection {
 				{
 					pokeArray = Arrays.copyOf(pokeArray, pokeArray.length * 2);
 				}
-				pokeArray[numPOKEs++] = myPoke;	
+			pokeArray[numPOKEs++] = myPoke;	
 			}catch(NumberFormatException e)
 			{
-				System.out.println("Error has occurred from addPokemon() function ...");
+				System.out.println("Error has occurred from addOrModifyPokemon() function ...");
 			}
 	}
 		
 	/**
-	 * A public function loadData of type void. 
 	 * The function uses a BufferedReader to read in data separated by commas in a given text file.
 	 * @param filename This is the data text file name (pokedata.txt). 
 	 * The file should have id, name, gender, type, level, attack, special attack, speed, health, 
@@ -90,12 +92,13 @@ public class PokemonCollection {
 		        	Stats.DefensiveStats myDS = new Stats().new DefensiveStats(Integer.parseInt(pokeData[8]),
 	                														   Integer.parseInt(pokeData[9]),
 	                														   Integer.parseInt(pokeData[10]));
-		        	
+		        			        	
 	                // create the Pokemon object with all the stats we just read in: Identification, Offensive, Defensive stats. 
 	                Pokemon myPoke = new Pokemon(myIS, myOS, myDS);
 					
 	                // add the pokemon object to the pokeArray. 
 		        	addPokemon(myPoke);  	         
+	                
 	                line = br.readLine();
 		        }
 		        // close the buffered reader.
@@ -106,7 +109,6 @@ public class PokemonCollection {
 			}
 	
 	/**
-	 * A public function getNumPokes of type int. 
 	 * The function returns the total number of Pokemons. 
 	 * @return this total number of Pokemons. 
 	 */
@@ -116,8 +118,7 @@ public class PokemonCollection {
 	}
 	
 	/**
-	 * A public function printCollection of type void.
-	 * The function uses a for loop to traverse the Pokemon array 
+	 * What it does: the function uses a for loop to traverse the Pokemon array 
 	 * and prints out the Pokemon Collection via its Pokemon class 
 	 * object status: identity, offensive, and defensive. 
 	 */
@@ -125,15 +126,71 @@ public class PokemonCollection {
 	{
 		for(int i = 0; i < numPOKEs; i++)
 		{
-			System.out.println(pokeArray[i].toString());
+			System.out.println(pokeArray[i].toString("other"));
 		}
+	}
+	
+	/**
+	 * What it does: it prints out the Pokemon's name along with its four moves.
+	 * @return nothing. 
+	 */
+	public void printThemMoves()
+	{
+		for(int i = 0; i < numPOKEs; i++)
+		{
+			System.out.println(pokeArray[i].getIdentStats().getName() + "'s Move-Set:");
+			pokeArray[i].printPokemonMoves();
+			System.out.println(); 
+		}
+	}
+	
+	/**
+	 * What it does: the function gives each Pokemon its default moves. 
+	 * @return nothing. 
+	 */
+	public void setDefaultMoves()
+	{	
+		// Flareon
+		Move m1 = mc.searchMove("Fire Fang");			
+		Move m2 = mc.searchMove("Flare Blitz");	
+		Move m3 = mc.searchMove("Slam"); 	
+		Move m4 = mc.searchMove("Quick Attack");		
+		pokeArray[0].setMoves(m1, m2, m3, m4);
+		
+		// Gengar
+		m1 = mc.searchMove("Phantom Force");			
+		m2 = mc.searchMove("Physic");					
+		m3 = mc.searchMove("Drain Punch");  			
+		m4 = mc.searchMove("Shadow Ball");				
+		pokeArray[1].setMoves(m1, m2, m3, m4);
+		
+		// Pikachu
+		m1 = mc.searchMove("Electric Ball");				
+		m2 = mc.searchMove("Thunder");					
+		m3 = mc.searchMove("Quick Attack");				
+		m4 = mc.searchMove("Slam");					
+		pokeArray[2].setMoves(m1, m2, m3, m4);
+		
+		// Poliwrath 
+		m1 = mc.searchMove("Water Pulse");				
+		m2 = mc.searchMove("Ice Punch");				
+		m3 = mc.searchMove("Physic");					
+		m4 = mc.searchMove("Earthquake");				
+		pokeArray[3].setMoves(m1, m2, m3, m4);
+		
+		// Sandslash
+		m1 = mc.searchMove("Slash");					
+		m2 = mc.searchMove("Drill Run");				
+		m3 = mc.searchMove("Rock Slide");				
+		m4 = mc.searchMove("Bite");					
+		pokeArray[4].setMoves(m1, m2, m3, m4);
 	}
 	
 	/** Helper Function.
 	 * Returns a Pokemon at the specified index. 
 	 * @return this Pokemon. 
 	 */
-	public Pokemon getPokemonAtIndex(int i)
+	public static Pokemon getPokemonAtIndex(int i)
 	{
 		return pokeArray[i];
 	}
