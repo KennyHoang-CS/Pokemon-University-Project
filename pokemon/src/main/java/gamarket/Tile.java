@@ -2,16 +2,19 @@ package gamarket;
 
 class Tile {
     private boolean isPermeable;
+    private boolean player;
 
     /**
      * note if new type is added make changes to toString and setPermeable
      */
     public enum Type {
         GRASS, ROAD, HOUSE, TREE, CUTTABLE_TREE, WATER, UNSURFABLE, WHIRLPOOL, UNRECOGNIZED
-    } ; 
+    }
+
     private Type tileType;
 
-    Tile(Type tType){
+    Tile(Type tType, boolean player){
+        this.player = player;
         this.tileType = tType;
         setPermeable(tType);
     }
@@ -97,4 +100,9 @@ class Tile {
             default: return Type.UNRECOGNIZED;
         }    
 	}
+
+    public boolean hasPlayer() { return this.player; }
+
+    public void togglePlayer() { this.player = !this.player; }
+
 }

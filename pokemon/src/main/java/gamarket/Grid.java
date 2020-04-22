@@ -23,9 +23,9 @@ public class Grid {
      */
     Grid () {
         this.playerX = 0;
-        this.playerY = 0; 
-        this.gridXMax = 6;
-        this.gridYMax = 6;
+        this.playerY = 0;
+        this.gridXMax = 10;
+        this.gridYMax = 10;
         this.gridState = generateGrid(gridXMax, gridYMax);
     }
     /**
@@ -53,7 +53,6 @@ public class Grid {
         result +="Player position is:" + this.playerX + "," + this.playerY +"\n";
         result += "The grid State: \n";
         for(int i = 0; i < this.gridXMax; i++) {
-            //ArrayList<Tile> row = new ArrayList<Tile>();
             for(int j = 0; j < this.gridYMax; j++) {
                 Tile tileAtIJ = this.gridState.get(i).get(j);
                 if(this.playerX == j && this.playerY == i) {
@@ -118,8 +117,13 @@ public class Grid {
      *  
      */
     public void setPlayerPosition(int playerX, int playerY) {
+        Tile old = getTile(this.playerX, this.playerY);
+        old.togglePlayer();
         this.playerX = playerX;
         this.playerY = playerY;
+        Tile newPosition = getTile(playerX, playerY);
+        newPosition.togglePlayer();
+
     }
 
     /**
@@ -129,11 +133,11 @@ public class Grid {
      * @param y
      * @return True then player can move to spot false if not 
      */
-    private boolean canMove (int x, int y) {
+    public boolean canMove (int x, int y) {
         if ( x < 0 || y < 0) {
             return false;
         }
-        if ( x > gridXMax || y > gridYMax) {
+        if ( x >= gridXMax || y >= gridYMax) {
             return false; 
         } 
         Tile tileAtXY = getTile(x, y);
@@ -155,7 +159,7 @@ public class Grid {
         for(int i = 0; i < x; i++) {
             ArrayList<Tile> row = new ArrayList<Tile>();
             for(int j = 0; j < y; j++) {
-                Tile newTile = new Tile(Tile.Type.ROAD);
+                Tile newTile = new Tile(Type.UNRECOGNIZED, false);
                 row.add(newTile);
             }
             grid.add(row);
@@ -187,14 +191,18 @@ public class Grid {
      * Appends _gridData.txt to filename
      * @param saveToFileName - name wanted for gridData file
      */
-    public void save(String saveToFileName) {
-		File file = new File(saveToFileName + "_gridData.txt");
+    public void save(String saveToFileName, boolean test) {
+        File file;
+        if(test){
+            file = new File("./databaseFiles/gridFiles/" + saveToFileName + "_gridData.txt");
+        }else{
+            file = new File("./pokemon/databaseFiles/gridFiles/" + saveToFileName + "_gridData.txt");
+        }
 		try {
 			FileWriter writer = new FileWriter(file);
 			
 			writer.write(this.toString());
-			
-			//writer.write(str);
+
 			writer.flush();
 			writer.close();
 		} catch (Exception e) {
@@ -213,10 +221,15 @@ public class Grid {
      * tileValue grid space separated 
      *  @param savedFileName - name of file wish to retreive
      */
-    public void loadData(String savedFileName) {
+    public void loadData(String savedFileName, boolean test) {
         //add so easy to find and for gitignore
-		File file = new File(savedFileName+ "_gridData.txt"); 
-		String lineString;
+        File file;
+        if(test){
+            file = new File("./databaseFiles/gridFiles/" + savedFileName+ "_gridData.txt");
+        }else{
+            file = new File("./pokemon/databaseFiles/gridFiles/" + savedFileName+ "_gridData.txt");
+        }
+        String lineString;
 		Scanner sc;
 		try {
 			sc = new Scanner(file); 
@@ -260,4 +273,12 @@ public class Grid {
 			System.out.println("error reading file");
 		}		
 	}
+
+    public int getYMax() {
+        return gridYMax;
+    }
+
+    public int getXMax() {
+        return gridXMax;
+    }
 }

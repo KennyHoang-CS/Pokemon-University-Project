@@ -14,81 +14,87 @@ import static org.junit.Assert.assertArrayEquals;
  */
 public class GridTest 
 {
-    public static int[] startSpot = {0, 0};
+    public static int[] startSpot = {10, 10};
 
     @Test
-    public void playerStartPostiion_is_0_0 () {
+    public void playerStartPostiion_is_10_10 () {
         Grid testGrid = new Grid();
+        testGrid.loadData("new", true);
         assertArrayEquals(startSpot, testGrid.getPlayerPosition());
     }
     @Test
     public void s_Makes_Player_Go_Down () {
         Grid testGrid = new Grid();
+        testGrid.loadData("new", true);
         testGrid.updateGrid("s");
-        int[] oneDown = {0, 1};
+        int[] oneDown = {10, 11};
         assertArrayEquals( oneDown, testGrid.getPlayerPosition());
     }
     
     @Test
     public void w_Makes_Player_Go_Up () {
         Grid testGrid = new Grid();
-        testGrid.updateGrid("s");
+        testGrid.loadData("new", true);
         testGrid.updateGrid("w");
-        int[] oneUp = {0 , 0};
+        int[] oneUp = {10 , 9};
         assertArrayEquals(oneUp, testGrid.getPlayerPosition() );
     }
 
     @Test
-    public void d_Makes_Player_Go_right () {
+    public void d_Makes_Player_Go_right () { //fix
         Grid testGrid = new Grid();
+        testGrid.loadData("new", true);
         testGrid.updateGrid("d");
-        int[] oneRight = {1, 0};
+        int[] oneRight = {11, 10};
         assertArrayEquals(oneRight, testGrid.getPlayerPosition());
     }
 
     @Test
     public void a_Makes_Player_Go_left () {
         Grid testGrid = new Grid();
-        testGrid.updateGrid("d");
+        testGrid.loadData("new", true);
         testGrid.updateGrid("a");
-        int[] oneRight = {0, 0};
-        assertArrayEquals(oneRight, testGrid.getPlayerPosition());
+        int[] oneLeft = {9, 10};
+        assertArrayEquals(oneLeft, testGrid.getPlayerPosition());
     }
 
     @Test
     public void player_Cant_Move_off_Grid () {
         Grid testGrid = new Grid();
-        testGrid.updateGrid("w");
-        assertArrayEquals(startSpot, testGrid.getPlayerPosition());
-
+        testGrid.loadData("new", true);
+        testGrid.setPlayerPosition(9,0);
         testGrid.updateGrid("a");
-        assertArrayEquals(startSpot, testGrid.getPlayerPosition());
+        int position[] = {9,0};
+        assertArrayEquals(position, testGrid.getPlayerPosition());
+
     }
 
     @Test
     public void player_Cant_Move_into_nonPerme () {
-        Grid testGrid = new Grid(); 
-        testGrid.changeTile(1, 0, Tile.Type.TREE);
-        testGrid.updateGrid("d");
+        Grid testGrid = new Grid();
+        testGrid.loadData("new", true);
+        testGrid.changeTile(10, 11, Tile.Type.TREE);
+        testGrid.updateGrid("s");
         assertArrayEquals(startSpot, testGrid.getPlayerPosition());
     }
 
     @Test
     public void save_Load_test () {
-        Grid testGrid = new Grid(8, 8, 7, 7);
+        Grid testGrid = new Grid(20, 20, 10, 10);
+        testGrid.loadData("new", true);
         testGrid.changeTile(3, 2, Type.WATER);
 
-        testGrid.save("./save_Loadtest");
+        testGrid.save("save_Loadtest", true);
         Grid freshGrid = new Grid();
-        freshGrid.loadData("./save_Loadtest");
+        freshGrid.loadData("save_Loadtest",true);
         
         System.out.println(freshGrid.toString());
         assertEquals(Type.WATER, freshGrid.getTile(3, 2).getType() );
         
-        int[] expectedLoc = { 7, 7};
+        int[] expectedLoc = { 10, 10};
         assertArrayEquals(expectedLoc, freshGrid.getPlayerPosition());
 
-        File file = new File("./save_Loadtest_gridData.txt");
+        File file = new File("./databaseFiles/gridFiles/save_Loadtest.txt");
         file.delete();
     }
 }

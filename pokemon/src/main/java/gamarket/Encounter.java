@@ -28,17 +28,18 @@ public class Encounter {
         //TODO actually take from Player's team 
         //
         
-        PokemonCollection collection = new PokemonCollection();
         collection.loadData("pokemon/databaseFiles/pokedata.txt");
         return collection.getPokemonAtIndex(4);
     }
 
     public static void main(String args[]) {
-        Player testPlayer = new Player(true, "david", "password");
-        PokemonCollection collection = new PokemonCollection();
-        collection.loadData("pokemon/databaseFiles/pokedata.txt");
-        Encounter test = new Encounter(testPlayer, collection);
-        test.battle();
+        // Player testPlayer = new Player(true, "david", "password");
+        // MoveCollection moveCollection = new MoveCollection();
+        // moveCollection.loadData(filename);
+        // PokemonCollection collection = new PokemonCollection();
+        // collection.loadData("pokemon/databaseFiles/pokedata.txt");
+        // Encounter test = new Encounter(testPlayer, collection);
+        // test.battle();
         // Pokemon wild = test.getWildPokemon();
 
         // System.out.println(wild.toString("other"));
