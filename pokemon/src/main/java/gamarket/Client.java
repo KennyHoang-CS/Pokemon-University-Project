@@ -19,6 +19,8 @@ public class Client extends Application {
     private GridPane root;
     private int width = 800;
     private int height = 800;
+    private PokemonCollection pokeCollection;
+    private MoveCollection moveCollection;
 
     public static void main(String args[]){
         launch(args);
@@ -105,6 +107,7 @@ public class Client extends Application {
      * @return returns the GUI
      */
     public GridPane gameInterface(boolean newPlayer, String username, String password){
+        loadCollections();
 
         if(!newPlayer){
             player = new Player(false, username, password);
@@ -147,8 +150,14 @@ public class Client extends Application {
         //TO-DO
     }
 
+    public void loadCollections () {
+        moveCollection = new MoveCollection();
+        pokeCollection = new PokemonCollection(moveCollection);
+    }
     public void encouter(){
         System.out.println("Pokemon encountered!");
+        Encounter aEncounter = new Encounter(player, pokeCollection);
+        aEncounter.battle();
     }
 
     /**
