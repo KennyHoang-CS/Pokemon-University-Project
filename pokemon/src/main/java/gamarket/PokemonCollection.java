@@ -17,6 +17,8 @@ public class PokemonCollection {
 		
 	/** The array to contain the POKEMONs */
 	private static Pokemon[] pokeArray; 
+	
+	/** To gain access to the MoveCollection database that has the moves. */
 	private MoveCollection mc;
 	
 	/** 
@@ -30,7 +32,6 @@ public class PokemonCollection {
 	}
 		
 	/**
-	 * The public function 'addPokemon' of void type.
 	 * It adds a new Pokemon class object to the Pokemon Collection. 
 	 * @param myPoke This Pokemon identity, offensive, and defensive status.
 	 * It should have id, name, gender, type, level, attack, special attack, speed,
@@ -53,7 +54,6 @@ public class PokemonCollection {
 	}
 		
 	/**
-	 * A public function loadData of type void. 
 	 * The function uses a BufferedReader to read in data separated by commas in a given text file.
 	 * @param filename This is the data text file name (pokedata.txt). 
 	 * The file should have id, name, gender, type, level, attack, special attack, speed, health, 
@@ -109,7 +109,6 @@ public class PokemonCollection {
 			}
 	
 	/**
-	 * A public function getNumPokes of type int. 
 	 * The function returns the total number of Pokemons. 
 	 * @return this total number of Pokemons. 
 	 */
@@ -119,7 +118,6 @@ public class PokemonCollection {
 	}
 	
 	/**
-	 * A public function printCollection of type void.
 	 * What it does: the function uses a for loop to traverse the Pokemon array 
 	 * and prints out the Pokemon Collection via its Pokemon class 
 	 * object status: identity, offensive, and defensive. 
@@ -133,7 +131,6 @@ public class PokemonCollection {
 	}
 	
 	/**
-	 * A public function printThemMoves of type void.
 	 * What it does: it prints out the Pokemon's name along with its four moves.
 	 * @return nothing. 
 	 */
@@ -148,46 +145,45 @@ public class PokemonCollection {
 	}
 	
 	/**
-	 * A public function fillDefaultMoves of type void.
 	 * What it does: the function gives each Pokemon its default moves. 
 	 * @return nothing. 
 	 */
 	public void setDefaultMoves()
 	{	
 		// Flareon
-		Move m1 = mc.getMoveAtIndex(10);	// Fire Fang
-		Move m2 = mc.getMoveAtIndex(9);		// Flare blitz
-		Move m3 = mc.getMoveAtIndex(3); 	// Slam
-		Move m4 = mc.getMoveAtIndex(4);		// Quick Attack 
-		pokeArray[0].setDefaultMoves(m1, m2, m3, m4);
+		Move m1 = mc.searchMove("Fire Fang");			
+		Move m2 = mc.searchMove("Flare Blitz");	
+		Move m3 = mc.searchMove("Slam"); 	
+		Move m4 = mc.searchMove("Quick Attack");		
+		pokeArray[0].setMoves(m1, m2, m3, m4);
 		
 		// Gengar
-		m1 = mc.getMoveAtIndex(8);			// Phantom Force
-		m2 = mc.getMoveAtIndex(13);			// Physic
-		m3 = mc.getMoveAtIndex(7);  		// Drain Punch
-		m4 = mc.getMoveAtIndex(5);			// Shadow Ball
-		pokeArray[1].setDefaultMoves(m1, m2, m3, m4);
+		m1 = mc.searchMove("Phantom Force");			
+		m2 = mc.searchMove("Physic");					
+		m3 = mc.searchMove("Drain Punch");  			
+		m4 = mc.searchMove("Shadow Ball");				
+		pokeArray[1].setMoves(m1, m2, m3, m4);
 		
 		// Pikachu
-		m1 = mc.getMoveAtIndex(0);			// Electric Ball	
-		m2 = mc.getMoveAtIndex(1);			// Thunder
-		m3 = mc.getMoveAtIndex(4);			// Quick Attack	
-		m4 = mc.getMoveAtIndex(3);			// Slam
-		pokeArray[2].setDefaultMoves(m1, m2, m3, m4);
+		m1 = mc.searchMove("Electric Ball");				
+		m2 = mc.searchMove("Thunder");					
+		m3 = mc.searchMove("Quick Attack");				
+		m4 = mc.searchMove("Slam");					
+		pokeArray[2].setMoves(m1, m2, m3, m4);
 		
 		// Poliwrath 
-		m1 = mc.getMoveAtIndex(2);			// Water Pulse	
-		m2 = mc.getMoveAtIndex(12);			// Ice Punch	
-		m3 = mc.getMoveAtIndex(13);			// Physic
-		m4 = mc.getMoveAtIndex(14);			// Earthquake
-		pokeArray[3].setDefaultMoves(m1, m2, m3, m4);
+		m1 = mc.searchMove("Water Pulse");				
+		m2 = mc.searchMove("Ice Punch");				
+		m3 = mc.searchMove("Physic");					
+		m4 = mc.searchMove("Earthquake");				
+		pokeArray[3].setMoves(m1, m2, m3, m4);
 		
 		// Sandslash
-		m1 = mc.getMoveAtIndex(16);			// Slash	
-		m2 = mc.getMoveAtIndex(17);			// Drill Run
-		m3 = mc.getMoveAtIndex(18);			// Rock Slide
-		m4 = mc.getMoveAtIndex(12);			// Bite
-		pokeArray[4].setDefaultMoves(m1, m2, m3, m4);
+		m1 = mc.searchMove("Slash");					
+		m2 = mc.searchMove("Drill Run");				
+		m3 = mc.searchMove("Rock Slide");				
+		m4 = mc.searchMove("Bite");					
+		pokeArray[4].setMoves(m1, m2, m3, m4);
 	}
 	
 	/** Helper Function.

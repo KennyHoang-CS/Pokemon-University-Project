@@ -6,21 +6,16 @@ package gamarket;
  */
 public class Pokemon{
 	
-	/** 
-	 * 	To hold the id, name, gender, type, and level of the Pokemon
-	 */
+	/** To hold the id, name, gender, type, and level of the Pokemon */
 	private Stats.IdentifyStats IS; 
 	
-	/**
-	 * To hold the attack, sp. attack, and speed of the Pokemon
-	 */
+	/** To hold the attack, sp. attack, and speed of the Pokemon */
 	private Stats.OffensiveStats OS;
 	
-	/**
-	 * To hold the health, defense, and sp. defense of the Pokemon
-	 */
+	/** To hold the health, defense, and sp. defense of the Pokemon */
 	private Stats.DefensiveStats DS;
 	
+	/** To hold the move-set of the Pokemon */
 	private Move[] moveSet;
 	
 	/** 
@@ -86,7 +81,6 @@ public class Pokemon{
 	public Stats.DefensiveStats getDefensiveStats() { return DS; }
 	
 	/**
-	 * The function toString() of the Pokemon class. 
 	 * It creates a variable temp of type String to hold the Pokemon's identity, offensive, 
 	 * and defensive status. It converts integer data into type String for temp able to contain. 
 	 * @param format specifies how the String data should either be: output to screen or output to file.  
@@ -123,14 +117,16 @@ public class Pokemon{
 				   + Integer.toString(this.OS.getSpeed()) + ","
 			       + Integer.toString(this.DS.getHP()) + ","
 			       + Integer.toString(this.DS.getDEF()) + ","
-				   + Integer.toString(this.DS.getSPDEF());
-	    }
-		
+				   + Integer.toString(this.DS.getSPDEF()) + ","
+				   + moveSet[0].getMoveName() + ","
+				   + moveSet[1].getMoveName() + ","
+				   + moveSet[2].getMoveName() + ","
+				   + moveSet[3].getMoveName();
+		}
 		return temp; 
 	}
 	
 	/**
-	 * The function printPokemonMoves of type void.
 	 * What it does: prints the Pokemon's move-set of four moves. 
 	 * @return nothing. 
 	 */
@@ -147,7 +143,6 @@ public class Pokemon{
 	}
 	
 	/**
-	 * The function changeMove of type void.
 	 * What it does: It allows to change one Pokemon's current move to a new move. 
 	 * @param newMove this should be the Pokemon's new move.
 	 * @param oldMove this should be the Pokemon's old move.
@@ -165,7 +160,6 @@ public class Pokemon{
 	}
 	
 	/**
-	 * The function setDefaultMoves of type void.
 	 * What it does: It sets the Pokemon's move-set with four moves. 
 	 * @param m1 this is the Pokemon's move number 1.
 	 * @param m2 this is the Pokemon's move number 2.
@@ -173,7 +167,7 @@ public class Pokemon{
 	 * @param m4 this is the Pokemon's move number 4. 
 	 * @return nothing. 
 	 */
-	public void setDefaultMoves(Move m1, Move m2, Move m3, Move m4)
+	public void setMoves(Move m1, Move m2, Move m3, Move m4)
 	{
 		moveSet[0] = m1;
 		moveSet[1] = m2; 
