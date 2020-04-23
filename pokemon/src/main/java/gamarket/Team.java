@@ -23,11 +23,10 @@ public class Team {
      * A team can hold at-most 6 Pokemon.
      * A player will start out with a Pikachu Pokemon in its team.  
      */
-    Team(PokemonCollection pc, MoveCollection mc)
+    Team(MoveCollection mc)
     {
-        myTeam = new Pokemon[6];  
-        myTeam[0] = pc.getPokemonAtIndex(2);
-        numOfPokesInTeam = 1;
+        myTeam = new Pokemon[6];
+        numOfPokesInTeam = 0;
         this.mc = mc;
     }
     
@@ -67,10 +66,16 @@ public class Team {
      * What it does: saves the current Player's team of Pokemons to a file.
      * @return nothing.
      */
-    public void saveTeam()
+    public void saveTeam(String user, Boolean... test)
     {
         // create a file object.
-        File newFile = new File("pokemonTeam.txt");
+        String filename;
+        if(test.length > 0 && test[0]==true){
+            filename = "./databaseFiles/pkmnCollectionFiles/poketeamFiles/" + user+ "_poketeam.txt";
+        }else{
+            filename ="./pokemon/databaseFiles/pkmnCollectionFiles/poketeamFiles/" + user+ "_poketeam.txt";
+        }
+        File newFile = new File(filename);
                 
         // create a file writer object to write data to a file.
         FileWriter fw;
@@ -133,8 +138,14 @@ public class Team {
      * @param filename this should be the save file that contains the Player's saved Pokemons.
      * @return nothing.
      */
-    public void loadTeam(String filename)
+    public void loadTeam(String user, Boolean... test)
     {
+        String filename = "";
+        if(test.length > 0 && test[0]==true){
+            filename = "./databaseFiles/pkmnCollectionFiles/poketeamFiles/" + user+ "_poketeam.txt";
+        }else{
+            filename ="./pokemon/databaseFiles/pkmnCollectionFiles/poketeamFiles/" + user+ "_poketeam.txt";
+        }
         // create a buffered reader to read in text.
         BufferedReader br;
         
@@ -219,6 +230,17 @@ public class Team {
 			}
 		}
 		return hasActive;
+	}
+
+	public Pokemon getActivePokemon() {
+        Pokemon activePokemon = myTeam[0];
+        for(int i = 0; i < this.numOfPokesInTeam; i++) {
+            if(myTeam[i].hasPokemonFainted() == false) {
+                activePokemon = myTeam[i];
+                break;
+            }
+        }
+        return activePokemon;
 	}
 }
 

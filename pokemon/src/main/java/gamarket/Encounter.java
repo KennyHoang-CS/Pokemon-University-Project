@@ -15,32 +15,16 @@ public class Encounter {
 
     Encounter (Player player, PokemonCollection pc) {
         this.collection = pc;
+        this.thePlayer = player;
         this.activePlayerPokemon = getPlayerActivePokemon();
         this.wildPokemon = generateWildPokemon();
         this.battling = true; 
-        this.thePlayer = player;
-        this.attacker = true;
         
-        //battle();
+        this.attacker = true;
     }
 
     private Pokemon getPlayerActivePokemon() {
-        //TODO actually take from Player's team 
-        return PokemonCollection.getPokemonAtIndex(4);
-    }
-
-    public static void main(String args[]) {
-        // Player testPlayer = new Player(true, "david", "password");
-        // MoveCollection moveCollection = new MoveCollection();
-        // moveCollection.loadData(filename);
-        // PokemonCollection collection = new PokemonCollection();
-        // collection.loadData("pokemon/databaseFiles/pokedata.txt");
-        // Encounter test = new Encounter(testPlayer, collection);
-        // test.battle();
-        // Pokemon wild = test.getWildPokemon();
-
-        // System.out.println(wild.toString("other"));
-
+        return this.thePlayer.getPokeTeam().getActivePokemon();
     }
 
     private Pokemon generateWildPokemon() {
@@ -225,16 +209,23 @@ public class Encounter {
         Team team = this.thePlayer.getPokeTeam();
         team.displayTeam();
         String input  = getInput();
-        int convetedInput = Integer.parseInt(input);
-        if(convetedInput > 6) {
-            switchPokemon();
-            return;
-        }
 
         if(input.equals("b")) {
             System.out.println("return to main menu");
             return ;
         }
+
+        int convetedInput = Integer.parseInt(input);
+        if(convetedInput > team.getNumOfPokesInTeam()) {
+            switchPokemon();
+            return;
+        }
+
+        this.activePlayerPokemon = team.getPokemonAtIndex(convetedInput - 1);
+        
+        this.attacker = false;
+        fight();
+        
     }
     
     public void useItem (String choosenItemStr) {
