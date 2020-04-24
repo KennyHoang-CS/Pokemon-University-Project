@@ -25,11 +25,16 @@ public class PokemonCollection {
 	 * A constructor. It sets the number of Pokemons 'numPOKEs' to zero. 
 	 * It allocates the Pokemon array 'pokeArray' to size 7. 
 	 */
-	public PokemonCollection(MoveCollection mc) {
+	public PokemonCollection(MoveCollection mc, boolean... test) {
 		numPOKEs = 0;
 		pokeArray = new Pokemon[7];	
 		this.mc = mc; 
-		loadData();
+		if(test.length > 0 && test[0] == true) {
+			loadData(true);
+		}
+		else {
+			loadData();
+		}
 		setDefaultMoves();
 	}
 		

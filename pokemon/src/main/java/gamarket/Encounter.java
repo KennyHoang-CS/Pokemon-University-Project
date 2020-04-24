@@ -324,15 +324,13 @@ public class Encounter {
                     return "Caught wild " + this.wildPokemon.getIdentStats().getName();
                 }
                 else {
-                    System.out.println(this.wildPokemon.getIdentStats().getName() + " was not caught");
+                    return this.wildPokemon.getIdentStats().getName() + " was not caught";
                     
                 }
-                break;
             case "Potion":
                 Potion potion = (Potion) item;
                 potion.use(this.activePlayerPokemon);
-                return this.wildPokemon.getIdentStats().getName() + "healed to " + Integer.toString(this.activePlayerPokemon.getDefensiveStats().getHPCurrent()) + " hp");
-                break;
+                return this.wildPokemon.getIdentStats().getName() + "healed to " + Integer.toString(this.activePlayerPokemon.getDefensiveStats().getHPCurrent()) + " hp";
             default:
                 return "unregonized item";
         }

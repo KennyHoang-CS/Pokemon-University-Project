@@ -23,11 +23,19 @@ public class MoveCollection {
 	 * It allocates a new array of Move type to 7. 
 	 * 
 	 */
-	public MoveCollection()
+	public MoveCollection(boolean... test)
 	{
 		numMoves = 0; 
 		moveArray = new Move[7];
 		loadData();
+
+		if(test.length >0 && test[0] == true) {
+			loadData(true);
+		}
+		else {
+			loadData();
+		}
+
 	}
 	
 	/**
