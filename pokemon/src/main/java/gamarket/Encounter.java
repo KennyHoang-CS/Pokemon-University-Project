@@ -62,7 +62,7 @@ public class Encounter {
         }
     }
     public void fight() {
-        String message = this.attacker ? "You are attacking":"You are deffending";
+        String message = this.attacker ? " \n You are attacking":"You are deffending";
         System.out.println(message);
         System.out.println("Displaying " + this.activePlayerPokemon.getIdentStats().getName() + "'s moves");
         System.out.println(this.activePlayerPokemon.printPokemonMoves());
@@ -137,10 +137,15 @@ public class Encounter {
         }
         damage = attackVal - defVal;
 
-        resultString += "attack hit for "  + Integer.toString(damage);
         if(damage > 0){
             defender.getDefensiveStats().takeDamage(damage);
         }
+        else {
+            damage = 0;
+        }
+        
+        resultString += "attack hit for "  + Integer.toString(damage);
+        
         resultString += "\n" + defender.getIdentStats().getName() + " " + Integer.toString(defender.getDefensiveStats().getHPCurrent()) + " hp";
         
         return resultString;
@@ -169,21 +174,21 @@ public class Encounter {
         return generateRandomInt(0, 100);
     }
 
-    public void displayMoves() {
-
-    }
     public void bag() {
         displayItems();
         String inputString = getInput();
         if(inputString.equals("b")) {
             return ; 
         }
-        useItem(inputString);
+        //if(inputString.equals(anObject))
+        PokeBall ball = new PokeBall();
+        
+        useItem(ball);
     }
     private void displayItems() {
         //Bag playerBag this.player.getBag(); TODO make getBag Function
         //String bagString = playerBag.toString || itemsString();
-        String bagString =  "PokeBall 9, Potion 3, GreatBall 1";
+        String bagString =  "PokeBall 9, Potion 3";
         String[] itemStrings = bagString.split(",");
         for(int index = 0; index < itemStrings.length; index++) {
             System.out.println(index + " " + itemStrings[index]);
@@ -228,11 +233,32 @@ public class Encounter {
         
     }
     
-    public void useItem (String choosenItemStr) {
+    public void useItem (Item item) {
         //choosenItem.use();
         //Item choosenItem = bag.getItemAtIndex(Integer.parseInt(choosenItemStr));
-        
-        System.out.println("Using item " + choosenItemStr);
+        String itemString = item.getType();
+        switch (itemString) {
+            case "Pokeball":
+                PokeBall ball = (PokeBall) item;
+                boolean throwSucceed = ball.throwBall(this.wildPokemon, this.thePlayer.getPokeTeam());
+                if(throwSucceed) {
+                    System.out.println("Caught wild " + this.wildPokemon.getIdentStats().getName());
+                    this.battling = false;
+                }
+                else {
+                    System.out.println(this.wildPokemon.getIdentStats().getName() + " was not caught");
+                    
+                }
+                break;
+            case "Potion":
+                Potion potion = (Potion) item;
+                potion.use(this.activePlayerPokemon);
+                System.out.println(this.wildPokemon.getIdentStats().getName() + "healed to " + Integer.toString(this.activePlayerPokemon.getDefensiveStats().getHPCurrent()) + " hp");
+                break;
+            default:
+                break;
+        }
+        //System.out.println("Using item " + choosenItemStr);
     }
 
     public void run () {
@@ -244,6 +270,8 @@ public class Encounter {
         }
         else {
             System.out.println("Run away was unsuccessful");
+            this.attacker = false;
+            fight();
         }
         //this.wildPokemon
     }

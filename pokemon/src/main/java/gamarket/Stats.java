@@ -246,7 +246,12 @@ public class Stats {
 	     */
 		public void setHPMax(int thisHP) {	this.hpMax = thisHP; }
 		
-		public void setHPCurrent (int newHPCurrent) { this.hpCurrent = newHPCurrent; } 
+		public void setHPCurrent (int newHPCurrent) { 
+			this.hpCurrent = newHPCurrent;
+			if(this.hpCurrent > this.hpMax) {
+				this.hpCurrent = this.hpMax;
+			} 
+		} 
 		public void takeDamage (int damage) {
 			this.hpCurrent -= damage;
 			if(this.hpCurrent < 0) {

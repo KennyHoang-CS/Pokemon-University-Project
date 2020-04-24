@@ -6,6 +6,11 @@ public class Potion extends Item {
 
     public Potion () {
         this.description = "Heal target Pokemon 20 Hp";
+        this.type = "Potion";
+    }
+
+    public String getType() {
+        return this.type;
     }
 
     public int getHealAmount () { 
@@ -13,7 +18,7 @@ public class Potion extends Item {
     }
 
     public void use (Pokemon targetPokemon) {
-        // int hp = targetPokemon.getCurrentHp();
-        // targetPokemon.setCurrentHp(hp + 20);
+        int hp = targetPokemon.getDefensiveStats().getHPCurrent();
+        targetPokemon.getDefensiveStats().setHPCurrent(hp + 20);
     }
 }
