@@ -22,7 +22,7 @@ public class Player {
     private String time1;
     private String time2;
     private String totalTime;
-    private Team pokeTeam; //TODO
+    private Team pokeTeam;
     private MoveCollection moveCollection;
     private PokemonCollection pokeDex; //TODO
 
@@ -35,7 +35,6 @@ public class Player {
     public Player(Boolean newUser, String un, String pw) {
 
         this.moveCollection = new MoveCollection();
-        this.moveCollection.loadData();
         this.pokeTeam = new Team(this.moveCollection);
 
         if (newUser) {
@@ -124,9 +123,9 @@ public class Player {
             this.totalPokemon = Integer.parseInt(temp[5]);
             this.joinDate = temp[6];
             this.totalTime = temp[7];
+            this.pokeTeam.loadTeam(fileName);
             //  These lines of code are commented out due to errors when calling respective class methods
             // due to source files are not set up correctly yet
-            this.pokeTeam.loadTeam(fileName);
             // this.pokeDex.loadData(name);
             
 
