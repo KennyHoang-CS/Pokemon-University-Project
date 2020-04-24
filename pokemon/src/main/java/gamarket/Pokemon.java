@@ -43,7 +43,9 @@ public class Pokemon{
 		this.DS = null; 
 		this.moveSet = null;
 	}
-	
+	/**
+	 * @return tells whether pokemon has fainted
+	 */
 	public boolean hasPokemonFainted() {
 		return this.DS.getHPCurrent() == 0;
 	}
@@ -147,9 +149,17 @@ public class Pokemon{
 		}
 		return result; 
 	}
+	/**
+	 * getter for the pokemons moveset
+	 */
 	public Move[] getPokemonMoveSet () {
 		return this.moveSet;
 	}
+	/**
+	 * Returns move at the index 0-3
+	 * @param index
+	 * @return move at the given index
+	 */
 	public Move getMove(int index) {
 		return this.moveSet[index];
 	}

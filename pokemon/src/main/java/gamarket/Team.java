@@ -221,7 +221,9 @@ public class Team {
     		}
     	}
     }
-
+    /**
+     * returns true if the player has any non fainted pokemon
+     */
 	public boolean hasActivePokemon() {
 		boolean hasActive = false;
 		for(int i = 0; i < this.numOfPokesInTeam; i++) {
@@ -231,7 +233,9 @@ public class Team {
 		}
 		return hasActive;
 	}
-
+    /**
+     * returns teams first non-fainted pokemon 
+     */
 	public Pokemon getActivePokemon() {
         Pokemon activePokemon = myTeam[0];
         for(int i = 0; i < this.numOfPokesInTeam; i++) {

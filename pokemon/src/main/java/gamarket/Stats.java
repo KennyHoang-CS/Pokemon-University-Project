@@ -244,14 +244,26 @@ public class Stats {
 	     * This changes the Pokemon's health.
 	     * @param thisHP This is the Pokemon's health. Should have the Pokemon's health. 
 	     */
-		public void setHPMax(int thisHP) {	this.hpMax = thisHP; }
-		
+		/**
+		 * Sets the max hp of the pokemon
+		 * @param thisHP the new max hp
+		 */
+		 public void setHPMax(int thisHP) {	this.hpMax = thisHP; }
+		/**
+		 * The sets the current hp of the pokemon
+		 * Will cap at max hp
+		 * @param newHPCurrent
+		 */
 		public void setHPCurrent (int newHPCurrent) { 
 			this.hpCurrent = newHPCurrent;
 			if(this.hpCurrent > this.hpMax) {
 				this.hpCurrent = this.hpMax;
 			} 
 		} 
+		/**
+		 * Has the pokemon take damage
+		 * @param damage
+		 */
 		public void takeDamage (int damage) {
 			this.hpCurrent -= damage;
 			if(this.hpCurrent < 0) {
@@ -278,7 +290,9 @@ public class Stats {
 		 * @return this Pokemon's health.
 		 */
 		public int getHP() { return this.hpMax; }
-		
+		/**
+		 * @return current HP value
+		 */
 		public int getHPCurrent() { return this.hpCurrent; }
 
 		/**

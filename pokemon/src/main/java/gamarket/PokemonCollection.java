@@ -57,7 +57,7 @@ public class PokemonCollection {
 		
 	/**
 	 * The function uses a BufferedReader to read in data separated by commas in a given text file.
-	 * @param filename This is the data text file name (pokedata.txt). 
+	 * @param test optional parameter to tell which file to read from if testing 
 	 * The file should have id, name, gender, type, level, attack, special attack, speed, health, 
 	 * defense, special defense. 
 	 */
