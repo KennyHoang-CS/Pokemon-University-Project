@@ -1,6 +1,7 @@
 package gamarket;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,8 +9,19 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.TimeZone;
+
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Player {
     private String name;
@@ -22,9 +34,6 @@ public class Player {
     private String time1;
     private String time2;
     private String totalTime;
-    private Team pokeTeam;
-    private MoveCollection moveCollection;
-    private PokemonCollection pokeDex; //TODO
 
     /**
      * Player constructor initializes either a new player or returning player
@@ -33,9 +42,6 @@ public class Player {
      * @param pw gives the constructor the player's password
      **/
     public Player(Boolean newUser, String un, String pw) {
-
-        this.moveCollection = new MoveCollection();
-        this.pokeTeam = new Team(this.moveCollection);
 
         if (newUser) {
             Date originalDate = new Date();
@@ -50,7 +56,7 @@ public class Player {
             this.joinDate = formatter.format(originalDate);
             formatter = new SimpleDateFormat("HH:mm:ss");
             this.time1 = formatter.format(originalDate);
-            this.pokeTeam.loadTeam("default");
+            // this.pokeTeam.loadTeam("default");
         } else {
             this.name = un;
             this.password = pw;
@@ -58,8 +64,14 @@ public class Player {
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
             Date currentTime = new Date();
             this.time1 = timeFormat.format(currentTime);
-
+            this.time2 = time1;
         }
+    }
+    /**
+     * needed for firebase getData
+     */
+    public  Player () {
+
     }
 
     public void setName(String username) {
@@ -94,9 +106,9 @@ public class Player {
 
     public int getTotalPokemon(){ return totalPokemon; }
 
-    public Team getPokeTeam(){ return pokeTeam; }
+    public Team getPokeTeam(){ return null;}//pokeTeam; }
 
-    public PokemonCollection getPokeDex(){ return pokeDex; }
+    // public PokemonCollection getPokeDex(){ return pokeDex; }
 
     /**
      * loadData loads the returning player's saved data
@@ -123,7 +135,6 @@ public class Player {
             this.totalPokemon = Integer.parseInt(temp[5]);
             this.joinDate = temp[6];
             this.totalTime = temp[7];
-            this.pokeTeam.loadTeam(fileName);
             //  These lines of code are commented out due to errors when calling respective class methods
             // due to source files are not set up correctly yet
             // this.pokeDex.loadData(name);
@@ -134,7 +145,34 @@ public class Player {
         }
 
     }
+    public void saveToDB () {
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("player");
+        Map<String, Player> players = new HashMap<>();
+        players.put(this.name, this);
+        ref.setValueAsync(players);
+    }
 
+    public void loadFromDb () {
+        
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("player/" + this.name);
+        ref.addValueEventListener(new ValueEventListener(){
+        
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                // TODO Auto-generated method stub
+                System.out.println(snapshot.getValue(Player.class));
+            }
+        
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // TODO Auto-generated method stub
+                
+            }
+        });
+        
+    }
     /**
      * saveData saves the user's data in the proper format
      * Proper player profile format:

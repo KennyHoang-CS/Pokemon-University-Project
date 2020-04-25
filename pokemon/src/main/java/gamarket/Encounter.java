@@ -10,7 +10,7 @@ public class Encounter {
     private Pokemon activePlayerPokemon;
     private boolean battling;
     private boolean attacker;
-    private Player thePlayer; 
+    private Team playerTeam; 
     private PokemonCollection collection;
     private Scanner scan = new Scanner(System.in);
     
@@ -20,9 +20,9 @@ public class Encounter {
      * @param player Loaded player provided by the client
      * @param pc Pokemon Collection Passed by the client
      */
-    Encounter (Player player, PokemonCollection pc) {
+    Encounter (Team playersTeam, PokemonCollection pc) {
         this.collection = pc;
-        this.thePlayer = player;
+        this.playerTeam = playersTeam;
         this.activePlayerPokemon = getPlayerActivePokemon();
         this.wildPokemon = generateWildPokemon();
         this.battling = true; 
@@ -34,7 +34,7 @@ public class Encounter {
      * @return The first active Pokemon
      */
     private Pokemon getPlayerActivePokemon() {
-        return this.thePlayer.getPokeTeam().getActivePokemon();
+        return this.playerTeam.getActivePokemon();
     }
 
     /**
@@ -75,7 +75,7 @@ public class Encounter {
                     System.out.println(bag(getInput()));
                     break;
                 case "pokemon":
-                    this.thePlayer.getPokeTeam().displayTeam();
+                    this.playerTeam.displayTeam();
                     inputString = getInput();
                     this.attacker = false;
                     System.out.println(getAttackStatus());
@@ -220,7 +220,7 @@ public class Encounter {
         }
         if(this.activePlayerPokemon.hasPokemonFainted()) {
             result = this.activePlayerPokemon.getIdentStats().getName() + "has fainted.";
-            if(this.thePlayer.getPokeTeam().hasActivePokemon()) {
+            if(this.playerTeam.hasActivePokemon()) {
                 result += switchPokemon(getInput());
             }
             else {
@@ -284,17 +284,16 @@ public class Encounter {
      */
     public String switchPokemon (String input) {
         String result = "";
-        Team team = this.thePlayer.getPokeTeam();
         if(input.equals("b")) {
             return "return to main menu";
         }
 
         int convetedInput = Integer.parseInt(input);
-        if(convetedInput > team.getNumOfPokesInTeam()) {
+        if(convetedInput > this.playerTeam.getNumOfPokesInTeam()) {
             return switchPokemon(getInput());
         }
 
-        Pokemon pokeatTeamIndex = team.getPokemonAtIndex(convetedInput - 1);
+        Pokemon pokeatTeamIndex = this.playerTeam.getPokemonAtIndex(convetedInput - 1);
         if(pokeatTeamIndex.hasPokemonFainted()) {
             return "That pokemon has is knocked out, returning to main menu";
         }
@@ -317,7 +316,7 @@ public class Encounter {
         switch (itemString) {
             case "Pokeball":
                 PokeBall ball = (PokeBall) item;
-                boolean throwSucceed = ball.throwBall(this.wildPokemon, this.thePlayer.getPokeTeam());
+                boolean throwSucceed = ball.throwBall(this.wildPokemon, this.playerTeam);
                 if(throwSucceed) {
                     
                     this.battling = false;

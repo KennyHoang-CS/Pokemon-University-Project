@@ -10,7 +10,12 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+import java.io.FileInputStream;
 import java.util.*;
+
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 
 public class Client extends Application {
     private StartMenuGUI startMenu;
@@ -21,7 +26,7 @@ public class Client extends Application {
     private int height = 800;
     private PokemonCollection pokeCollection;
     private MoveCollection moveCollection;
-
+    private Team playerTeam;
     public static void main(String args[]){
         launch(args);
     }
@@ -108,9 +113,10 @@ public class Client extends Application {
      */
     public GridPane gameInterface(boolean newPlayer, String username, String password){
         loadCollections();
-
+        connectToDB();
         if(!newPlayer){
             player = new Player(false, username, password);
+            player.loadFromDb();
             grid = new Grid();
             grid.loadData(startMenu.getUsername(), false);
         }else{
@@ -118,7 +124,11 @@ public class Client extends Application {
             grid = new Grid();
             grid.loadData("new",false);
         }
-
+        player.saveToDB();
+        playerTeam = new Team(moveCollection);
+       // team.loadTeam(username);
+        playerTeam.loadFromDb(username);
+        
         root = new GridPane();
         root.setStyle("-fx-background-color: #a3a3a3;");
         root.setPrefSize(width, height);
@@ -137,12 +147,27 @@ public class Client extends Application {
         return root;
 
     }
+    public void connectToDB () {
+        FileInputStream serviceAccount;
+        try {
+            serviceAccount = new FileInputStream("./pokemon/databaseFiles/pokemoneastbay-firebase-adminsdk-75gh7-d0b842b720.json");
+            FirebaseOptions options = new FirebaseOptions.Builder()
+            .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+            .setDatabaseUrl("https://pokemoneastbay.firebaseio.com")
+            .build();
 
+        FirebaseApp.initializeApp(options);
+        } catch (Exception e) {
+            //TODO: handle exception
+            System.out.println(e);
+        }
+    }
     /**
      * save saves the current players data and grid
      */
     public void save(){
         player.saveData();
+        
         grid.save(player.getName(), false);
     }
 
@@ -156,8 +181,9 @@ public class Client extends Application {
     }
     public void encouter(){
         System.out.println("Pokemon encountered!");
-        Encounter aEncounter = new Encounter(player, pokeCollection);
+        Encounter aEncounter = new Encounter(playerTeam, pokeCollection);
         aEncounter.battle();
+        playerTeam.saveToDb(player.getName());
     }
 
     /**
