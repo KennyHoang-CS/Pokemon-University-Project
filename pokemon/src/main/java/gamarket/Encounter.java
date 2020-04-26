@@ -65,7 +65,7 @@ public class Encounter {
                     System.out.println(displayPokemonMoves());
                     inputString = getInput();
                     System.out.println(fight(inputString));
-                    System.out.println(this.attacker ? " \n You are attacking":"You are deffending");
+                    System.out.println(getAttackStatus());
                     System.out.println(displayPokemonMoves());
                     inputString = getInput();
                     System.out.println(fight(inputString));
@@ -221,7 +221,7 @@ public class Encounter {
         if(this.activePlayerPokemon.hasPokemonFainted()) {
             result = this.activePlayerPokemon.getIdentStats().getName() + "has fainted.";
             if(this.thePlayer.getPokeTeam().hasActivePokemon()) {
-                result += switchPokemon(getInput());
+                result += switchPokemon(getInput(), true);
             }
             else {
                 result += "out of pokemon.";
@@ -282,10 +282,10 @@ public class Encounter {
      * for one in the team. 
      * @return string telling result of the switch
      */
-    public String switchPokemon (String input) {
+    public String switchPokemon (String input, Boolean... fainted) {
         String result = "";
         Team team = this.thePlayer.getPokeTeam();
-        if(input.equals("b")) {
+        if(input.equals("b") && fainted.length > 0 && fainted[0] == false) {
             return "return to main menu";
         }
 
