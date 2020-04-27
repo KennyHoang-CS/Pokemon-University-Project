@@ -1,6 +1,11 @@
 package gamarket;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * Encounter class represents a battle between player and wild pokemon
@@ -26,8 +31,19 @@ public class Encounter {
         this.activePlayerPokemon = getPlayerActivePokemon();
         this.wildPokemon = generateWildPokemon();
         this.battling = true; 
-        
         this.attacker = true;
+        postEncounterToDB("placeholder");
+    }
+
+    public void postEncounterToDB (String playerName) {
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+		DatabaseReference ref = database.getReference("encounter/" + playerName);
+		
+        Map<String, Object> encounter = new HashMap<>();
+        encounter.put("battling", this.battling);
+        encounter.put("p1A", this.attacker);
+        //encounter.put
+        ref.updateChildrenAsync(encounter);//.setValueAsync(team);
     }
     /**
      * Gets the first non-fainted pokemon from the players team
