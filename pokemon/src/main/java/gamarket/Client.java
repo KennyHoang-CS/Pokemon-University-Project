@@ -157,8 +157,17 @@ public class Client extends Application {
     public void encouter(){
         System.out.println("Pokemon encountered!");
         Encounter aEncounter = new Encounter(player, pokeCollection);
+        
+        // begin the wild Pokemon encounter music.
+        Soundtrack.stopMusic();                             // stop the previous music that was playing. 
+        Soundtrack.loadMusic("wild_encounter.wav");
+        Soundtrack.startMusic();                            // start the wild encounter music.
         aEncounter.battle();
-    }
+        Soundtrack.stopMusic();                             // stop the Wild_Encounter music, since the battle is over.  
+        Soundtrack.loadMusic("in_game1.wav");               // load in the previous music that was playing.
+        Soundtrack.startMusic();                            // As the soundtrack files get bigger, probably will use two music variables 
+                                                            // to keep track of previous and current. 
+     }
 
     /**
      * encounterCheck checks the tile the player moved on.
