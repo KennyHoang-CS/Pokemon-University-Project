@@ -3,6 +3,8 @@ package gamarket;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -20,7 +22,9 @@ public class Soundtrack {
             if (musicPath.exists()) {
                 AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
                 music = AudioSystem.getClip();
-			    music.open(audioInput);
+                music.open(audioInput);
+                FloatControl gainControl = (FloatControl) music.getControl(FloatControl.Type.MASTER_GAIN);
+                gainControl.setValue(-15.0f); // Reduce volume by 10 decibels.
 			    System.out.println("Music is Playing.");
 		    }
 		   else 
