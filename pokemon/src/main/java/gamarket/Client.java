@@ -23,7 +23,8 @@ public class Client extends Application {
     private Stage window;
     private int width = 800;
     private int height = 800;
-    private int menuOpen;
+    private boolean paused;
+    private Menu menu;
 
     public static void main(String args[]){
         launch(args);
@@ -42,8 +43,14 @@ public class Client extends Application {
         startMenu.display();
         stackPane.getChildren().addAll(gameInterface(startMenu.getNewUser(), startMenu.getUsername(), startMenu.getPassword()));
         Scene scene = new Scene(stackPane);
-        menuOpen = 0;
         window.setScene(scene);
+        paused = false;
+        startMenu = null;
+
+        menu = Menu.getInstance();
+        menu.setPlayer(player);
+        menu.setWindow(window);
+
 
             ArrayList<String> input = new ArrayList<String>();
             scene.setOnKeyPressed(
@@ -88,15 +95,20 @@ public class Client extends Application {
                             updateGUI("d");
                             encounterCheck();
                         } else if (input.contains("E")) {
-                            if(menuOpen == 0){
-                                menu();
-                                menuOpen++;
+                            if(!paused) {
+                                stackPane.getChildren().addAll(menu.display());
+                                stackPane.getChildren().get(0).setDisable(true);
+                                //this.stop();
+                                paused = true;
+                            }else if(paused){
+                                stackPane.getChildren().remove(menu);
+                                paused = false;
                             }
+
                         }
                     }
                 }
             }.start();
-
 
 
         window.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -130,9 +142,6 @@ public class Client extends Application {
             grid = new Grid();
             grid.loadData("new",false);
         }
-
-        gameGUI.setVgap(0.0);
-        gameGUI.setHgap(0.0);
 
         TileGUI tile;
         for (int y = 0; y < grid.getYMax(); y++) {
@@ -225,135 +234,5 @@ public class Client extends Application {
         TileGUI playerNew = (TileGUI)this.gameGUI.getChildren().get(location);
         playerNew.renderPlayer();
     }
-
-    private void menu(){
-        StackPane sp = new StackPane();
-        GridPane black = new GridPane();
-
-        black.setStyle("-fx-background-color: black;" +
-                "-fx-opacity: .3px");
-
-        GridPane gameMenu = new GridPane();
-        gameMenu.setAlignment(Pos.CENTER_LEFT);
-        gameMenu.setStyle("-fx-background-color: white;" +
-                "-fx-background-radius: 15px;" +
-                "-fx-max-height: 800px;" +
-                "-fx-max-width: 400px;" +
-                "-fx-translate-x: 250px;" +
-                "-fx-font-family: 'Courier New';" +
-                "-fx-font-size: 50px;" +
-                "-fx-vgap: 30px;");
-
-        //gameMenu.setGridLinesVisible(true);  
-
-        Button pokedex = new Button("Pokedex");
-        pokedex.setOnAction(e -> {
-            //TODO
-        });
-        pokedex.setStyle(buttonStyle());
-        pokedex.setOnMouseEntered(event -> {
-            pokedex.setStyle(hover());
-        });
-        pokedex.setOnMouseExited(event -> {
-            pokedex.setStyle(buttonStyle());
-        });
-
-        Button pokemon = new Button("Pokemon");
-        pokemon.setOnAction(e -> {
-            //TODO
-        });
-        pokemon.setStyle(buttonStyle());
-        pokemon.setOnMouseEntered(event -> {
-            pokemon.setStyle(hover());
-        });
-        pokemon.setOnMouseExited(event -> {
-            pokemon.setStyle(buttonStyle());
-        });
-
-        Button bag = new Button("Bag");
-        bag.setOnAction(e -> {
-            //TODO
-        });
-        bag.setStyle(buttonStyle());
-        bag.setOnMouseEntered(event -> {
-            bag.setStyle(hover());
-        });
-        bag.setOnMouseExited(event -> {
-            bag.setStyle(buttonStyle());
-        });
-
-        String name = player.getName();
-        Button playerInfo = new Button(name);
-        playerInfo.setOnAction(e -> {
-            //TODO
-        });
-        playerInfo.setStyle(buttonStyle());
-        playerInfo.setOnMouseEntered(event -> {
-            playerInfo.setStyle(hover());
-        });
-        playerInfo.setOnMouseExited(event -> {
-            playerInfo.setStyle(buttonStyle());
-        });
-
-        Button saveGame = new Button("Save");
-        saveGame.setOnAction(e -> {
-            save();
-            saveGame.setStyle(buttonStyle());
-            //TODO
-        });
-        saveGame.setStyle(buttonStyle());
-        saveGame.setOnMouseEntered(event -> {
-            saveGame.setStyle(hover());
-        });
-        saveGame.setOnMouseExited(event -> {
-           saveGame.setStyle(buttonStyle());
-        });
-
-
-        Button exit = new Button("Exit");
-        exit.setOnAction(e -> {
-            stackPane.getChildren().removeAll(black, gameMenu);
-            exit.setStyle(buttonStyle());
-        });
-        exit.setStyle(buttonStyle());
-        exit.setOnMouseEntered(event -> {
-            exit.setStyle(hover());
-        });
-        exit.setOnMouseExited(event -> {
-            exit.setStyle(buttonStyle());
-        });
-
-        pokedex.setPadding(new Insets(20,20,20,20));
-        gameMenu.add(pokedex, 0,0);
-        gameMenu.add(pokemon, 0,1);
-        gameMenu.add(bag,0,2);
-        gameMenu.add(playerInfo, 0,3);
-        gameMenu.add(saveGame, 0,4);
-        gameMenu.add(exit, 0,5);
-
-
-        stackPane.getChildren().addAll(black, gameMenu);
-        window.setScene(new Scene(stackPane));
-    }
-
-    private String buttonStyle(){
-        String style = "-fx-background-color: white;" +
-                "-fx-text-alignment: center;" +
-                "-fx-max-width: 300px" +
-                "-fx-translate-x: 20px;";
-
-        return style;
-    }
-    private String hover(){
-        String style = "-fx-background-color: white;" +
-                "-fx-text-alignment: center;" +
-                "-fx-font-weight: bold;" +
-                "-fx-max-width: 300px" +
-                "-fx-translate-x: 20px;";
-
-        return style;
-    }
-
-
 
 }

@@ -59,37 +59,24 @@ public class Player {
     public void setName(String username) {
         this.name = username;
     }
-
     public void setEmail(String e) {
         this.email = e;
     }
-
     public void setPassword(String pw) {
         this.password = pw;
     }
-
     public void setBadges(int amt){
         this.badges = amt;
     }
-
     public void setMoney(long amt){ this.money = amt; }
-
     public void setTotalPokemon(int amt){ this.totalPokemon = amt; }
-
     public String getName(){ return name; }
-
     public String getEmail(){ return email; }
-
     public String getPassword(){ return password; }
-
     public int getBadges(){ return badges; }
-
     public double getMoney(){ return money; }
-
     public int getTotalPokemon(){ return totalPokemon; }
-
     public PokemonCollection getPokeTeam(){ return pokeTeam; }
-
     public PokemonCollection getPokeDex(){ return pokeDex; }
 
     /**
@@ -187,5 +174,13 @@ public class Player {
                 "\nPlayed Time: " + this.totalTime +
                 "\nPokemon Team: " + "TODO" +
                 "\nPokedex: " + "TODO";
+    }
+
+    public String getJoinDate() {
+        return this.joinDate;
+    }
+
+    public String getTimePlayed() {
+        return this.totalTime;
     }
 }
