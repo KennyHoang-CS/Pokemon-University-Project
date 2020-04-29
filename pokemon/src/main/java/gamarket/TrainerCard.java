@@ -1,12 +1,11 @@
 package gamarket;
 
-import javafx.scene.Parent;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 
 import java.io.File;
 
@@ -38,11 +37,46 @@ public class TrainerCard {
 
     public StackPane display() {
         GridPane gp = new GridPane();
-        gp.setStyle("-fx-max-height: 400px;" +
-                "-fx-max-width: 300px;" +
-                "-fx-vgap: 50px;");
-        gp.add(renderTrainer(),0,0);
-        gp.add(renderInfo(),1,0);
+        gp.setPadding(new Insets(50,0,50,0));
+        gp.setGridLinesVisible(true);
+
+        /*
+        ColumnConstraints col = new ColumnConstraints();
+        col.setMaxWidth(150.0);
+        gp.getColumnConstraints().addAll(col);
+
+        RowConstraints row = new RowConstraints();
+        row.setMaxHeight(150);
+        gp.getRowConstraints().addAll(row);
+        */
+
+        gp.setStyle("-fx-max-height: 560px;" +
+                "-fx-max-width: 600px;" +
+                "-fx-hgap: 150px;" +
+                "-fx-cell-size: 300px;");
+
+        Button trainerCard = new Button("Trainer Card");
+        trainerCard.setStyle("-fx-font-family: 'Courier New';" +
+                "-fx-font-size: 20px;" +
+                "-fx-background-color: black;" +
+                "-fx-opacity: .5;" +
+                "-fx-text-fill: white;" +
+                "-fx-font-weight: bold;" +
+                "-fx-font-style: oblique;" +
+                "-fx-max-width: 200px;" +
+                "-fx-border-radius: 5;" +
+                "-fx-alignment: left;");
+
+        Button exit = new Button("Exit");
+        exit.setOnAction(ev -> {
+
+        });
+        exit.setAlignment(Pos.BASELINE_RIGHT);
+
+        gp.add(trainerCard,0,0);
+        gp.add(renderTrainer(),0,1);
+        gp.add(renderInfo(),1,1);
+        gp.add(exit, 1,2);
 
         StackPane sp = new StackPane();
         sp.getChildren().addAll(renderBG(),gp);
@@ -52,7 +86,7 @@ public class TrainerCard {
     private GridPane loadBadges(int num){
         badges = new GridPane();
 
-        for(int i = 0; i < num; i++ ){
+        for(int i = 0; i < 8; i++ ){
             switch(i){
                 case 0:
                     badges.add(renderBadge("badge1"),0,0);
@@ -96,8 +130,8 @@ public class TrainerCard {
         File file = new File("./pokemon/imgs/"+ name + ".png");
         Image image =  new Image(file.toURI().toString());
         ImageView badge = new ImageView(image);
-        badge.setFitWidth(80);
-        badge.setFitHeight(80);
+        badge.setFitWidth(50);
+        badge.setFitHeight(50);
         return  badge;
     }
 
@@ -107,8 +141,8 @@ public class TrainerCard {
         GridPane info = new GridPane();
         bg.setStyle("-fx-background-color: black;" +
                 "-fx-opacity: .5;" +
-                "-fx-max-width: 500px;" +
-                "-fx-max-height: 500px;");
+                "-fx-max-width: 550px;" +
+                "-fx-max-height: 700px;");
         name = new Button("Name: " + player.getName());
         setStyle(name);
         money = new Button("Money: "+ player.getMoney());
@@ -133,28 +167,19 @@ public class TrainerCard {
     }
 
     private StackPane renderTrainer(){
-        Button trainerCard = new Button("Trainer Card");
-        trainerCard.setStyle("-fx-font-family: 'Courier New';" +
-                "-fx-font-size: 30px;" +
-                "-fx-background-color: none;" +
-                "-fx-text-fill: black;" +
-                "-fx-font-weight: bold;" +
-                "-fx-font-style: oblique;");
         Pane black = new Pane();
-        black.setStyle("-fx-background-color: pink;" +
-                "-fx-opacity: .5;" +
-                "-fx-max-height: 300px;" +
-                "-fx-max-width: 200px;");
+        black.setStyle("-fx-background-color: white;" +
+                "-fx-opacity: .8;" +
+                "-fx-border-radius: 25px;");
 
         GridPane gp = new GridPane();
         File file = new File("./pokemon/imgs/trainer.png");
         Image image =  new Image(file.toURI().toString());
         ImageView trainer = new ImageView(image);
-        trainer.setFitHeight(300);
-        trainer.setFitWidth(158);
+        trainer.setFitHeight(350);
+        trainer.setFitWidth(198);
 
-        gp.add(trainerCard,0,0);
-        gp.add(trainer, 0,1);
+        gp.add(trainer, 0,0);
 
         StackPane sp = new StackPane();
         sp.getChildren().addAll(black,gp);
