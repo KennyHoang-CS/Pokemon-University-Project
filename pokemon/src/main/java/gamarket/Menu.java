@@ -74,7 +74,7 @@ public class Menu {
             //TODO
             TrainerCard trainerCard = TrainerCard.getInstance();
             trainerCard.setPlayer(player);
-            window.setScene(new Scene(trainerCard.display()));
+            window.setScene(new Scene(trainerCard.display(true)));
         });
         setStyles(playerInfo);
 

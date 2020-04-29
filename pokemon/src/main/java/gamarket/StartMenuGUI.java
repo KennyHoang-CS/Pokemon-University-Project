@@ -1,5 +1,6 @@
 package gamarket;
 
+import gamarket.Soundtrack;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -30,11 +31,15 @@ public class StartMenuGUI{
     private StackPane stackPane;
     private Scene scene;
     private ImageView pokemonEastBay;
+    private Soundtrack music;
 
     /**
      * display sets up the window and background of the GUI
      */
     public void display(){
+        Soundtrack.loadMusic("title_screen.wav");
+        Soundtrack.startMusic();
+
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setResizable(false);
@@ -46,6 +51,12 @@ public class StartMenuGUI{
         scene = new Scene(stackPane);
         window.setScene(scene);
         window.showAndWait();
+
+
+        Soundtrack.stopMusic();
+        Soundtrack.loadMusic("in_game1.wav");
+        Soundtrack.startMusic();
+
     }
 
     /**
