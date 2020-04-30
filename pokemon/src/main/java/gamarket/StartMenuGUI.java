@@ -7,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,8 +19,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Collection;
@@ -28,6 +33,7 @@ import java.util.Scanner;
 public class StartMenuGUI{
     private String username;
     private String password;
+    private Player clientPlayer;
     private Boolean verified = null;
     private Boolean newUser = null;
     private Stage window;
@@ -42,6 +48,7 @@ public class StartMenuGUI{
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setResizable(false);
+        window.setOnCloseRequest((WindowEvent we) -> window.close());
         File file = new File("./pokemon/imgs/pikachu.gif");
         Image image =  new Image(file.toURI().toString());
         ImageView bg = new ImageView(image);
@@ -50,6 +57,7 @@ public class StartMenuGUI{
         scene = new Scene(stackPane);
         window.setScene(scene);
         window.showAndWait();
+        //window.show();
     }
 
     /**
@@ -94,7 +102,7 @@ public class StartMenuGUI{
         Label passLabel = new Label("Password:");
         grid.add(passLabel,0,3);
 
-        final TextField passInput = new TextField();
+        final PasswordField passInput = new PasswordField();
         grid.add(passInput,0,4);
 
         Button registerBtn = new Button("Register");
@@ -124,41 +132,63 @@ public class StartMenuGUI{
     private void verifyUser(String un, String pw){
         String filePath = "./pokemon/databaseFiles/UserDataBase.txt";
         File inFile = new File(filePath);
-
-        Scanner userDB = null;
-        try {
-            userDB = new Scanner(inFile);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        while(userDB.hasNextLine()){
-            String data = userDB.nextLine();
-            int indexOfFirstComma = data.indexOf(",");
-            int indexOfLastComma = data.lastIndexOf(",");
-            String email = data.substring(0,indexOfFirstComma);
-            String name = data.substring( (indexOfFirstComma+1),indexOfLastComma);
-            String pass = data.substring((indexOfLastComma+1), data.length());
-
-            if( (name.compareToIgnoreCase(un) == 0 || email.compareToIgnoreCase(un) == 0) && pass.compareTo(pw) == 0 ){
-                username = name;
-                password = pass;
-                verified = true;
-                newUser = false;
-                window.close();
-                break;
-            } else if( (name.compareToIgnoreCase(un) == 0 || email.compareToIgnoreCase(un) == 0) && pass.compareTo(pw) != 0){
-                verified = false;
-                alertBox(0);
-                break;
-            }else if(verified == null){
-                alertBox(0);
+        Player loadPlayer = new Player();
+        DatabaseReference ref = loadPlayer.loadFromDb(un);
+        //verified = false;
+       Stage windowRef = window;
+        ref.addValueEventListener(new ValueEventListener(){
+            
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                // TODO Auto-generated method stub
+                System.out.println("call from startmenuGUI");
+                clientPlayer = snapshot.getValue(Player.class);
+                // Player loadPlayer = snapshot.getValue(Player.class);
+                System.out.println(snapshot.getValue().getClass());
+                if(clientPlayer.getPassword().equals(pw)){
+                    System.out.println("success fully got player");
+                    System.out.println(loadPlayer);
+                    username = un;
+                    password = pw;
+                    verified = true;
+                    newUser = false;
+                    
+                    
+                    closeWindow();
+                    System.out.println("called close window");
+                    //window.show();
+                    //Platform.exit();
+                    
+                }
+                else if (!loadPlayer.getPassword().equals(pw)){
+                    System.out.println("login failed");
+                }
             }
-        }
-
-
+        
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // TODO Auto-generated method stub
+                System.out.println("mistakes were made");
+                System.out.println(error);
+            }
+        });
     }
-
+    public void closeWindow () {
+        try {
+            Platform.runLater(new Runnable(){
+                @Override
+                public void run() {
+                    window.hide();
+                    window.close();
+                    window.fireEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSE_REQUEST));
+                }
+             });
+        } catch (Exception e) {
+            //TODO: handle exception
+            System.out.println(e);
+        }
+        //this.window.close();
+    }
     /**
      * alertBox creates an alert box for the user to know their log-in information was incorrct
      * @param alert decides what type of alert to display. '0' if failed login, '1' for existing user
@@ -219,7 +249,7 @@ public class StartMenuGUI{
         Label passLabel = new Label("Please enter your password:");
         grid.add(passLabel, 0, 3);
 
-        final TextField passInput = new TextField();
+        final PasswordField passInput = new PasswordField();
         grid.add(passInput, 0, 4);
 
         Button registerBtn = new Button("Register");
@@ -231,14 +261,14 @@ public class StartMenuGUI{
                 username = name;
                 password = pass;
                 newUser = true;
-                window.close();
+                this.window.close();
             } else{
                 alertBox(1);
             }
         });
         grid.add(registerBtn, 0, 5);
         stackPane.getChildren().addAll(black, grid);
-        window.setScene(new Scene(stackPane));
+        this.window.setScene(new Scene(stackPane));
     }
 
     /**
@@ -246,6 +276,9 @@ public class StartMenuGUI{
      * @return if credentials do not exist it returns false, if they do it returns true
      */
     private boolean checkDatabase(String un, String pw){
+
+        
+
         String filePath = "./pokemon/databaseFiles/UserDataBase.txt";
         File inFile = new File(filePath);
 
@@ -271,7 +304,9 @@ public class StartMenuGUI{
         return false;
     }
 
-
+    public Player getClientPlayer() {
+        return clientPlayer;
+    }
     public Boolean getNewUser(){
         return newUser;
     }

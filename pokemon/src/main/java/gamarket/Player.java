@@ -153,25 +153,17 @@ public class Player {
         ref.setValueAsync(players);
     }
 
-    public void loadFromDb () {
-        
+    public DatabaseReference loadFromDb (String... playerName) {
+        String playerString;
+        if(playerName.length > 0) {
+            playerString = playerName[0];
+        }
+        else {
+            playerString = this.name;
+        } 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("player/" + this.name);
-        ref.addValueEventListener(new ValueEventListener(){
-        
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                // TODO Auto-generated method stub
-                System.out.println(snapshot.getValue(Player.class));
-            }
-        
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // TODO Auto-generated method stub
-                
-            }
-        });
-        
+        DatabaseReference ref = database.getReference("player/" + playerString);
+        return ref;
     }
     /**
      * saveData saves the user's data in the proper format

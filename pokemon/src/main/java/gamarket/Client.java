@@ -38,9 +38,11 @@ public class Client extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Pokemon: East Bay");
         primaryStage.setResizable(false);
+        connectToDB();
         startMenu = new StartMenuGUI();
         startMenu.display();
-        Scene scene = new Scene(gameInterface(startMenu.getNewUser(), startMenu.getUsername(), startMenu.getPassword()));
+        player = startMenu.getClientPlayer();
+        Scene scene = new Scene(gameInterface(startMenu.getNewUser()));
 
         primaryStage.setScene(scene);
 
@@ -111,23 +113,18 @@ public class Client extends Application {
      * @param password is usded to instantiate the player
      * @return returns the GUI
      */
-    public GridPane gameInterface(boolean newPlayer, String username, String password){
+    public GridPane gameInterface(Boolean newPlayer) {
         loadCollections();
-        connectToDB();
+        grid = new Grid();
         if(!newPlayer){
-            player = new Player(false, username, password);
-            player.loadFromDb();
-            grid = new Grid();
-            grid.loadData(startMenu.getUsername(), false);
+            grid.loadData(player.getName(), false);
         }else{
-            player = new Player(true, username, password);
-            grid = new Grid();
             grid.loadData("new",false);
         }
         player.saveToDB();
         playerTeam = new Team(moveCollection);
        // team.loadTeam(username);
-        playerTeam.loadFromDb(username);
+        playerTeam.loadFromDb(player.getName());
         
         root = new GridPane();
         root.setStyle("-fx-background-color: #a3a3a3;");
