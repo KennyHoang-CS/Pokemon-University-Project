@@ -38,7 +38,7 @@ public class StartMenuGUI{
      */
     public void display(){
         Soundtrack.loadMusic("title_screen.wav");
-        Soundtrack.startMusic();
+        //Soundtrack.startMusic();
 
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
@@ -55,7 +55,7 @@ public class StartMenuGUI{
 
         Soundtrack.stopMusic();
         Soundtrack.loadMusic("in_game1.wav");
-        Soundtrack.startMusic();
+        //Soundtrack.startMusic();
 
     }
 
@@ -169,8 +169,6 @@ public class StartMenuGUI{
                 verified = false;
                 alertBox(0);
                 break;
-            }else if(verified == null){
-                alertBox(0);
             }
         }
 
@@ -213,6 +211,14 @@ public class StartMenuGUI{
 
         grid.add(okBtn,0,1);
         grid.setHalignment(okBtn, HPos.CENTER);
+
+        grid.setOnKeyPressed(e -> {
+                    KeyCode keyCode = e.getCode();
+                    if (keyCode.equals(KeyCode.ENTER)) {
+                        okBtn.fire();
+                        return;
+                    }});
+
         alertWindow.setScene(new Scene(grid));
         alertWindow.showAndWait();
     }
@@ -287,6 +293,12 @@ public class StartMenuGUI{
         grid.setHalignment(backBtn, HPos.CENTER);
         grid.add(backBtn, 0,8);
         grid.add(registerBtn, 0, 7);
+        grid.setOnKeyPressed(e -> {
+                    KeyCode keyCode = e.getCode();
+                    if (keyCode.equals(KeyCode.ENTER)) {
+                       registerBtn.fire();
+                        return;
+                    }});
         stackPane.getChildren().addAll(black, grid);
         window.setScene(new Scene(stackPane));
     }
