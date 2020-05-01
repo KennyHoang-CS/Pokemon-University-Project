@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,6 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,6 +39,7 @@ public class StartMenuGUI{
     private Boolean verified = null;
     private Boolean newUser = null;
     private Stage window;
+    private Stage loadWindow;
     private StackPane stackPane;
     private Scene scene;
     private ImageView pokemonEastBay;
@@ -131,47 +134,53 @@ public class StartMenuGUI{
      */
     private void verifyUser(String un, String pw){
         String filePath = "./pokemon/databaseFiles/UserDataBase.txt";
+        
+        
         File inFile = new File(filePath);
         Player loadPlayer = new Player();
         DatabaseReference ref = loadPlayer.loadFromDb(un);
         //verified = false;
-       Stage windowRef = window;
         ref.addValueEventListener(new ValueEventListener(){
             
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                // TODO Auto-generated method stub
-                System.out.println("call from startmenuGUI");
+                closeLoadWindow();
+                if(snapshot.getValue() == null) {
+                    wrappedAlertBox(0);
+                }
                 clientPlayer = snapshot.getValue(Player.class);
-                // Player loadPlayer = snapshot.getValue(Player.class);
-                System.out.println(snapshot.getValue().getClass());
                 if(clientPlayer.getPassword().equals(pw)){
-                    System.out.println("success fully got player");
-                    System.out.println(loadPlayer);
                     username = un;
                     password = pw;
                     verified = true;
                     newUser = false;
-                    
-                    
                     closeWindow();
-                    System.out.println("called close window");
-                    //window.show();
-                    //Platform.exit();
-                    
                 }
-                else if (!loadPlayer.getPassword().equals(pw)){
+                else if (!clientPlayer.getPassword().equals(pw)){
+                    wrappedAlertBox(0);
                     System.out.println("login failed");
                 }
             }
         
             @Override
             public void onCancelled(DatabaseError error) {
-                // TODO Auto-generated method stub
                 System.out.println("mistakes were made");
                 System.out.println(error);
             }
         });
+        loadWindow();
+    }
+    public void closeLoadWindow () {
+        try {
+            Platform.runLater(new Runnable(){
+                @Override
+                public void run() {
+                    loadWindow.close();
+                }
+             });
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
     public void closeWindow () {
         try {
@@ -184,10 +193,26 @@ public class StartMenuGUI{
                 }
              });
         } catch (Exception e) {
-            //TODO: handle exception
             System.out.println(e);
         }
-        //this.window.close();
+    }
+    public void wrappedAlertBox (int code) {
+        Platform.runLater(new Runnable(){
+            @Override
+            public void run() {
+                alertBox(code);
+            }
+         });
+    }
+    private void loadWindow () {
+        loadWindow = new Stage();
+        loadWindow.initStyle(StageStyle.UNDECORATED);
+        loadWindow.initModality(Modality.APPLICATION_MODAL);
+        GridPane grid = new GridPane();
+        ProgressIndicator p1 = new ProgressIndicator();
+        grid.add(p1, 0, 0);
+        loadWindow.setScene(new Scene(grid));
+        loadWindow.showAndWait();
     }
     /**
      * alertBox creates an alert box for the user to know their log-in information was incorrct
@@ -198,7 +223,7 @@ public class StartMenuGUI{
         alertWindow.initModality(Modality.APPLICATION_MODAL);
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(10,10,10,10));
-        grid.setPrefSize(300,100);
+        grid.setPrefSize(400,100);
 
         Label label;
         if(alert == 0) {
@@ -257,14 +282,8 @@ public class StartMenuGUI{
         registerBtn.setOnAction(e -> {
             String name = nameInput.getText();
             String pass = passInput.getText();
-            if(!checkDatabase(name, pass)){
-                username = name;
-                password = pass;
-                newUser = true;
-                this.window.close();
-            } else{
-                alertBox(1);
-            }
+            checkDatabase(name, pass);
+            loadWindow();
         });
         grid.add(registerBtn, 0, 5);
         stackPane.getChildren().addAll(black, grid);
@@ -276,32 +295,32 @@ public class StartMenuGUI{
      * @return if credentials do not exist it returns false, if they do it returns true
      */
     private boolean checkDatabase(String un, String pw){
-
-        
-
-        String filePath = "./pokemon/databaseFiles/UserDataBase.txt";
-        File inFile = new File(filePath);
-
-        Scanner userDB = null;
-        try {
-            userDB = new Scanner(inFile);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        while(userDB.hasNextLine()){
-            String data = userDB.nextLine();
-            int indexOfFirstComma = data.indexOf(",");
-            int indexOfLastComma = data.lastIndexOf(",");
-            String email = data.substring(0,indexOfFirstComma);
-            String name = data.substring( (indexOfFirstComma+1),indexOfLastComma);
-
-            if(name.compareToIgnoreCase(un) == 0 || email.compareToIgnoreCase(un) == 0){
-                return true;
+        closeLoadWindow();
+        Player loadPlayer = new Player(); 
+        DatabaseReference ref = loadPlayer.loadFromDb(un);
+        ref.addValueEventListener(new ValueEventListener(){
+            
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if(snapshot.getValue() == null){
+                    clientPlayer = new Player(true, un, pw);
+                    newUser = true;
+                    verified = true;
+                    closeWindow();
+                }
+                else if(verified == false) {
+                    wrappedAlertBox(1);
+                }
             }
-        }
-
-        return false;
+        
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // TODO Auto-generated method stub
+                System.out.println("mistakes were made");
+                System.out.println(error);
+            }
+        });
+        return true;
     }
 
     public Player getClientPlayer() {

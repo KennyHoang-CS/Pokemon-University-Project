@@ -40,13 +40,13 @@ public class Team {
     
     public void saveToDb (String playerName) {
 		final FirebaseDatabase database = FirebaseDatabase.getInstance();
-		DatabaseReference ref = database.getReference("team/" + playerName);
-		
+		DatabaseReference ref = database.getReference("team/");
+		DatabaseReference playerTeam = ref.child(playerName);
         Map<String, Object> team = new HashMap<>();
         for(int i = 0; i < numOfPokesInTeam; i++) {
             team.put(Integer.toString(i), myTeam[i].toString("file"));
         }
-        ref.updateChildrenAsync(team);//.setValueAsync(team);
+        playerTeam.updateChildrenAsync(team);//.setValueAsync(team);
 	}
     public void loadFromDb (String playerName) {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();

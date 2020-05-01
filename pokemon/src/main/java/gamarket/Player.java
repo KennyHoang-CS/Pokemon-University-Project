@@ -148,9 +148,15 @@ public class Player {
     public void saveToDB () {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("player");
-        Map<String, Player> players = new HashMap<>();
-        players.put(this.name, this);
-        ref.setValueAsync(players);
+        DatabaseReference playerRef = ref.child(this.name);
+        Map<String, Object> players = new HashMap<>();
+        players.put("name", this.name);
+        players.put("badges",this.badges);
+        players.put("email", this.email);
+        players.put("money", this.money);
+        players.put("totalPokemon", this.totalPokemon);
+        players.put("password", this.password);
+        playerRef.setValueAsync(players);
     }
 
     public DatabaseReference loadFromDb (String... playerName) {
@@ -162,7 +168,8 @@ public class Player {
             playerString = this.name;
         } 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("player/" + playerString);
+        DatabaseReference playersRef = database.getReference("player/");
+        DatabaseReference ref = playersRef.child(playerString);
         return ref;
     }
     /**

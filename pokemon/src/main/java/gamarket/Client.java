@@ -116,15 +116,19 @@ public class Client extends Application {
     public GridPane gameInterface(Boolean newPlayer) {
         loadCollections();
         grid = new Grid();
+        playerTeam = new Team(moveCollection);
         if(!newPlayer){
             grid.loadData(player.getName(), false);
+            playerTeam.loadFromDb(player.getName());
         }else{
             grid.loadData("new",false);
+            player.saveToDB();
+            playerTeam.loadFromDb("default");
+            playerTeam.saveToDb(player.getName());
         }
-        player.saveToDB();
-        playerTeam = new Team(moveCollection);
-       // team.loadTeam(username);
-        playerTeam.loadFromDb(player.getName());
+        
+        
+        
         
         root = new GridPane();
         root.setStyle("-fx-background-color: #a3a3a3;");
@@ -163,7 +167,7 @@ public class Client extends Application {
      * save saves the current players data and grid
      */
     public void save(){
-        player.saveData();
+        player.saveToDB();
         
         grid.save(player.getName(), false);
     }
