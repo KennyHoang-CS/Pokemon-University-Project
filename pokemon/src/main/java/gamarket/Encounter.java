@@ -42,7 +42,6 @@ public class Encounter {
         Map<String, Object> encounter = new HashMap<>();
         encounter.put("battling", this.battling);
         encounter.put("p1A", this.attacker);
-        //encounter.put
         ref.updateChildrenAsync(encounter);//.setValueAsync(team);
     }
     /**

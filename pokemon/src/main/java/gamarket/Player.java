@@ -14,14 +14,8 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.TimeZone;
 
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class Player {
     private String name;
@@ -56,7 +50,6 @@ public class Player {
             this.joinDate = formatter.format(originalDate);
             formatter = new SimpleDateFormat("HH:mm:ss");
             this.time1 = formatter.format(originalDate);
-            // this.pokeTeam.loadTeam("default");
         } else {
             this.name = un;
             this.password = pw;
@@ -106,7 +99,6 @@ public class Player {
 
     public int getTotalPokemon(){ return totalPokemon; }
 
-    public Team getPokeTeam(){ return null;}//pokeTeam; }
 
     // public PokemonCollection getPokeDex(){ return pokeDex; }
 

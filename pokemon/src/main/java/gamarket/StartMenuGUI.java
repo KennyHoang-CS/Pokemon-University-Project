@@ -139,7 +139,6 @@ public class StartMenuGUI{
         File inFile = new File(filePath);
         Player loadPlayer = new Player();
         DatabaseReference ref = loadPlayer.loadFromDb(un);
-        //verified = false;
         ref.addValueEventListener(new ValueEventListener(){
             
             @Override
@@ -315,7 +314,6 @@ public class StartMenuGUI{
         
             @Override
             public void onCancelled(DatabaseError error) {
-                // TODO Auto-generated method stub
                 System.out.println("mistakes were made");
                 System.out.println(error);
             }
