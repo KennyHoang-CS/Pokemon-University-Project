@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 public class Menu {
     private Player player;
     protected static Menu menu;
-    private Stage window;
+    private SceneController sceneController;
 
     protected Menu(){
     }
@@ -26,8 +26,9 @@ public class Menu {
     public void setPlayer(Player player){
         this.player = player;
     }
-    public void setWindow(Stage window){
-        this.window = window;
+    public void setSceneController(Stage window){
+        sceneController = new SceneController(window);
+
     }
 
     public StackPane display(){
@@ -60,6 +61,7 @@ public class Menu {
         Button pokemon = new Button("Pokemon");
         pokemon.setOnAction(e -> {
             //TODO
+            sceneController.poketeamScene(player);
         });
         setStyles(pokemon);
 
@@ -71,10 +73,7 @@ public class Menu {
 
         Button playerInfo = new Button(player.getName());
         playerInfo.setOnAction(e -> {
-            //TODO
-            TrainerCard trainerCard = TrainerCard.getInstance();
-            trainerCard.setPlayer(player);
-            window.setScene(new Scene(trainerCard.display(true)));
+            sceneController.trainerCardScene(player);
         });
         setStyles(playerInfo);
 
@@ -89,6 +88,10 @@ public class Menu {
         Button exit = new Button("Exit");
         exit.setOnAction(e -> {
             exit.setStyle(buttonStyle());
+            sceneController.returnScene();
+            StackPane s = (StackPane)exit.getScene().getRoot();
+            s.getChildren().remove(display());
+
         });
         setStyles(exit);
 

@@ -27,6 +27,7 @@ public class Client extends Application {
     private Menu menu;
     private PokemonCollection pokeCollection;
     private MoveCollection moveCollection;
+    private SceneController sceneController;
 
     public static void main(String args[]) {
         launch(args);
@@ -40,19 +41,16 @@ public class Client extends Application {
         window = primaryStage;
         window.setTitle("Pokemon: East Bay");
         window.setResizable(false);
-        stackPane = new StackPane();
+        sceneController = new SceneController(window);
         StartMenuGUI startMenu = new StartMenuGUI();
         startMenu.display();
-        stackPane.getChildren().addAll(gameInterface(startMenu.getNewUser(), startMenu.getUsername(), startMenu.getPassword()));
+        stackPane = gameInterface(startMenu.getNewUser(),startMenu.getUsername(),startMenu.getPassword());
         Scene scene = new Scene(stackPane);
         window.setScene(scene);
         paused = false;
-        startMenu = null;
-
         menu = Menu.getInstance();
         menu.setPlayer(player);
-        menu.setWindow(window);
-
+        menu.setSceneController(window);
 
         ArrayList<String> input = new ArrayList<String>();
         scene.setOnKeyPressed(
@@ -97,16 +95,16 @@ public class Client extends Application {
                         updateGUI("d");
                         encounterCheck();
                     } else if (input.contains("E")) {
-                        if (!paused) {
-                            stackPane.getChildren().addAll(menu.display());
+                        if(paused){
+                            stackPane.getChildren().remove(1);
+                            stackPane.getChildren().get(0).setDisable(false);
+                        }else{
+                            stackPane.getChildren().add(menu.display());
                             stackPane.getChildren().get(0).setDisable(true);
-                            //this.stop();
-                            paused = true;
-                        } else if (paused) {
-                            stackPane.getChildren().remove(menu);
-                            paused = false;
-                        }
 
+                            System.out.println(window.getScene());
+                            System.out.println(stackPane.getChildren().get(1));
+                        }
                     }
                 }
             }
@@ -134,8 +132,9 @@ public class Client extends Application {
      * @param password  is usded to instantiate the player
      * @return returns the GUI
      */
-    public GridPane gameInterface(boolean newPlayer, String username, String password) {
+    public StackPane gameInterface(boolean newPlayer, String username, String password) {
         loadCollections();
+        stackPane = new StackPane();
 
         gameGUI = new GridPane();
         if (!newPlayer) {
@@ -158,8 +157,8 @@ public class Client extends Application {
         updateGUI("a");
         updateGUI("d");
 
-
-        return gameGUI;
+        stackPane.getChildren().addAll(gameGUI);
+        return stackPane;
 
     }
 
@@ -184,15 +183,14 @@ public class Client extends Application {
         System.out.println("Pokemon encountered!");
         Encounter aEncounter = new Encounter(player, pokeCollection);
 
-        // begin the wild Pokemon encounter music.
-        Soundtrack.stopMusic();                             // stop the previous music that was playing.
+        Soundtrack.stopMusic();
         Soundtrack.loadMusic("wild_encounter.wav");
-        Soundtrack.startMusic();                            // start the wild encounter music.
-        aEncounter.battle();
-        Soundtrack.stopMusic();                             // stop the Wild_Encounter music, since the battle is over.
-        Soundtrack.loadMusic("in_game1.wav");               // load in the previous music that was playing.
-        Soundtrack.startMusic();                            // As the soundtrack files get bigger, probably will use two music variables
-        // to keep track of previous and current.
+        Soundtrack.startMusic();
+        sceneController.encounterScene();
+       // aEncounter.battle();
+        Soundtrack.stopMusic();
+        Soundtrack.loadMusic("in_game1.wav");
+        Soundtrack.startMusic();
     }
 
     /**

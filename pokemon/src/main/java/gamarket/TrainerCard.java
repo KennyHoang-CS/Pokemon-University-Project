@@ -6,18 +6,19 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
 
 import java.io.File;
 
 public class TrainerCard {
     private Player player;
-    private Button title;
     private Button name;
     private Button money;
     private Button joinDate;
     private Button timePlayed;
     private Button badge;
     private GridPane badges;
+    private SceneController sceneController;
 
     protected static TrainerCard trainerCard;
 
@@ -34,26 +35,21 @@ public class TrainerCard {
     public void setPlayer(Player player) {
         this.player = player;
     }
+    public void setSceneController(Stage window){ sceneController = new SceneController(window); }
 
     public StackPane display() {
         GridPane gp = new GridPane();
         gp.setPadding(new Insets(50,0,50,0));
-        gp.setGridLinesVisible(true);
 
-        /*
-        ColumnConstraints col = new ColumnConstraints();
-        col.setMaxWidth(150.0);
-        gp.getColumnConstraints().addAll(col);
 
-        RowConstraints row = new RowConstraints();
-        row.setMaxHeight(150);
-        gp.getRowConstraints().addAll(row);
-        */
-
-        gp.setStyle("-fx-max-height: 560px;" +
+        gp.setStyle("-fx-min-height: 560px;" +
+                "-fx-max-height: 560;" +
+                "-fx-min-width: 600px;" +
                 "-fx-max-width: 600px;" +
-                "-fx-hgap: 150px;" +
-                "-fx-cell-size: 300px;");
+                "-fx-translate-x: -85px;"+
+                "-fx-border-width: 2px;" +
+                "-fx-border-radius: 10px;" +
+                "-fx-background-radius: 10px;");
 
         Button trainerCard = new Button("Trainer Card");
         trainerCard.setStyle("-fx-font-family: 'Courier New';" +
@@ -63,15 +59,19 @@ public class TrainerCard {
                 "-fx-text-fill: white;" +
                 "-fx-font-weight: bold;" +
                 "-fx-font-style: oblique;" +
-                "-fx-max-width: 200px;" +
-                "-fx-border-radius: 5;" +
-                "-fx-alignment: left;");
+                "-fx-border-color: white;" +
+                "-fx-alignment: left;" +
+                "-fx-border-radius: 10px;" +
+                "-fx-background-radius: 10px;");
 
         Button exit = new Button("Exit");
         exit.setOnAction(ev -> {
-
+            sceneController.returnScene();
+            exit.setStyle(hover());
         });
-        exit.setAlignment(Pos.BASELINE_RIGHT);
+        exit.setStyle(buttonStyle());
+        exit.setOnMouseEntered(event -> {exit.setStyle(hover());});
+        exit.setOnMouseExited(event -> {exit.setStyle(buttonStyle());});
 
         gp.add(trainerCard,0,0);
         gp.add(renderTrainer(),0,1);
@@ -83,10 +83,31 @@ public class TrainerCard {
         return sp;
     }
 
-    private GridPane loadBadges(int num){
+    private StackPane loadBadges(int num){
+        StackPane sp = new StackPane();
+        GridPane bg = new GridPane();
+        bg.setStyle(
+                "-fx-translate-x: 15;" +
+                        "-fx-background-color: lightgrey;" +
+                        "-fx-opacity: .5;" +
+                        "-fx-min-height: 150px;" +
+                        "-fx-vgap: 20px;" +
+                        "-fx-alignment: center;" +
+                        "-fx-border-radius: 10px;" +
+                        "-fx-background-radius: 10px;" +
+                        "-fx-border-color: white;" +
+                        "-fx-border-width: 2px;");
         badges = new GridPane();
-
-        for(int i = 0; i < 8; i++ ){
+        badges.setStyle(
+                "-fx-translate-x: 15;" +
+                "-fx-min-height: 150px;" +
+                        "-fx-vgap: 20px;" +
+                        "-fx-alignment: center;" +
+                        "-fx-border-color: white;" +
+                        "-fx-border-width: 2px;" +
+                        "-fx-opacity: 0.8;" +
+                        "-fx-border-radius: 10px;");
+        for(int i = 0; i < num; i++ ){
             switch(i){
                 case 0:
                     badges.add(renderBadge("badge1"),0,0);
@@ -114,16 +135,22 @@ public class TrainerCard {
                     break;
             }
         }
-        return badges;
+        sp.getChildren().addAll(bg, badges);
+        return sp;
     }
 
-    private ImageView renderBG(){
+    private Pane renderBG(){
+        Pane pane = new Pane();
         File file = new File("./pokemon/imgs/tCard.jpg");
         Image image =  new Image(file.toURI().toString());
         ImageView bg = new ImageView(image);
         bg.setFitHeight(600);
         bg.setFitWidth(800);
-        return bg;
+        pane.setStyle("-fx-border-color: black;" +
+                "-fx-translate-y: 2px;" +
+                "-fx-opacity: 1.0;");
+        pane.getChildren().add(bg);
+        return pane;
     }
 
     private ImageView renderBadge(String name){
@@ -132,6 +159,7 @@ public class TrainerCard {
         ImageView badge = new ImageView(image);
         badge.setFitWidth(50);
         badge.setFitHeight(50);
+
         return  badge;
     }
 
@@ -141,8 +169,11 @@ public class TrainerCard {
         GridPane info = new GridPane();
         bg.setStyle("-fx-background-color: black;" +
                 "-fx-opacity: .5;" +
-                "-fx-max-width: 550px;" +
-                "-fx-max-height: 700px;");
+                "-fx-min-width: 520px;" +
+                "-fx-min-height: 400px;" +
+                "-fx-border-color: white;" +
+                "-fx-border-radius: 10px;" +
+                "-fx-background-radius: 10px;");
         name = new Button("Name: " + player.getName());
         setStyle(name);
         money = new Button("Money: "+ player.getMoney());
@@ -168,28 +199,59 @@ public class TrainerCard {
 
     private StackPane renderTrainer(){
         Pane black = new Pane();
-        black.setStyle("-fx-background-color: white;" +
-                "-fx-opacity: .8;" +
-                "-fx-border-radius: 25px;");
+        black.setStyle("-fx-background-color: black;" +
+                "-fx-opacity: .5;" +
+                "-fx-min-height: 100px;" +
+                "-fx-min-width: 190px;" +
+                "-fx-border-color: white;" +
+                "-fx-background-radius: 10px;" +
+                "-fx-border-radius: 10px");
 
-        GridPane gp = new GridPane();
         File file = new File("./pokemon/imgs/trainer.png");
         Image image =  new Image(file.toURI().toString());
         ImageView trainer = new ImageView(image);
         trainer.setFitHeight(350);
         trainer.setFitWidth(198);
 
-        gp.add(trainer, 0,0);
-
         StackPane sp = new StackPane();
-        sp.getChildren().addAll(black,gp);
+        sp.getChildren().addAll(black,trainer);
+        sp.setStyle("-fx-min-width: 225px;");
         return sp;
     }
 
     private void setStyle(Button button){
         button.setStyle("-fx-font-family: 'Courier New';" +
-                "-fx-font-size: 20px;" +
+                "-fx-font-size: 24px;" +
                 "-fx-background-color: none;" +
                 "-fx-text-fill: white;");
+    }
+
+    private String buttonStyle(){
+        String style = "-fx-background-color: black;" +
+                "-fx-text-alignment: center;" +
+                "-fx-opacity: 0.5;" +
+                "-fx-text-fill: white;" +
+                "-fx-translate-x: 455px;" +
+                "-fx-font-size: 20px;" +
+                "-fx-border-color: white;" +
+                "-fx-border-radius: 10px;" +
+                "-fx-background-radius: 10px;";
+
+        return style;
+    }
+
+    private String hover(){
+        String style = "-fx-background-color: black;" +
+                "-fx-opacity: 0.9;" +
+                "-fx-text-alignment: center;" +
+                "-fx-font-weight: bold;" +
+                "-fx-text-fill: white;" +
+                "-fx-translate-x: 455px;" +
+                "-fx-font-size: 20px;" +
+                "-fx-border-color: white;" +
+                "-fx-border-radius: 10px;" +
+                "-fx-background-radius: 10px;";
+
+        return style;
     }
 }
