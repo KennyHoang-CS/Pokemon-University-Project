@@ -123,7 +123,7 @@ public class Client extends Application {
         }else{
             grid.loadData("new",false);
             player.saveToDB();
-            playerTeam.loadFromDb("default");
+            playerTeam.loadTeam("default");
             playerTeam.saveToDb(player.getName());
         }
         
