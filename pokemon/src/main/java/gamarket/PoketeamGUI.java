@@ -39,7 +39,6 @@ public class PoketeamGUI {
             }else{
                 col1.add(renderSlot(team.getPokemonAtIndex(i)), 0,i);
             }
-           //System.out.println(team.getPokemonAtIndex(i).toString());
         }
 
         for(int i = 3; i < 6; i++){
@@ -48,17 +47,29 @@ public class PoketeamGUI {
             }else{
                 col2.add(renderSlot(team.getPokemonAtIndex(i)), 0,i);
             }
-            //System.out.println(team.getPokemonAtIndex(i).toString());
         }
+        col1.setStyle("-fx-translate-y: 50px;" +
+                "-fx-vgap: 10px;");
+        col2.setStyle(  "-fx-vgap: 10px;");
+
         gp.add(col1,0,0);
         gp.add(col2, 1,0);
 
         Button exitBtn = new Button("Exit");
-        exitBtn.setOnAction(e -> {
+        exitBtn.setOnAction(ev -> {
             sceneController.returnScene();
         });
+         buttonStyle(exitBtn);
+        exitBtn.setOnMouseEntered(event -> {hover(exitBtn);});
+        exitBtn.setOnMouseExited(event -> {buttonStyle(exitBtn);});
 
         gp.add(exitBtn,1,1);
+        gp.setStyle("-fx-vgap: 20px;" +
+                "-fx-hgap: 20px;" +
+                "-fx-translate-x: 30px;" +
+                "-fx-translate-y: -20px;" +
+                "-fx-alignment: center;");
+
 
         StackPane sp = new StackPane();
         sp.getChildren().addAll(renderBG(), gp);
@@ -68,8 +79,8 @@ public class PoketeamGUI {
     private StackPane renderSlot(Pokemon pokemon){
         GridPane bg = new GridPane();
         bg.setStyle("-fx-max-width: 350px;" +
-                "-fx-max-height: 250px;" +
-                "-fx-min-height: 250px;" +
+                "-fx-max-height: 200px;" +
+                "-fx-min-height: 200px;" +
                 "-fx-min-width:  350;" +
                 "-fx-background-color: black;" +
                 "-fx-opacity: .5;" +
@@ -81,28 +92,60 @@ public class PoketeamGUI {
         nameStyle(name);
 
         Button level = new Button("Lv."+ pokemon.getIdentStats().getLevel());
-        infoStyle(level);
+        level.setStyle(infoStyle() +
+            "-fx-min-width: 50px;" +
+                "-fx-translate-x: 40px;");
 
-        renderGender(pokemon.getIdentStats().getGender());
+        Button health = new Button("HP: "+pokemon.getDefensiveStats().getHPCurrent()+"/"+pokemon.getDefensiveStats().getHP());
+        health.setStyle(infoStyle() + "-fx-translate-x: -30px;" +
+                "-fx-min-width: 115px;");
 
-        Button health = new Button(pokemon.getDefensiveStats().getHPCurrent()+"/"+pokemon.getDefensiveStats().getHP());
-        infoStyle(health);
+        Button type = new Button("Type: " + pokemon.getIdentStats().getType());
+        type.setStyle(infoStyle() + "-fx-translate-x: 40px;");
+
+        Button atk = new Button("ATK: "+ pokemon.getOffeniveStats().getATK());
+        atk.setStyle(infoStyle() + "-fx-translate-x: 40px;");
+
+        Button spatk = new Button("SPATK: " + pokemon.getOffeniveStats().getSPATK());
+        spatk.setStyle(infoStyle() + "-fx-translate-x: 40px;");
+
+        Button spd = new Button("SPD: "+ pokemon.getOffeniveStats().getSpeed());
+        spd.setStyle(infoStyle() + "-fx-translate-x: 40px;");
+
+        Button def = new Button("DEF: " + pokemon.getDefensiveStats().getDEF());
+        def.setStyle(infoStyle() + "-fx-translate-x: 40px;");
+
+        Button spdef = new Button("DEF: " + pokemon.getDefensiveStats().getSPDEF());
+        spdef.setStyle(infoStyle() + "-fx-translate-x: 40px;");
 
         GridPane gp = new GridPane();
-        gp.setStyle("-fx-max-width: 350px;" +
-                "-fx-max-height: 250px;" +
-                "-fx-min-height: 250px;" +
-                "-fx-min-width:  350;");
+        gp.setStyle("-fx-max-width: 300px;" +
+                "-fx-max-height: 200px;" +
+                "-fx-min-height: 200px;" +
+                "-fx-min-width:  300;");
+
+        gp.add(renderPokemon(pokemon.getIdentStats().getName()),0,0);
+        gp.add(name,1,0);
+        gp.add(renderGender(pokemon.getIdentStats().getGender()),2,0);
+        gp.add(level,1,1);
+        gp.add(health,2,1);
+        gp.add(type, 1, 2);
+        gp.add(atk, 1, 3);
+        gp.add(spatk, 1, 4);
+        gp.add(spd, 1, 5);
+        gp.add(def, 2, 3);
+        gp.add(spdef, 2, 4);
 
         StackPane sp = new StackPane();
+        sp.getChildren().addAll(bg, gp);
         return sp;
     }
 
     private GridPane renderEmptySlot(){
         GridPane bg = new GridPane();
         bg.setStyle("-fx-max-width: 350px;" +
-                "-fx-max-height: 100px;" +
-                "-fx-min-height: 100px;" +
+                "-fx-max-height: 200px;" +
+                "-fx-min-height: 200px;" +
                 "-fx-min-width:  350;" +
                 "-fx-background-color: black;" +
                 "-fx-opacity: .5;" +
@@ -129,49 +172,92 @@ public class PoketeamGUI {
         File file = new File("./pokemon/imgs/"+name.toLowerCase()+".png");
         Image image =  new Image(file.toURI().toString());
         ImageView bg = new ImageView(image);
-        bg.setFitHeight(60);
-        bg.setFitWidth(60);
+        bg.setFitHeight(100);
+        bg.setFitWidth(100);
+        bg.setStyle("-fx-translate-x: -20px;");
         pane.getChildren().add(bg);
         return pane;
     }
 
-    private Pane renderGender(String gender){
-        Pane pane = new Pane();
-        File file;
+    private Button renderGender(String gender){
+        Button pane;
         if( gender.compareToIgnoreCase("male") == 0){
-            file = new File("./pokemon/imgs/male.png");
-            Image image =  new Image(file.toURI().toString());
-            ImageView g = new ImageView(image);
-            g.setFitHeight(25);
-            g.setFitWidth(25);
-            pane.getChildren().add(g);
+            pane = new Button("♂");
+            pane.setStyle("-fx-text-fill: lightblue;" +
+                    "-fx-font-size: 30;" +
+                    "-fx-font-weight: bold;" +
+                    "-fx-background-color: none;");
+            return pane;
         }else if( gender.compareToIgnoreCase("female") == 0){
-            file = new File("./pokemon/imgs/female.png");
-            Image image =  new Image(file.toURI().toString());
-            ImageView g = new ImageView(image);
-            g.setFitHeight(25);
-            g.setFitWidth(25);
-            pane.getChildren().add(g);
+            pane = new Button("♀");
+            pane.setStyle("-fx-text-fill: pink;" +
+                    "-fx-font-size: 30;" +
+                    "-fx-font-weight: bold;" +
+                    "-fx-background-color: none;");
+            return pane;
+        }else{
+            pane = new Button("");
+            pane.setStyle(
+                    "-fx-background-color: none;");
+            return pane;
         }
-
-        pane.setStyle("-fx-max-width: 25px;" +
-                "-fx-max-height: 25px;");
-        return pane;
     }
 
     private void nameStyle(Button name){
         name.setStyle("-fx-text-fill: white;" +
-                "-fx-font-size: 24px;" +
+                "-fx-font-size: 20px;" +
                 "-fx-font-weight: bold;" +
                 "-fx-font-family: 'Courier New';" +
-                "-fx-background-color: pink;");
+                "-fx-background-color: none;" +
+                "-fx-text-alignment: left;" +
+                "-fx-alignment: left;" +
+                "-fx-min-width: 150px;" +
+                "-fx-translate-x: 30px;");
     }
-    private void infoStyle(Button info){
-        info.setStyle("-fx-text-fill: white;" +
+
+    private String infoStyle(){
+        String style = "-fx-text-fill: white;" +
                 "-fx-font-size: 12px;" +
                 "-fx-font-weight: bold;" +
                 "-fx-font-family: 'Courier New';" +
-                "-fx-background-color: blue;");
+                "-fx-background-color: none;" +
+                "-fx-text-alignment: left;" +
+                "-fx-translate-y: -30px;";
+        return style;
     }
+
+
+    private void buttonStyle(Button button){
+         button.setStyle("-fx-background-color: darkred;" +
+                "-fx-opacity: 0.5;" +
+                "-fx-text-fill: white;" +
+                "-fx-font-size: 20px;" +
+                "-fx-border-color: white;" +
+                "-fx-border-radius: 40px;" +
+                "-fx-background-radius: 40px;" +
+                 "-fx-translate-x: 180px;" +
+                 "-fx-translate-y: 5px;" +
+                 "-fx-min-width: 175px;" +
+                 "-fx-min-height: 85px;");
+
+    }
+
+    private void hover(Button button){
+        button.setStyle( "-fx-background-color: darkred;" +
+                "-fx-opacity: 0.9;" +
+                "-fx-font-weight: bold;" +
+                "-fx-text-fill: white;" +
+                "-fx-font-size: 20px;" +
+                "-fx-border-color: white;" +
+                "-fx-border-radius: 40px;" +
+                "-fx-background-radius: 40px;" +
+                "-fx-translate-x: 180px;" +
+                "-fx-translate-y: 5px;" +
+                "-fx-min-width: 175px;" +
+                "-fx-min-height: 85px;" +
+                "-fx-border-width: 2px;");
+
+    }
+
 
 }
