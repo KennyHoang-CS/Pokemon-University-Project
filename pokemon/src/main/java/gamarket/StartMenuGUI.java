@@ -103,7 +103,7 @@ public class StartMenuGUI{
         grid.add(pokemonEastBay,0,0);
 
 
-        Label nameLabel = new Label("Username or Email:");
+        Label nameLabel = new Label("Username:");
         grid.add(nameLabel, 0, 1);
 
         final TextField nameInput = new TextField();
@@ -327,9 +327,10 @@ public class StartMenuGUI{
         registerBtn.setOnAction(e -> {
             String name = nameInput.getText();
             String pass = passInput.getText();
-            checkDatabase(name, pass);
-            loadWindow();
             String email = emailInput.getText();
+            checkDatabase(name, pass, email);
+            loadWindow();
+            
             // if(email.contains("@") && email.contains(".com") && (email.contains("gmail") || email.contains("yahoo")) ){
             //     if(!checkDatabase(name, email)){
             //         this.username = name;
@@ -365,7 +366,7 @@ public class StartMenuGUI{
      * checkDatabase checks whether credentials the player is asking for exist in the UserDataBase.txt
      * @return if credentials do not exist it returns false, if they do it returns true
      */
-    private boolean checkDatabase(String un, String pw){
+    private boolean checkDatabase(String un, String pw, String email){
         closeLoadWindow();
         Player loadPlayer = new Player(); 
         DatabaseReference ref = loadPlayer.loadFromDb(un);
@@ -375,6 +376,7 @@ public class StartMenuGUI{
             public void onDataChange(DataSnapshot snapshot) {
                 if(snapshot.getValue() == null){
                     clientPlayer = new Player(true, un, pw);
+                    clientPlayer.setEmail(email);
                     newUser = true;
                     verified = true;
                     closeWindow();

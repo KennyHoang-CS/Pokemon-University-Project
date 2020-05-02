@@ -39,7 +39,6 @@ public class Client extends Application {
      * start begins the application and is the main controller of it
      */
     public void start(Stage primaryStage) throws Exception {
-
         window = primaryStage;
         window.setTitle("Pokemon: East Bay");
         window.setResizable(false);
@@ -148,8 +147,6 @@ public class Client extends Application {
     public StackPane gameInterface(Boolean newPlayer) {
         loadCollections();
         stackPane = new StackPane();
-        System.out.println(player);
-        System.out.println(player.getName());
         gameGUI = new GridPane();
         playerTeam = new Team(moveCollection);
         grid = new Grid();
