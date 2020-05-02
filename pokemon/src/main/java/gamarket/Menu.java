@@ -29,8 +29,7 @@ public class Menu {
     }
 
     public void setSceneController(Stage window){
-        sceneController = new SceneController(window);
-
+        sceneController = SceneController.getInstance(window);
     }
 
     public StackPane display(){
@@ -94,7 +93,6 @@ public class Menu {
         Button exit = new Button("Exit");
         exit.setOnAction(e -> {
             exit.setStyle(buttonStyle());
-            sceneController.returnScene();
             StackPane s = (StackPane)exit.getScene().getRoot();
             s.getChildren().remove(display());
 

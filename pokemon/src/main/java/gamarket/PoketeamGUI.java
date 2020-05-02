@@ -26,7 +26,7 @@ public class PoketeamGUI {
     }
 
     public void setTeam(Team team) { this.team = team; }
-    public void setSceneController(Stage window) { this.sceneController = new SceneController(window);  }
+    public void setSceneController(Stage window) { this.sceneController = SceneController.getInstance(window);  }
 
     public StackPane display(){
         GridPane gp = new GridPane();

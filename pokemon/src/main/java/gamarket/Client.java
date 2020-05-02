@@ -41,7 +41,6 @@ public class Client extends Application {
         window = primaryStage;
         window.setTitle("Pokemon: East Bay");
         window.setResizable(false);
-        sceneController = new SceneController(window);
         StartMenuGUI startMenu = new StartMenuGUI();
         startMenu.display();
         stackPane = gameInterface(startMenu.getNewUser(),startMenu.getUsername(),startMenu.getPassword());
@@ -123,7 +122,8 @@ public class Client extends Application {
                 System.exit(0);
             }
         });
-
+        sceneController = SceneController.getInstance(window);
+        System.out.println("scene controller"+ sceneController);
         window.show();
     }
 

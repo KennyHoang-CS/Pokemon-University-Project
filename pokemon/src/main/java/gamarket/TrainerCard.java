@@ -35,7 +35,7 @@ public class TrainerCard {
     public void setPlayer(Player player) {
         this.player = player;
     }
-    public void setSceneController(Stage window){ sceneController = new SceneController(window); }
+    public void setSceneController(Stage window){ this.sceneController = SceneController.getInstance(window); }
 
     public StackPane display() {
         GridPane gp = new GridPane();

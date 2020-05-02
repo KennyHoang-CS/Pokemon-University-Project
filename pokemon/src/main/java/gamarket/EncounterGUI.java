@@ -16,10 +16,9 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import java.io.File;
 
-public class EncounterGUI implements EventHandler<ActionEvent> {
+public class EncounterGUI{
     private Button move1, move2, move3, move4, exit;
     private BorderPane ap;
-    private Stage window;
     private boolean done;
     private SceneController sceneController;
 
@@ -35,12 +34,11 @@ public class EncounterGUI implements EventHandler<ActionEvent> {
         return encounterGui;
     }
 
-    public void setSceneController(Stage window){ sceneController = new SceneController(window); }
+    public void setSceneController(Stage window){ this.sceneController = SceneController.getInstance(window);
+        System.out.println("scene controller"+ sceneController);}
 
     public BorderPane display() {
         //BorderPane ap = new BorderPane(FXMLLoader.load(getClass().getResource("sample.fxml")));
-        window = new Stage();
-        window.setResizable(false);
         ap = new BorderPane();
         HBox hbox = new HBox();
         hbox.setAlignment(Pos.BOTTOM_LEFT);
@@ -96,14 +94,18 @@ public class EncounterGUI implements EventHandler<ActionEvent> {
 
         // BUttons
         move1 = new Button("Electric Ball");
-        move1.setOnAction(this::handle);
+
         move2 = new Button("Thunder");
-        move2.setOnAction(this::handle);
+
         move3 = new Button("Quick Attack");
-        move3.setOnAction(this::handle);
+
         move4 = new Button("Slam");
-        move4.setOnAction(this::handle);
+
+
         exit = new Button("Exit");
+        exit.setOnAction(e -> {
+            sceneController.returnScene();
+        });
 
         hbox.getChildren().addAll(move1, move2, move3, move4,exit);
         ap.setBottom(hbox);
@@ -115,62 +117,6 @@ public class EncounterGUI implements EventHandler<ActionEvent> {
 
         return ap;
 
-    }
-
-    /**
-     * The main method is only needed for the IDE with limited
-     * JavaFX support. Not needed for running from the command line.
-     * @param
-     */
-    @Override
-    public void handle(ActionEvent event)
-    {
-        if(event.getSource() == move1)
-        {
-            // move 1 yea...
-            System.out.println("Electro Ball clicked.");
-            File file = new File("C:\\Users\\etern\\Desktop\\test.gif");
-            String path = file.toURI().toString();
-            Image image = new Image(path);
-            ImageView iv = new ImageView(image);
-            //iv.setBlendMode(BlendMode.SOFT_LIGHT);
-            //iv.setBlendMode(BlendMode.);
-
-
-            TranslateTransition transition = new TranslateTransition();
-            transition.setDuration(Duration.seconds(3));
-            transition.setFromX(225);
-            transition.setFromY(425);
-            transition.setToX(885);
-            transition.setToY(225);
-            transition.setAutoReverse(true);
-            transition.setNode(iv);
-            transition.play();
-            ap.getChildren().add(iv);
-
-            //iv.setBlendMode(BlendMode.SCREEN);
-
-
-        }
-        else if(event.getSource() == move2)
-        {
-            // move 2 yea...
-            System.out.println("Thunder clicked.");
-        }
-        else if(event.getSource() == move3)
-        {
-            // move 3 yea...
-            System.out.println("Quick Attack clicked.");
-        }
-        else if(event.getSource() == move4)
-        {
-            // move 4 yea...
-            System.out.println("Slam clicked.");
-        }
-        else if(event.getSource() == exit){
-            done = true;
-            sceneController.returnScene();
-        } // do nothing
     }
 
     public boolean getDone() {

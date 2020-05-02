@@ -11,10 +11,27 @@ import java.awt.event.ActionEvent;
 public class SceneController {
     private Stage window;
     private Scene mainScene;
+    protected static SceneController sceneController;
 
-    SceneController(Stage window){
+    protected SceneController(){
+
+    }
+
+    public static synchronized SceneController getInstance(Stage window){
+        if(sceneController == null){
+            sceneController = new SceneController();
+            sceneController.setWindow(window);
+            sceneController.setMainScene(window);
+        }
+        return sceneController;
+    }
+
+    public void setMainScene(Stage window) {
+        this.mainScene = window.getScene();
+    }
+
+    public void setWindow(Stage window) {
         this.window = window;
-        mainScene = window.getScene();
     }
 
     public void trainerCardScene(Player player){
