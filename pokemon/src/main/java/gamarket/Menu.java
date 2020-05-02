@@ -12,13 +12,14 @@ public class Menu {
     private Player player;
     protected static Menu menu;
     private SceneController sceneController;
+    private StackPane menuScene;
 
-    protected Menu(){
-    }
+    protected Menu(){}
 
     public static synchronized Menu getInstance(){
         if(menu == null){
             menu = new  Menu();
+
         }
         return menu;
     }
@@ -26,12 +27,17 @@ public class Menu {
     public void setPlayer(Player player){
         this.player = player;
     }
+
     public void setSceneController(Stage window){
         sceneController = new SceneController(window);
 
     }
 
     public StackPane display(){
+        return menuScene;
+    }
+
+    public void renderDisplay(){
         StackPane sp = new StackPane();
         GridPane black = new GridPane();
 
@@ -106,7 +112,7 @@ public class Menu {
 
         sp.getChildren().addAll(black, gameMenu);
 
-        return sp;
+        menuScene = sp;
     }
 
     private void setStyles(Button button){

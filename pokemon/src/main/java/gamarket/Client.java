@@ -50,6 +50,7 @@ public class Client extends Application {
         paused = false;
         menu = Menu.getInstance();
         menu.setPlayer(player);
+        menu.renderDisplay();
         menu.setSceneController(window);
 
         ArrayList<String> input = new ArrayList<String>();
@@ -95,16 +96,19 @@ public class Client extends Application {
                         updateGUI("d");
                         encounterCheck();
                     } else if (input.contains("E")) {
-                        if(paused){
-                            stackPane.getChildren().remove(1);
-                            stackPane.getChildren().get(0).setDisable(false);
-                        }else{
-                            stackPane.getChildren().add(menu.display());
-                            stackPane.getChildren().get(0).setDisable(true);
+                        if(stackPane.getChildren().size() < 2){
+                            if(paused){
+                                stackPane.getChildren().remove(1);
+                                stackPane.getChildren().get(0).setDisable(false);
+                            }else{
+                                stackPane.getChildren().add(menu.display());
+                                stackPane.getChildren().get(0).setDisable(true);
 
-                            System.out.println(window.getScene());
-                            System.out.println(stackPane.getChildren().get(1));
+                                System.out.println(window.getScene());
+                                System.out.println(stackPane.getChildren());
+                            }
                         }
+
                     }
                 }
             }
