@@ -3,10 +3,7 @@ package gamarket;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -21,8 +18,6 @@ public class Client extends Application {
     private GridPane gameGUI;
     private StackPane stackPane;
     private Stage window;
-    private int width = 800;
-    private int height = 800;
     private boolean paused;
     private Menu menu;
     private PokemonCollection pokeCollection;
@@ -46,6 +41,7 @@ public class Client extends Application {
         stackPane = gameInterface(startMenu.getNewUser(),startMenu.getUsername(),startMenu.getPassword());
         Scene scene = new Scene(stackPane);
         window.setScene(scene);
+        sceneController = SceneController.getInstance(window);
         paused = false;
         menu = Menu.getInstance();
         menu.setPlayer(player);
@@ -122,7 +118,7 @@ public class Client extends Application {
                 System.exit(0);
             }
         });
-        sceneController = SceneController.getInstance(window);
+        //sceneController = SceneController.getInstance(window);
         System.out.println("scene controller"+ sceneController);
         window.show();
     }
@@ -172,10 +168,6 @@ public class Client extends Application {
     public void save() {
         player.saveData();
         grid.save(player.getName(), false);
-    }
-
-    public void displayTeam() {
-        //TO-DO
     }
 
     public void loadCollections() {

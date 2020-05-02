@@ -1,21 +1,14 @@
 package gamarket;
 
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
-import java.awt.event.ActionEvent;
 
 public class SceneController {
     private Stage window;
     private Scene mainScene;
     protected static SceneController sceneController;
 
-    protected SceneController(){
-
-    }
+    protected SceneController(){}
 
     public static synchronized SceneController getInstance(Stage window){
         if(sceneController == null){

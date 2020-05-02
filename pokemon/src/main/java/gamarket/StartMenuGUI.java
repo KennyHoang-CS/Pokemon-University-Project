@@ -25,7 +25,6 @@ public class StartMenuGUI{
     private String username;
     private String email;
     private String password;
-    private Boolean verified = null;
     private Boolean newUser = null;
     private Stage window;
     private StackPane stackPane;
@@ -38,7 +37,7 @@ public class StartMenuGUI{
      */
     public void display(){
         Soundtrack.loadMusic("title_screen.wav");
-        //Soundtrack.startMusic();
+        Soundtrack.startMusic();
 
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
@@ -55,7 +54,7 @@ public class StartMenuGUI{
 
         Soundtrack.stopMusic();
         Soundtrack.loadMusic("in_game1.wav");
-        //Soundtrack.startMusic();
+        Soundtrack.startMusic();
 
     }
 
@@ -161,12 +160,10 @@ public class StartMenuGUI{
             if( (name.compareToIgnoreCase(un) == 0 || email.compareToIgnoreCase(un) == 0) && pass.compareTo(pw) == 0 ){
                 username = name;
                 password = pass;
-                verified = true;
                 newUser = false;
                 window.close();
                 break;
             } else if( (name.compareToIgnoreCase(un) == 0 || email.compareToIgnoreCase(un) == 0) && pass.compareTo(pw) != 0){
-                verified = false;
                 alertBox(0);
                 break;
             }

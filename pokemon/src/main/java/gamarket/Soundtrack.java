@@ -25,7 +25,6 @@ public class Soundtrack {
                 music.open(audioInput);
                 FloatControl gainControl = (FloatControl) music.getControl(FloatControl.Type.MASTER_GAIN);
                 gainControl.setValue(-15.0f); // Reduce volume by 10 decibels.
-			    System.out.println("Music is Playing.");
 		    }
 		   else 
 		   {

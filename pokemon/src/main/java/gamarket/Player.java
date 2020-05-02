@@ -4,12 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
-import java.util.TimeZone;
 
 public class Player {
     private String name;
@@ -114,7 +112,6 @@ public class Player {
             //  These lines of code are commented out due to errors when calling respective class methods
             // due to source files are not set up correctly yet
             // this.pokeDex.loadData(name);
-            
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
