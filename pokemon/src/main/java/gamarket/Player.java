@@ -5,14 +5,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.TimeZone;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -70,37 +68,25 @@ public class Player {
     public void setName(String username) {
         this.name = username;
     }
-
     public void setEmail(String e) {
         this.email = e;
     }
-
     public void setPassword(String pw) {
         this.password = pw;
     }
-
     public void setBadges(int amt){
         this.badges = amt;
     }
-
     public void setMoney(long amt){ this.money = amt; }
-
     public void setTotalPokemon(int amt){ this.totalPokemon = amt; }
-
     public String getName(){ return name; }
-
     public String getEmail(){ return email; }
-
     public String getPassword(){ return password; }
-
     public int getBadges(){ return badges; }
-
     public double getMoney(){ return money; }
-
     public int getTotalPokemon(){ return totalPokemon; }
-
-
     // public PokemonCollection getPokeDex(){ return pokeDex; }
+
 
     /**
      * loadData loads the returning player's saved data
@@ -130,7 +116,6 @@ public class Player {
             //  These lines of code are commented out due to errors when calling respective class methods
             // due to source files are not set up correctly yet
             // this.pokeDex.loadData(name);
-            
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -222,5 +207,13 @@ public class Player {
                 "\nPlayed Time: " + this.totalTime +
                 "\nPokemon Team: " + "TODO" +
                 "\nPokedex: " + "TODO";
+    }
+
+    public String getJoinDate() {
+        return this.joinDate;
+    }
+
+    public String getTimePlayed() {
+        return this.totalTime;
     }
 }
