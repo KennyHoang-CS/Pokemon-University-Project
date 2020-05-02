@@ -76,8 +76,11 @@ public class Client extends Application {
             public void handle(long currentNanoTime) {
                 long elapsedNanoSeconds = currentNanoTime - lastUpdate;
                 double elapsedSeconds = elapsedNanoSeconds / 1000000000.0;
-                if (elapsedSeconds >= .1) {
+                if (elapsedSeconds >= .05) {
                     lastUpdate = currentNanoTime;
+                    if(sceneController.getActiveScene().equals("encounter")) {
+                        return ;
+                    }
                     if (input.contains("W")) {
                         updateGUI("w");
                         encounterCheck();
@@ -103,8 +106,8 @@ public class Client extends Application {
                                 System.out.println(stackPane.getChildren());
                             }
                         }
-
                     }
+                    input.clear();
                 }
             }
         }.start();

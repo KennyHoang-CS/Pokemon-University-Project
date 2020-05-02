@@ -7,7 +7,7 @@ public class SceneController {
     private Stage window;
     private Scene mainScene;
     protected static SceneController sceneController;
-
+    private String activeScene = "";
     protected SceneController(){}
 
     public static synchronized SceneController getInstance(Stage window){
@@ -28,6 +28,7 @@ public class SceneController {
     }
 
     public void trainerCardScene(Player player){
+        this.activeScene = "trainerCard";
         TrainerCard card = TrainerCard.getInstance();
         card.setSceneController(window);
         card.setPlayer(player);
@@ -38,11 +39,15 @@ public class SceneController {
     }
 
     public void returnScene(){
+        this.activeScene = "main";
         this.window.setScene(mainScene);
         this.window.show();
     }
-
+    public String getActiveScene () {
+        return this.activeScene;
+    }
     public void encounterScene(){
+        this.activeScene = "encounter";
         EncounterGUI encounterGUI = EncounterGUI.getInstance();
         encounterGUI.setSceneController(this.window);
         Scene scene = new Scene(encounterGUI.display());
