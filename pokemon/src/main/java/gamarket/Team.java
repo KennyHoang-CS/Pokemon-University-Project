@@ -96,12 +96,13 @@ public class Team {
      * @param prevSpot this must be the old index/position of the Pokemon.
      * @param newSpot this must be the new index/position of the Pokemon.
      */
-    public void switchPokemonInTeam(int prevSpot, int newSpot)
+    public Pokemon switchPokemonInTeam(int prevSpot, int newSpot)
     {
         Pokemon temp = new Pokemon();
         temp = myTeam[--prevSpot];
         myTeam[prevSpot] = myTeam[--newSpot];
         myTeam[newSpot] = temp;
+        return myTeam[newSpot];
     }
     
     /**
@@ -144,7 +145,7 @@ public class Team {
      */
     public void clear()
     {
-        for(int i = 0; i < 6; i++)
+        for(int i = 1; i < 6; i++)
         {
             if(myTeam[i] == null)
             {
@@ -153,7 +154,7 @@ public class Team {
             myTeam[i].setMoves(null, null, null, null);
             myTeam[i] = null;
         }
-        numOfPokesInTeam = 0;
+        numOfPokesInTeam = 1;
     }
     
     /**

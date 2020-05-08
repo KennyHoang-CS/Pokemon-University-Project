@@ -206,15 +206,8 @@ public class Client extends Application {
     public void encouter() {
         System.out.println("Pokemon encountered!");
         Encounter aEncounter = new Encounter(playerTeam, pokeCollection);
-        Soundtrack.stopMusic();
-        Soundtrack.loadMusic("wild_encounter.wav");
-        Soundtrack.startMusic();
-        sceneController.encounterScene();
-       // aEncounter.battle();
+        sceneController.encounterScene(aEncounter.getWildPokemon(), aEncounter.getPlayerActivePokemon(), aEncounter);
         playerTeam.saveToDb(player.getName());
-        Soundtrack.stopMusic();
-        Soundtrack.loadMusic("in_game1.wav");
-        Soundtrack.startMusic();
     }
 
     /**
