@@ -10,7 +10,12 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+import java.io.FileInputStream;
 import java.util.*;
+
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 
 public class Client extends Application {
     private Grid grid;
@@ -22,6 +27,7 @@ public class Client extends Application {
     private Menu menu;
     private PokemonCollection pokeCollection;
     private MoveCollection moveCollection;
+    private Team playerTeam;
     private SceneController sceneController;
 
     public static void main(String args[]) {
@@ -36,15 +42,18 @@ public class Client extends Application {
         window = primaryStage;
         window.setTitle("Pokemon: East Bay");
         window.setResizable(false);
+        connectToDB();
         StartMenuGUI startMenu = new StartMenuGUI();
         startMenu.display();
-        stackPane = gameInterface(startMenu.getNewUser(),startMenu.getUsername(),startMenu.getPassword());
+        player = startMenu.getClientPlayer();
+        stackPane = gameInterface(startMenu.getNewUser());
         Scene scene = new Scene(stackPane);
         window.setScene(scene);
         sceneController = SceneController.getInstance(window);
         paused = false;
         menu = Menu.getInstance();
         menu.setPlayer(player);
+        menu.setTeam(playerTeam);
         menu.renderDisplay();
         menu.setSceneController(window);
 
@@ -135,19 +144,20 @@ public class Client extends Application {
      * @param password  is usded to instantiate the player
      * @return returns the GUI
      */
-    public StackPane gameInterface(boolean newPlayer, String username, String password) {
+    public StackPane gameInterface(Boolean newPlayer) {
         loadCollections();
         stackPane = new StackPane();
-
         gameGUI = new GridPane();
-        if (!newPlayer) {
-            player = new Player(false, username, password);
-            grid = new Grid();
-            grid.loadData(username, false);
-        } else {
-            player = new Player(true, username, password);
-            grid = new Grid();
-            grid.loadData("new", false);
+        playerTeam = new Team(moveCollection);
+        grid = new Grid();
+        if(!newPlayer){
+            grid.loadData(player.getName(), false);
+            playerTeam.loadFromDb(player.getName());
+        }else{
+            grid.loadData("new",false);
+            player.saveToDB();
+            playerTeam.loadTeam("default");
+            playerTeam.saveToDb(player.getName());
         }
 
         TileGUI tile;
@@ -164,11 +174,26 @@ public class Client extends Application {
         return stackPane;
 
     }
+    public void connectToDB () {
+        FileInputStream serviceAccount;
+        try {
+            serviceAccount = new FileInputStream("./pokemon/databaseFiles/pokemoneastbay-firebase-adminsdk-75gh7-d0b842b720.json");
+            FirebaseOptions options = new FirebaseOptions.Builder()
+            .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+            .setDatabaseUrl("https://pokemoneastbay.firebaseio.com")
+            .build();
 
+        FirebaseApp.initializeApp(options);
+        } catch (Exception e) {
+            //TODO: handle exception
+            System.out.println(e);
+        }
+    }
     /**
      * save saves the current players data and grid
      */
     public void save() {
+        player.saveToDB();
         player.saveData();
         grid.save(player.getName(), false);
     }
@@ -180,13 +205,13 @@ public class Client extends Application {
 
     public void encouter() {
         System.out.println("Pokemon encountered!");
-        Encounter aEncounter = new Encounter(player, pokeCollection);
-
+        Encounter aEncounter = new Encounter(playerTeam, pokeCollection);
         Soundtrack.stopMusic();
         Soundtrack.loadMusic("wild_encounter.wav");
         Soundtrack.startMusic();
         sceneController.encounterScene();
        // aEncounter.battle();
+        playerTeam.saveToDb(player.getName());
         Soundtrack.stopMusic();
         Soundtrack.loadMusic("in_game1.wav");
         Soundtrack.startMusic();

@@ -56,10 +56,10 @@ public class SceneController {
         this.window.show();
     }
 
-    public void poketeamScene(Player player){
+    public void poketeamScene(Team playerTeam){
         PoketeamGUI poketeamGUI = PoketeamGUI.getInstance();
         poketeamGUI.setSceneController(this.window);
-        poketeamGUI.setTeam(player.getPokeTeam());
+        poketeamGUI.setTeam(playerTeam);
         Scene scene = new Scene(poketeamGUI.display());
 
         this.window.setScene(scene);
