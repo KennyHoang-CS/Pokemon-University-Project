@@ -18,6 +18,7 @@ public class Encounter {
     private Team playerTeam; 
     private PokemonCollection collection;
     private Scanner scan = new Scanner(System.in);
+    private EncounterGUI eGUI; 
     
     /**
      * Encounter generates arandom pokemon from the Pokemon collection and 
@@ -48,7 +49,7 @@ public class Encounter {
      * Gets the first non-fainted pokemon from the players team
      * @return The first active Pokemon
      */
-    private Pokemon getPlayerActivePokemon() {
+    protected Pokemon getPlayerActivePokemon() {
         return this.playerTeam.getActivePokemon();
     }
 
@@ -63,63 +64,10 @@ public class Encounter {
     }
 
     /**
-     * Currently runs the encounter will have to be replaced when we go
-     * to GUI
-     */
-    public void battle() {
-        System.out.println("battling a wild " + this.wildPokemon.getIdentStats().getName());
-        System.out.println("go " + this.activePlayerPokemon.getIdentStats().getName());
-        String inputString;
-        while(battling) {
-            System.out.println("Type fight, bag, pokemon, or run");
-            inputString = "";
-            inputString = getInput();
-            switch(inputString) {
-                case  "fight" :
-                    System.out.println(getAttackStatus());
-                    System.out.println(displayPokemonMoves());
-                    inputString = getInput();
-                    System.out.println(fight(inputString));
-                    System.out.println(getAttackStatus());
-                    System.out.println(displayPokemonMoves());
-                    inputString = getInput();
-                    System.out.println(fight(inputString));
-                    break;
-                case "bag" :
-                    System.out.println(displayItems());
-                    System.out.println(bag(getInput()));
-                    break;
-                case "pokemon":
-                    this.playerTeam.displayTeam();
-                    inputString = getInput();
-                    this.attacker = false;
-                    System.out.println(getAttackStatus());
-                    System.out.println(switchPokemon(inputString));
-                    System.out.println(displayPokemonMoves());
-                    System.out.println(fight(getInput()));
-                    break;
-                case "run":
-                    String runOutcome =  run();
-                    System.out.println(runOutcome);
-                    if(runOutcome.equals("Run away was unsuccessful")) {
-                        this.attacker = false;
-                        System.out.println(getAttackStatus());
-                        System.out.println(displayPokemonMoves());
-                        System.out.println(fight(getInput()));
-                    }
-                    break;
-                case "b":
-                    break;
-                default:
-
-            }
-        }
-    }
-    /**
      * @return String of whether the player is attacking 
      */
     public String getAttackStatus () {
-        return this.attacker ? " \n You are attacking":"You are deffending";
+        return this.attacker ? " \n You are attacking":"You are defending";
     }
     /**
      * handles when the player chooses the fight option
@@ -127,31 +75,46 @@ public class Encounter {
      * then asks for the player move
      * then resolves the attack
      */
-    public String fight(String inputString) {
-        String result = "";//this.attacker ? " \n You are attacking":"You are deffending";
-        //System.out.println(result);
-        // result += "\n" + 
-        // String inputString = getInput();
+    public String fight(String inputString, Pokemon playerPoke) {
+        String result = "";
+        
         if(inputString.equals("b")) {
             return "returning to main menu"; 
         }
         int moveNum = Integer.parseInt(inputString);
         if(moveNum > 3) {
-            return fight(getInput());
+            if(eGUI.getMove1UsedStatus())
+            {
+                return fight("0", playerPoke);
+            }
+            else if(eGUI.getMove2UsedStatus())
+            {
+                return fight("1", playerPoke);
+            }
+            else if(eGUI.getMove3UsedStatus())
+            {
+                return fight("2", playerPoke);
+            }
+            else if(eGUI.getMove4UsedStatus())
+            {
+                return fight("3", playerPoke);
+            }
+            else {} 
+            
         }
         Move attackMove;
         Move deffMove;
         Pokemon attacker;
         Pokemon deffender;
         if(this.attacker) {
-            attacker = this.activePlayerPokemon;
+            attacker = playerPoke;
             deffender = this.wildPokemon;
             attackMove = attacker.getMove(moveNum); 
             deffMove =  deffender.getMove(generateRandomInt(0, 3));
         }
         else { 
             attacker = this.wildPokemon;
-            deffender = this.activePlayerPokemon;
+            deffender = playerPoke;
             attackMove = attacker.getMove(generateRandomInt(0, 3));
             deffMove =  deffender.getMove(moveNum);
         }
@@ -163,6 +126,7 @@ public class Encounter {
         }
 
         this.attacker = !this.attacker;
+        
         return result;
     }
 
@@ -265,7 +229,7 @@ public class Encounter {
     /**
      * displays items in players bag
      */
-    private String displayItems() {
+    protected String displayItems() {
         //Bag playerBag this.player.getBag(); TODO make getBag Function
         //String bagString = playerBag.toString || itemsString();
         String result = "";
@@ -381,4 +345,30 @@ public class Encounter {
     public int generateRandomInt (int min, int max) {
         return (int) (Math.random() * ((max-min))+min);
     }
+
+    /**
+     * Gets the player's team. 
+     * @return
+     */
+    public Team getPlayerTeam()
+    {
+        return this.playerTeam;
+    }
+
+    /**
+     * Gets the attacker status. 
+     */
+    public boolean getAttacker()
+    {
+        return this.attacker;
+    }
+
+    /**
+     * Sets the attacker status. 
+     */
+    public void setAttacker(boolean status)
+    {
+        this.attacker = status; 
+    }
+
 }

@@ -46,14 +46,16 @@ public class SceneController {
     public String getActiveScene () {
         return this.activeScene;
     }
-    public void encounterScene(){
+    public void encounterScene(Pokemon wildPoke, Pokemon playerPoke, Encounter aEncounter){
         this.activeScene = "encounter";
         EncounterGUI encounterGUI = EncounterGUI.getInstance();
         encounterGUI.setSceneController(this.window);
+        encounterGUI.setData(wildPoke, playerPoke, aEncounter);
         Scene scene = new Scene(encounterGUI.display());
-
         this.window.setScene(scene);
+        this.window.setFullScreen(true);
         this.window.show();
+
     }
 
     public void poketeamScene(Team playerTeam){
