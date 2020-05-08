@@ -1,15 +1,19 @@
 package gamarket;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
-import java.util.TimeZone;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Player {
     private String name;
@@ -22,9 +26,6 @@ public class Player {
     private String time1;
     private String time2;
     private String totalTime;
-    private Team pokeTeam;
-    private MoveCollection moveCollection;
-    private PokemonCollection pokeDex; //TODO
 
     /**
      * Player constructor initializes either a new player or returning player
@@ -33,9 +34,6 @@ public class Player {
      * @param pw gives the constructor the player's password
      **/
     public Player(Boolean newUser, String un, String pw) {
-
-        this.moveCollection = new MoveCollection();
-        this.pokeTeam = new Team(this.moveCollection);
 
         if (newUser) {
             Date originalDate = new Date();
@@ -50,7 +48,6 @@ public class Player {
             this.joinDate = formatter.format(originalDate);
             formatter = new SimpleDateFormat("HH:mm:ss");
             this.time1 = formatter.format(originalDate);
-            this.pokeTeam.loadTeam("default");
         } else {
             this.name = un;
             this.password = pw;
@@ -58,45 +55,38 @@ public class Player {
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
             Date currentTime = new Date();
             this.time1 = timeFormat.format(currentTime);
-
+            this.time2 = time1;
         }
+    }
+    /**
+     * needed for firebase getData
+     */
+    public  Player () {
+
     }
 
     public void setName(String username) {
         this.name = username;
     }
-
     public void setEmail(String e) {
         this.email = e;
     }
-
     public void setPassword(String pw) {
         this.password = pw;
     }
-
     public void setBadges(int amt){
         this.badges = amt;
     }
-
     public void setMoney(long amt){ this.money = amt; }
-
     public void setTotalPokemon(int amt){ this.totalPokemon = amt; }
-
     public String getName(){ return name; }
-
     public String getEmail(){ return email; }
-
     public String getPassword(){ return password; }
-
     public int getBadges(){ return badges; }
-
     public double getMoney(){ return money; }
-
     public int getTotalPokemon(){ return totalPokemon; }
+    // public PokemonCollection getPokeDex(){ return pokeDex; }
 
-    public Team getPokeTeam(){ return pokeTeam; }
-
-    public PokemonCollection getPokeDex(){ return pokeDex; }
 
     /**
      * loadData loads the returning player's saved data
@@ -123,18 +113,42 @@ public class Player {
             this.totalPokemon = Integer.parseInt(temp[5]);
             this.joinDate = temp[6];
             this.totalTime = temp[7];
-            this.pokeTeam.loadTeam(fileName);
             //  These lines of code are commented out due to errors when calling respective class methods
             // due to source files are not set up correctly yet
             // this.pokeDex.loadData(name);
-            
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
     }
+    public void saveToDB () {
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("player");
+        DatabaseReference playerRef = ref.child(this.name);
+        Map<String, Object> players = new HashMap<>();
+        players.put("name", this.name);
+        players.put("badges",this.badges);
+        players.put("email", this.email);
+        players.put("money", this.money);
+        players.put("totalPokemon", this.totalPokemon);
+        players.put("password", this.password);
+        playerRef.setValueAsync(players);
+    }
 
+    public DatabaseReference loadFromDb (String... playerName) {
+        String playerString;
+        if(playerName.length > 0) {
+            playerString = playerName[0];
+        }
+        else {
+            playerString = this.name;
+        } 
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference playersRef = database.getReference("player/");
+        DatabaseReference ref = playersRef.child(playerString);
+        return ref;
+    }
     /**
      * saveData saves the user's data in the proper format
      * Proper player profile format:
@@ -193,5 +207,13 @@ public class Player {
                 "\nPlayed Time: " + this.totalTime +
                 "\nPokemon Team: " + "TODO" +
                 "\nPokedex: " + "TODO";
+    }
+
+    public String getJoinDate() {
+        return this.joinDate;
+    }
+
+    public String getTimePlayed() {
+        return this.totalTime;
     }
 }

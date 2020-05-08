@@ -29,7 +29,12 @@
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
       <version>14</version>
-  </dependency>
+    </dependency>
+    <dependency>
+    <groupId>com.google.firebase</groupId>
+      <artifactId>firebase-admin</artifactId>
+      <version>6.12.2</version>
+    </dependency>
   </dependencies>
 
   <build>
