@@ -8,8 +8,10 @@ public class Potion extends Item {
      * makes a new potion
      */
     public Potion () {
-        this.description = "Heal target Pokemon 20 Hp";
+        this.description = "Heal target Pokemon \nby 20 HP";
         this.type = "Potion";
+        this.buyCost = 300;
+        this.sellCost = 150;
     }
     /**
      * returns the type of the item
