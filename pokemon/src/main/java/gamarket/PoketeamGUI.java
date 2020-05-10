@@ -1,5 +1,6 @@
 package gamarket;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,6 +14,8 @@ import java.io.File;
 public class PoketeamGUI {
     private Team team;
     private SceneController sceneController;
+    private Bag bag;
+    private StackPane teamDisplay;
 
     protected static PoketeamGUI poketeamGUI;
     protected PoketeamGUI(){
@@ -28,26 +31,17 @@ public class PoketeamGUI {
     public void setTeam(Team team) { this.team = team; }
     public void setSceneController(Stage window) { this.sceneController = SceneController.getInstance(window);  }
 
-    public StackPane display(){
+    public StackPane display(String... sceneType){
         GridPane gp = new GridPane();
         GridPane col1 = new GridPane();
         GridPane col2 = new GridPane();
 
-        for(int i = 0; i < 3; i++){
-            if(team.getPokemonAtIndex(i) == null){
-                col1.add(renderEmptySlot(),0, i);
-            }else{
-                col1.add(renderSlot(team.getPokemonAtIndex(i)), 0,i);
-            }
+        if(sceneType.length > 0 && sceneType[0] == "bag" ){
+            renderSlots(col1, col2, sceneType);
+        }else {
+            renderSlots(col1, col2);
         }
 
-        for(int i = 3; i < 6; i++){
-            if(team.getPokemonAtIndex(i) == null){
-                col2.add(renderEmptySlot(),0,i);
-            }else{
-                col2.add(renderSlot(team.getPokemonAtIndex(i)), 0,i);
-            }
-        }
         col1.setStyle("-fx-translate-y: 50px;" +
                 "-fx-vgap: 10px;");
         col2.setStyle(  "-fx-vgap: 10px;");
@@ -56,10 +50,7 @@ public class PoketeamGUI {
         gp.add(col2, 1,0);
 
         Button exitBtn = new Button("Exit");
-        exitBtn.setOnAction(ev -> {
-            sceneController.returnScene();
-        });
-         buttonStyle(exitBtn);
+        buttonStyle(exitBtn);
         exitBtn.setOnMouseEntered(event -> {hover(exitBtn);});
         exitBtn.setOnMouseExited(event -> {buttonStyle(exitBtn);});
 
@@ -70,23 +61,69 @@ public class PoketeamGUI {
                 "-fx-translate-y: -20px;" +
                 "-fx-alignment: center;");
 
+        teamDisplay = new StackPane();
 
-        StackPane sp = new StackPane();
-        sp.getChildren().addAll(renderBG(), gp);
-        return sp;
+        if(sceneType.length > 0 && sceneType[0] == "bag" ){
+            exitBtn.setOnAction(ev -> { sceneController.bagScene(bag, team);});
+            teamDisplay.getChildren().addAll(renderBG(), gp, renderDialogue());
+        }else{
+            teamDisplay.getChildren().addAll(renderBG(), gp);
+            exitBtn.setOnAction(ev -> {
+                sceneController.returnScene();
+            });
+        }
+
+        return teamDisplay;
     }
 
-    private StackPane renderSlot(Pokemon pokemon){
+    private void  renderSlots(GridPane col1, GridPane col2, String... sceneType){
+        if(sceneType.length > 0 && sceneType[0] == "bag" ){
+            for (int i = 0; i < 3; i++) {
+                if (team.getPokemonAtIndex(i) == null) {
+                    col1.add(renderEmptySlot(), 0, i);
+                } else {
+                    col1.add(renderSlot(team.getPokemonAtIndex(i), sceneType), 0, i);
+                }
+            }
+
+            for (int i = 3; i < 6; i++) {
+                if (team.getPokemonAtIndex(i) == null) {
+                    col2.add(renderEmptySlot(), 0, i);
+                } else {
+                    col2.add(renderSlot(team.getPokemonAtIndex(i), sceneType), 0, i);
+                }
+            }
+        }else {
+            for (int i = 0; i < 3; i++) {
+                if (team.getPokemonAtIndex(i) == null) {
+                    col1.add(renderEmptySlot(), 0, i);
+                } else {
+                    col1.add(renderSlot(team.getPokemonAtIndex(i)), 0, i);
+                }
+            }
+
+            for (int i = 3; i < 6; i++) {
+                if (team.getPokemonAtIndex(i) == null) {
+                    col2.add(renderEmptySlot(), 0, i);
+                } else {
+                    col2.add(renderSlot(team.getPokemonAtIndex(i)), 0, i);
+                }
+            }
+        }
+    }
+
+    private StackPane renderSlot(Pokemon pokemon, String... sceneType){
         GridPane bg = new GridPane();
-        bg.setStyle("-fx-max-width: 350px;" +
+        String bgStyle = "-fx-max-width: 350px;" +
                 "-fx-max-height: 200px;" +
                 "-fx-min-height: 200px;" +
                 "-fx-min-width:  350;" +
                 "-fx-background-color: black;" +
                 "-fx-opacity: .5;" +
                 "-fx-border-radius: 10px;" +
-                "-fx-background-radius: 10px;" +
-                "-fx-border-color: white;");
+                "-fx-background-radius: 10px;";
+
+        bg.setStyle(bgStyle + "-fx-border-color: white;");
 
         Button name = new Button(pokemon.getIdentStats().getName());
         nameStyle(name);
@@ -138,6 +175,14 @@ public class PoketeamGUI {
 
         StackPane sp = new StackPane();
         sp.getChildren().addAll(bg, gp);
+        if(sceneType.length > 0 && sceneType[0] == "bag" ){
+            sp.setOnMouseEntered(event -> {bg.setStyle(bgStyle + "-fx-background-color: darkred;");});
+            sp.setOnMouseExited(event -> {bg.setStyle(bgStyle + "-fx-background-color: black;");});
+            sp.setOnMouseClicked(event -> {
+                sp.getChildren().add(renderOption(sp,pokemon));
+            });
+        }
+
         return sp;
     }
 
@@ -257,6 +302,84 @@ public class PoketeamGUI {
                 "-fx-min-height: 85px;" +
                 "-fx-border-width: 2px;");
 
+    }
+
+    private Button renderDialogue(){
+        Button dialogue = new Button("Select a Pokemon to use your potion on.");
+        dialogue.setStyle("-fx-background-color: white;" +
+                "-fx-font-family: 'Courier New';" +
+                "-fx-font-size: 24px;" +
+                "-fx-min-height: 80px;" +
+                "-fx-min-width: 100px;" +
+                "-fx-background-radius: 15px;" +
+                "-fx-border-radius: 15px;" +
+                "-fx-border-color: black;" +
+                "-fx-border-width: 2px;" +
+                "-fx-translate-x: -90px;" +
+                "-fx-translate-y: 320px;");
+        return dialogue;
+    }
+
+    public void setBag(Bag bag){
+        this.bag = bag;
+    }
+
+    private GridPane renderOption(StackPane sp, Pokemon pokemon){
+        GridPane options = new GridPane();
+        Button useBtn = new Button("Use Potion");
+        optionStyle(useBtn);
+        useBtn.setOnMouseEntered(e -> {optionHover(useBtn);});
+        useBtn.setOnMouseExited(event -> {optionStyle(useBtn);});
+        useBtn.setOnMouseClicked(event -> {
+            this.bag.usePotion(pokemon);
+            sceneController.bagScene(this.bag,this.team);
+        });
+
+        Button cancelBtn = new Button("Cancel");
+        optionStyle(cancelBtn);
+        cancelBtn.setOnMouseEntered(e -> {optionHover(cancelBtn);});
+        cancelBtn.setOnMouseExited(event -> {optionStyle(cancelBtn);});
+        cancelBtn.setOnMouseClicked(event -> {
+            sp.getChildren().remove(options);
+        });
+
+        options.add(useBtn,0,0);
+        options.add(cancelBtn,0,1);
+
+        options.setStyle("-fx-alignment: center;" +
+                "-fx-vgap: 5px;");
+
+        return options;
+    }
+
+    public void optionStyle(Button button){
+        button.setStyle("-fx-font-family: 'Courier New';" +
+                "-fx-font-size: 30px;" +
+                "-fx-background-color: white;" +
+                "-fx-min-height: 50px;" +
+                "-fx-min-width: 250px;" +
+                "-fx-max-width: 175px;" +
+                "-fx-background-radius: 17px;" +
+                "-fx-border-radius: 15px;" +
+                "-fx-translate-x: 5px;" +
+                "-fx-border-width: 1px;" +
+                "-fx-border-radius: 15px;" +
+                "-fx-border-color: lightgray;");
+    }
+
+    public void optionHover(Button button){
+        button.setStyle("-fx-font-family: 'Courier New';" +
+                "-fx-font-size: 30px;" +
+                "-fx-background-color: white;" +
+                "-fx-min-height: 50px;" +
+                "-fx-min-width: 250px;" +
+                "-fx-max-width: 175px;" +
+                "-fx-background-radius: 17px;" +
+                "-fx-border-radius: 15px;" +
+                "-fx-translate-x: 5px;" +
+                "-fx-border-width: 2px;" +
+                "-fx-border-radius: 15px;" +
+                "-fx-border-color: black;");
     }
 
 
