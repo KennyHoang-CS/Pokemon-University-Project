@@ -23,6 +23,7 @@ public class Client extends Application {
     private PokemonCollection pokeCollection;
     private MoveCollection moveCollection;
     private SceneController sceneController;
+    private String lastDir;
 
     public static void main(String args[]) {
         launch(args);
@@ -81,29 +82,27 @@ public class Client extends Application {
                     if (input.contains("W")) {
                         updateGUI("w");
                         encounterCheck();
+                        lastDir = "w";
                     } else if (input.contains("A")) {
                         updateGUI("a");
                         encounterCheck();
+                        lastDir = "a";
                     } else if (input.contains("S")) {
                         updateGUI("s");
                         encounterCheck();
+                        lastDir = "s";
                     } else if (input.contains("D")) {
                         updateGUI("d");
                         encounterCheck();
+                        lastDir = "d";
                     } else if (input.contains("E")) {
                         if(stackPane.getChildren().size() < 2){
-                            if(paused){
-                                stackPane.getChildren().remove(1);
-                                stackPane.getChildren().get(0).setDisable(false);
-                            }else{
-                                stackPane.getChildren().add(menu.display());
-                                stackPane.getChildren().get(0).setDisable(true);
-
-                                System.out.println(window.getScene());
-                                System.out.println(stackPane.getChildren());
-                            }
+                            stackPane.getChildren().add(menu.display());
+                            stackPane.getChildren().get(0).setDisable(true);
                         }
 
+                    }else if(input.contains("F")){
+                       interactionCheck(lastDir);
                     }
                 }
             }
@@ -248,7 +247,63 @@ public class Client extends Application {
                 break;
         }
         TileGUI playerNew = (TileGUI) this.gameGUI.getChildren().get(location);
-        playerNew.renderPlayer();
+        playerNew.renderPlayer(direction);
+    }
+
+    private void interactionCheck(String lastDir){
+        int x = grid.getPlayerPosition()[0];
+        int y = grid.getPlayerPosition()[1];
+
+        switch (lastDir) {
+            case "w":
+                if (grid.canInteract(x, y - 1)) {
+                    if(grid.getType(x, y-1) == Tile.Type.STORENPC){
+                        renderStore();
+                    }else{
+                        renderNurse();
+                    }
+                }
+                break;
+            case "a":
+                if (grid.canInteract(x - 1, y)) {
+                    if(grid.getType(x-1, y) == Tile.Type.STORENPC){
+                        renderStore();
+                    }else{
+                        renderNurse();
+                    }
+                }
+                break;
+            case "s":
+                if (grid.canInteract(x, y + 1)) {
+                    if(grid.getType(x, y+1) == Tile.Type.STORENPC){
+                        renderStore();
+                    }else{
+                        renderNurse();
+                    }
+                }
+                break;
+            case "d":
+                if (grid.canInteract(x + 1, y)) {
+                    if(grid.getType(x+1, y) == Tile.Type.STORENPC){
+                        renderStore();
+                    }else {
+                        renderNurse();
+                    }
+                }
+                break;
+        }
+    }
+
+    private void renderStore(){
+        Store store = new Store(this.player.getBag(), this.player.getMoney());
+        StoreGUI storeGUI = new StoreGUI(store ,this.window);
+        this.stackPane.getChildren().add(storeGUI.display());
+        stackPane.getChildren().get(0).setDisable(true);
+    }
+    private void renderNurse(){
+        Nurse nurse = new Nurse(this.player.getPokeTeam());
+        this.stackPane.getChildren().add(nurse.display());
+        stackPane.getChildren().get(0).setDisable(true);
     }
 }
 

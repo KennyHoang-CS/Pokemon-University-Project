@@ -23,6 +23,7 @@ public class Player {
     private Team pokeTeam;
     private MoveCollection moveCollection;
     private PokemonCollection pokeDex; //TODO
+    private Bag bag;
 
     /**
      * Player constructor initializes either a new player or returning player
@@ -30,7 +31,7 @@ public class Player {
      * @param un gives the constructor the player's username
      * @param pw gives the constructor the player's password
      **/
-    public Player(Boolean newUser, String un, String pw) {
+    public Player(Boolean newUser, String un, String pw, boolean... test) {
 
         this.moveCollection = new MoveCollection();
         this.pokeTeam = new Team(this.moveCollection);
@@ -49,6 +50,16 @@ public class Player {
             formatter = new SimpleDateFormat("HH:mm:ss");
             this.time1 = formatter.format(originalDate);
             this.pokeTeam.loadTeam("default");
+            this.bag = Bag.getInstance();
+        } else if(test.length > 0 && test[0] == true){
+            this.name = un;
+            this.password = pw;
+            loadData(this.name, true);
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+            Date currentTime = new Date();
+            this.time1 = timeFormat.format(currentTime);
+            this.bag = Bag.getInstance();
+            this.bag.loadData(this.name,true);
         } else {
             this.name = un;
             this.password = pw;
@@ -56,7 +67,9 @@ public class Player {
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
             Date currentTime = new Date();
             this.time1 = timeFormat.format(currentTime);
-
+            this.bag = Bag.getInstance();
+            this.bag.loadData(this.name);
+            System.out.println(this.bag.toString());
         }
     }
 
@@ -91,10 +104,14 @@ public class Player {
      *                 amountOfBadges,money,totalPokemon
      *                 joinDate,totalTime,
      **/
-    public void loadData(String fileName) {
-        String filePath = "./pokemon/databaseFiles/userProfiles/" + fileName + "_profile.txt";
+    public void loadData(String fileName, boolean... test) {
+        String filePath;
+        if(test.length > 0 && test[0]==true){
+            filePath = "./databaseFiles/userProfiles/" + fileName + "_profile.txt";
+        }else{
+            filePath = "./pokemon/databaseFiles/userProfiles/" + fileName + "_profile.txt";
+        }
         File inFile = new File(filePath);
-
         Scanner scanner = null;
         try {
             scanner = new Scanner(inFile);
@@ -108,7 +125,11 @@ public class Player {
             this.totalPokemon = Integer.parseInt(temp[5]);
             this.joinDate = temp[6];
             this.totalTime = temp[7];
-            this.pokeTeam.loadTeam(fileName);
+            if(test.length > 0 && test[0]==true){
+                this.pokeTeam.loadTeam(fileName, true);
+            }else {
+                this.pokeTeam.loadTeam(fileName);
+            }
             //  These lines of code are commented out due to errors when calling respective class methods
             // due to source files are not set up correctly yet
             // this.pokeDex.loadData(name);
@@ -124,8 +145,15 @@ public class Player {
      * Proper player profile format:
      * playerName,email,password,amountOfBadges,money,totalPokemon,joinDate,totalTime
      **/
-    public void saveData() {
-        File file = new File("./pokemon/databaseFiles/userProfiles/" + this.name + "_profile.txt");
+    public void saveData(boolean... test) {
+        File file;
+        if(test.length>0 && test[0]==true){
+            file = new File("./databaseFiles/userProfiles/" + this.name + "_profile.txt");
+            this.bag.saveData(this.name,true);
+        }else{
+            file = new File("./pokemon/databaseFiles/userProfiles/" + this.name + "_profile.txt");
+            this.bag.saveData(this.name);
+        }
 
         try {
            FileWriter writer = new FileWriter(file);
@@ -185,5 +213,9 @@ public class Player {
 
     public String getTimePlayed() {
         return this.totalTime;
+    }
+
+    public Bag getBag() {
+        return this.bag;
     }
 }

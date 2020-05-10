@@ -2,7 +2,6 @@ package gamarket;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -52,33 +51,36 @@ public class Menu {
                 "-fx-translate-x: 250px;" +
                 "-fx-font-family: 'Courier New';" +
                 "-fx-font-size: 50px;" +
-                "-fx-vgap: 30px;");
-
-        //gameMenu.setGridLinesVisible(true);
+                "-fx-vgap: 30px;" +
+                "-fx-border-radius: 15px;" +
+                "-fx-border-width: 2px;" +
+                "-fx-border-color: black;");
 
         Button pokedex = new Button("Pokedex");
         pokedex.setOnAction(e -> {
             //TODO
-
         });
         setStyles(pokedex);
 
         Button pokemon = new Button("Pokemon");
         pokemon.setOnAction(e -> {
-            //TODO
-            sceneController.poketeamScene(player);
+            sceneController.poketeamScene(player.getPokeTeam(), player.getBag());
+            pokemon.setStyle(buttonStyle());
+
         });
         setStyles(pokemon);
 
         Button bag = new Button("Bag");
         bag.setOnAction(e -> {
-            //TODO
+            sceneController.bagScene(player.getBag(), player.getPokeTeam());
+            bag.setStyle(buttonStyle());
         });
         setStyles(bag);
 
         Button playerInfo = new Button(player.getName());
         playerInfo.setOnAction(e -> {
             sceneController.trainerCardScene(player);
+            playerInfo.setStyle(buttonStyle());
         });
         setStyles(playerInfo);
 

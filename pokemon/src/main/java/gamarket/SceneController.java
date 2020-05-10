@@ -51,11 +51,31 @@ public class SceneController {
         this.window.show();
     }
 
-    public void poketeamScene(Player player){
+    public void bagScene(Bag bag, Team team){
+        BagGUI bagGUI = BagGUI.getInstance();
+        bagGUI.setSceneController(this.window);
+        bagGUI.setBag(bag);
+        bagGUI.setTeam(team);
+        Scene scene = new Scene(bagGUI.display());
+
+        this.window.setScene(scene);
+        this.window.show();
+
+    }
+
+    public void poketeamScene(Team team, Bag bag, String... sceneType){
         PoketeamGUI poketeamGUI = PoketeamGUI.getInstance();
         poketeamGUI.setSceneController(this.window);
-        poketeamGUI.setTeam(player.getPokeTeam());
-        Scene scene = new Scene(poketeamGUI.display());
+        poketeamGUI.setTeam(team);
+        poketeamGUI.setBag(bag);
+        Scene scene;
+        if(sceneType.length > 0){
+            team.getPokemonAtIndex(0).getDefensiveStats().setHPCurrent(200);
+            scene = new Scene(poketeamGUI.display(sceneType));
+        }else{
+            scene = new Scene(poketeamGUI.display());
+        }
+
 
         this.window.setScene(scene);
         this.window.show();
