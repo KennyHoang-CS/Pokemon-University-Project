@@ -85,6 +85,7 @@ public class Menu {
 
         Button saveGame = new Button("Save");
         saveGame.setOnAction(e -> {
+            playerTeam.saveToDb(player.getName());
             player.saveData();
             saveGame.setStyle(buttonStyle());
             //TODO
