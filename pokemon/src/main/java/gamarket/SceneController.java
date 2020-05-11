@@ -1,3 +1,4 @@
+
 package gamarket;
 
 import javafx.scene.Scene;
@@ -46,6 +47,7 @@ public class SceneController {
     public String getActiveScene () {
         return this.activeScene;
     }
+
     public void encounterScene(Pokemon wildPoke, Pokemon playerPoke, Encounter aEncounter){
         this.activeScene = "encounter";
         EncounterGUI encounterGUI = EncounterGUI.getInstance();
@@ -58,13 +60,33 @@ public class SceneController {
 
     }
 
-    public void poketeamScene(Team playerTeam){
+    public void poketeamScene(Team team, Bag bag, String... sceneType){
         PoketeamGUI poketeamGUI = PoketeamGUI.getInstance();
         poketeamGUI.setSceneController(this.window);
-        poketeamGUI.setTeam(playerTeam);
-        Scene scene = new Scene(poketeamGUI.display());
+        poketeamGUI.setTeam(team);
+        poketeamGUI.setBag(bag);
+        Scene scene;
+        if(sceneType.length > 0){
+            team.getPokemonAtIndex(0).getDefensiveStats().setHPCurrent(200);
+            scene = new Scene(poketeamGUI.display(sceneType));
+        }else{
+            scene = new Scene(poketeamGUI.display());
+        }
+
 
         this.window.setScene(scene);
         this.window.show();
+    }
+
+    public void bagScene(Bag bag, Team team){
+        BagGUI bagGUI = BagGUI.getInstance();
+        bagGUI.setSceneController(this.window);
+        bagGUI.setBag(bag);
+        bagGUI.setTeam(team);
+        Scene scene = new Scene(bagGUI.display());
+
+        this.window.setScene(scene);
+        this.window.show();
+
     }
 }

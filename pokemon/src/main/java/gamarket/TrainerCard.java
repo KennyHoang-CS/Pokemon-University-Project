@@ -101,7 +101,7 @@ public class TrainerCard {
                 "-fx-translate-x: 15;" +
                 "-fx-min-height: 150px;" +
                         "-fx-vgap: 20px;" +
-                        "-fx-alignment: center;" +
+                        "-fx-alignment: left;" +
                         "-fx-border-color: white;" +
                         "-fx-border-width: 2px;" +
                         "-fx-opacity: 0.8;" +

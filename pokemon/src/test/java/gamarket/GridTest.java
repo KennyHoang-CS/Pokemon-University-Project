@@ -82,14 +82,14 @@ public class GridTest
     public void save_Load_test () {
         Grid testGrid = new Grid(20, 20, 10, 10);
         testGrid.loadData("new", true);
-        testGrid.changeTile(3, 2, Type.WATER);
+        testGrid.changeTile(3, 2, Type.WATERUL);
 
         testGrid.save("save_Loadtest", true);
         Grid freshGrid = new Grid();
         freshGrid.loadData("save_Loadtest",true);
         
         System.out.println(freshGrid.toString());
-        assertEquals(Type.WATER, freshGrid.getTile(3, 2).getType() );
+        assertEquals(Type.WATERUL, freshGrid.getTile(3, 2).getType() );
         
         int[] expectedLoc = { 10, 10};
         assertArrayEquals(expectedLoc, freshGrid.getPlayerPosition());

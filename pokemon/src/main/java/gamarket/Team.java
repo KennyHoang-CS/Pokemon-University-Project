@@ -58,7 +58,7 @@ public class Team {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // TODO Auto-generated method stub
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    System.out.println(snapshot.getValue());
+                    //System.out.println(snapshot.getValue());
                     Pokemon newPokemon = stringToPokemon((String)snapshot.getValue());
                     addPokemon(newPokemon);
                     //myTeam[Integer.parseInt(snapshot.getKey())] = newPokemon;
