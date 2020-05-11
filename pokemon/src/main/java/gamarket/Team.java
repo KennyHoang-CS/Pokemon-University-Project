@@ -5,6 +5,14 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /** Represents a team of Pokemon, a team will be able to hold at most 6 Pokemon. */
 public class Team {
@@ -30,6 +38,40 @@ public class Team {
         this.mc = mc;
     }
     
+    public void saveToDb (String playerName) {
+		final FirebaseDatabase database = FirebaseDatabase.getInstance();
+		DatabaseReference ref = database.getReference("team/");
+		DatabaseReference playerTeam = ref.child(playerName);
+        Map<String, Object> team = new HashMap<>();
+        for(int i = 0; i < numOfPokesInTeam; i++) {
+            team.put(Integer.toString(i), myTeam[i].toString("file"));
+        }
+        playerTeam.updateChildrenAsync(team);//.setValueAsync(team);
+	}
+    public void loadFromDb (String playerName) {
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+		DatabaseReference ref = database.getReference("team/" + playerName);
+		
+        ref.addValueEventListener(new ValueEventListener(){
+        
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // TODO Auto-generated method stub
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    System.out.println(snapshot.getValue());
+                    Pokemon newPokemon = stringToPokemon((String)snapshot.getValue());
+                    addPokemon(newPokemon);
+                    //myTeam[Integer.parseInt(snapshot.getKey())] = newPokemon;
+                }
+            }
+        
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // TODO Auto-generated method stub
+                
+            }
+        });
+    }
     /** It displays all the Pokemon in the player's team with each Pokemon's: level and name.
      * @return nothing.
      */
@@ -54,12 +96,13 @@ public class Team {
      * @param prevSpot this must be the old index/position of the Pokemon.
      * @param newSpot this must be the new index/position of the Pokemon.
      */
-    public void switchPokemonInTeam(int prevSpot, int newSpot)
+    public Pokemon switchPokemonInTeam(int prevSpot, int newSpot)
     {
         Pokemon temp = new Pokemon();
         temp = myTeam[--prevSpot];
         myTeam[prevSpot] = myTeam[--newSpot];
         myTeam[newSpot] = temp;
+        return myTeam[newSpot];
     }
     
     /**
@@ -102,7 +145,7 @@ public class Team {
      */
     public void clear()
     {
-        for(int i = 0; i < 6; i++)
+        for(int i = 1; i < 6; i++)
         {
             if(myTeam[i] == null)
             {
@@ -111,7 +154,7 @@ public class Team {
             myTeam[i].setMoves(null, null, null, null);
             myTeam[i] = null;
         }
-        numOfPokesInTeam = 0;
+        numOfPokesInTeam = 1;
     }
     
     /**
@@ -159,43 +202,10 @@ public class Team {
                **/
                 while(line != null && !line.isEmpty())
                 {
-                    String[] pokeData = line.split(",");
-                   
-                    // this will read in Identification Stats: ID, name, gender, type
-                    Stats.IdentifyStats myIS = new Stats().new IdentifyStats(Integer.parseInt(pokeData[0]),
-                                                                              pokeData[1],
-                                                                              pokeData[2],
-                                                                              pokeData[3],
-                                                                              Integer.parseInt(pokeData[4]));
-                    
-                    // this will read in Offensive Stats: attack, sp. attack, speed
-                    Stats.OffensiveStats myOS = new Stats().new OffensiveStats(Integer.parseInt(pokeData[5]),
-                                                                               Integer.parseInt(pokeData[6]),
-                                                                               Integer.parseInt(pokeData[7]));
-                   
-                    // this will read in Defensive Stats: health, defense, sp. defense
-                    Stats.DefensiveStats myDS = new Stats().new DefensiveStats(Integer.parseInt(pokeData[8]),
-                                                                               Integer.parseInt(pokeData[9]),
-                                                                               Integer.parseInt(pokeData[10]));
-                    
-                    
-                    
-                    
-                    // create the Pokemon object with all the stats we just read in: Identification, Offensive, Defensive stats.
-                    Pokemon myPoke = new Pokemon(myIS, myOS, myDS);
-                   
-                    
-                    // load in the Pokemon's move-set.
-                    Move m1 = mc.searchMove(pokeData[11].trim());
-                    Move m2 = mc.searchMove(pokeData[12].trim());
-                    Move m3 = mc.searchMove(pokeData[13].trim());
-                    Move m4 = mc.searchMove(pokeData[14].trim());
-                    
-                    // add the move-set to the Pokemon's default move-set.
-                    myPoke.setMoves(m1, m2, m3, m4);
+                    Pokemon linePokemon = stringToPokemon(line);
                     
                     // add the pokemon object to the Player's Team.
-                    addPokemon(myPoke);      
+                    addPokemon(linePokemon);      
                 
                     line = br.readLine();
                 }
@@ -205,7 +215,43 @@ public class Team {
                        e.printStackTrace();
                 }
     }
-    
+    public Pokemon stringToPokemon(String pokeString) {
+        String[] pokeData = pokeString.split(",");
+                   
+        // this will read in Identification Stats: ID, name, gender, type
+        Stats.IdentifyStats myIS = new Stats().new IdentifyStats(Integer.parseInt(pokeData[0]),
+                                                                  pokeData[1],
+                                                                  pokeData[2],
+                                                                  pokeData[3],
+                                                                  Integer.parseInt(pokeData[4]));
+        
+        // this will read in Offensive Stats: attack, sp. attack, speed
+        Stats.OffensiveStats myOS = new Stats().new OffensiveStats(Integer.parseInt(pokeData[5]),
+                                                                   Integer.parseInt(pokeData[6]),
+                                                                   Integer.parseInt(pokeData[7]));
+       
+        // this will read in Defensive Stats: health, defense, sp. defense
+        Stats.DefensiveStats myDS = new Stats().new DefensiveStats(Integer.parseInt(pokeData[8]),
+                                                                   Integer.parseInt(pokeData[9]),
+                                                                   Integer.parseInt(pokeData[10]));
+        
+        
+        
+        
+        // create the Pokemon object with all the stats we just read in: Identification, Offensive, Defensive stats.
+        Pokemon myPoke = new Pokemon(myIS, myOS, myDS);
+       
+        
+        // load in the Pokemon's move-set.
+        Move m1 = mc.searchMove(pokeData[11].trim());
+        Move m2 = mc.searchMove(pokeData[12].trim());
+        Move m3 = mc.searchMove(pokeData[13].trim());
+        Move m4 = mc.searchMove(pokeData[14].trim());
+        
+        // add the move-set to the Pokemon's default move-set.
+        myPoke.setMoves(m1, m2, m3, m4);
+        return myPoke;
+    }
     /**
      * What it does: you can view a specified Pokemon's move-set. 
      * @param myPoke this should be the Pokemon you want to see the moves for. 

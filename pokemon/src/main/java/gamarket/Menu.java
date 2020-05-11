@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 public class Menu {
     private Player player;
+    private Team playerTeam;
     protected static Menu menu;
     private SceneController sceneController;
     private StackPane menuScene;
@@ -142,4 +143,8 @@ public class Menu {
 
         return style;
     }
+
+	public void setTeam(Team playerTeam) {
+        this.playerTeam = playerTeam;
+	}
 }

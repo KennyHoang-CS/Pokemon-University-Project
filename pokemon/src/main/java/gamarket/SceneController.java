@@ -1,3 +1,4 @@
+
 package gamarket;
 
 import javafx.scene.Scene;
@@ -7,7 +8,7 @@ public class SceneController {
     private Stage window;
     private Scene mainScene;
     protected static SceneController sceneController;
-
+    private String activeScene = "";
     protected SceneController(){}
 
     public static synchronized SceneController getInstance(Stage window){
@@ -28,6 +29,7 @@ public class SceneController {
     }
 
     public void trainerCardScene(Player player){
+        this.activeScene = "trainerCard";
         TrainerCard card = TrainerCard.getInstance();
         card.setSceneController(window);
         card.setPlayer(player);
@@ -38,27 +40,22 @@ public class SceneController {
     }
 
     public void returnScene(){
+        this.activeScene = "main";
         this.window.setScene(mainScene);
         this.window.show();
     }
-
-    public void encounterScene(){
-        EncounterGUI encounterGUI = EncounterGUI.getInstance();
-        encounterGUI.setSceneController(this.window);
-        Scene scene = new Scene(encounterGUI.display());
-
-        this.window.setScene(scene);
-        this.window.show();
+    public String getActiveScene () {
+        return this.activeScene;
     }
 
-    public void bagScene(Bag bag, Team team){
-        BagGUI bagGUI = BagGUI.getInstance();
-        bagGUI.setSceneController(this.window);
-        bagGUI.setBag(bag);
-        bagGUI.setTeam(team);
-        Scene scene = new Scene(bagGUI.display());
-
+    public void encounterScene(Pokemon wildPoke, Pokemon playerPoke, Encounter aEncounter){
+        this.activeScene = "encounter";
+        EncounterGUI encounterGUI = EncounterGUI.getInstance();
+        encounterGUI.setSceneController(this.window);
+        encounterGUI.setData(wildPoke, playerPoke, aEncounter);
+        Scene scene = new Scene(encounterGUI.display());
         this.window.setScene(scene);
+        this.window.setFullScreen(true);
         this.window.show();
 
     }
@@ -79,5 +76,17 @@ public class SceneController {
 
         this.window.setScene(scene);
         this.window.show();
+    }
+
+    public void bagScene(Bag bag, Team team){
+        BagGUI bagGUI = BagGUI.getInstance();
+        bagGUI.setSceneController(this.window);
+        bagGUI.setBag(bag);
+        bagGUI.setTeam(team);
+        Scene scene = new Scene(bagGUI.display());
+
+        this.window.setScene(scene);
+        this.window.show();
+
     }
 }
