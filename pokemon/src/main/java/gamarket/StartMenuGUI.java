@@ -50,7 +50,7 @@ public class StartMenuGUI{
      */
     public void display(){
         Soundtrack.loadMusic("title_screen.wav");
-        //Soundtrack.startMusic();
+        Soundtrack.startMusic();
 
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
@@ -66,7 +66,7 @@ public class StartMenuGUI{
         window.showAndWait();
         Soundtrack.stopMusic();
         Soundtrack.loadMusic("in_game1.wav");
-        //Soundtrack.startMusic();
+        Soundtrack.startMusic();
     }
 
     /**
