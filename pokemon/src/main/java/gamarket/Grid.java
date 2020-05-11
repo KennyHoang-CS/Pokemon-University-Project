@@ -149,6 +149,33 @@ public class Grid {
     }
 
     /**
+     * Checks if location can be interacted with
+     * @param x
+     * @param y
+     * @return True then player can interact with the tile ahead
+     */
+    public boolean canInteract (int x, int y) {
+        if ( x < 0 || y < 0) {
+            return false;
+        }
+        if ( x >= gridXMax || y >= gridYMax) {
+            return false;
+        }
+        Tile tileAtXY = getTile(x, y);
+        if (tileAtXY.getType() == Type.STORENPC || tileAtXY.getType() == Type.NURSENPC ) {
+            return true;
+        }
+        return false;
+    }
+
+    public Type getType(int x, int y){
+        Tile tileAtXY = getTile(x, y);
+        return tileAtXY.getType();
+
+    }
+
+
+    /**
      * utility function to generate grid of given x, y dimensions 
      * @param x max width of the grid
      * @param y max height of the grid
@@ -256,7 +283,7 @@ public class Grid {
                             lineString = sc.nextLine();
                             String[] rowArr = lineString.split(" ");
                             for(int j = 0; j < this.gridXMax; j++) {
-                                Tile.Type newType = Tile.charToType(rowArr[j].charAt(0));
+                                Tile.Type newType = Tile.charToType(rowArr[j]);
                                 changeTile(i, j, newType); 
                             }
                         }

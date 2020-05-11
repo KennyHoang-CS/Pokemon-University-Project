@@ -2,15 +2,20 @@ package gamarket;
 
 public abstract class Item {
     String description = "Unknown Item";
-    double cost =  0;
+    double buyCost =  0;
+    double sellCost = 0;
     String type;
 
     public String getDescription () {
         return this.description;
     }
 
-    public double getCost () {
-        return this.cost;
+    public double getBuyCost () {
+        return this.buyCost;
+    }
+
+    public double getSellCost () {
+        return this.sellCost;
     }
     
     public void use () {}
