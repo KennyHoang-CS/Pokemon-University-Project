@@ -23,9 +23,9 @@ public class BagTest {
     @Test
     public void loadTest(){
         Bag bag = new Bag();
-        bag.loadData("david", true);
-        assertEquals(5, bag.getQty("pokeballs"));
-        assertEquals(3, bag.getQty("potions"));
+        bag.loadData("david",true);
+        assertEquals(5, bag.getQty("pokeball"));
+        assertEquals(3, bag.getQty("potion"));
     }
 
     @Test

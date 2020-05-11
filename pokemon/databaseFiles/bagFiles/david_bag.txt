@@ -1,1 +1,1 @@
-Pokeballs,5:Potions,2
+Pokeballs,5:Potions,3

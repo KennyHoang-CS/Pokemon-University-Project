@@ -1,1 +1,1 @@
-david,email,password,5,1234.56,5,01/01/2020,00:00:04
+david,null,password,5,123.0,0,null,00:00:42

@@ -24,6 +24,8 @@ public class Menu {
         return menu;
     }
 
+    public void setPlayerTeam(Team playerTeam) { this.playerTeam = playerTeam; }
+
     public void setPlayer(Player player){
         this.player = player;
     }
@@ -65,15 +67,16 @@ public class Menu {
 
         Button pokemon = new Button("Pokemon");
         pokemon.setOnAction(e -> {
-            sceneController.poketeamScene(player.getPokeTeam(), player.getBag());
+            sceneController.poketeamScene(playerTeam , player.getBag());
             pokemon.setStyle(buttonStyle());
 
         });
         setStyles(pokemon);
 
         Button bag = new Button("Bag");
+        System.out.println(this.player.getBag());
         bag.setOnAction(e -> {
-            sceneController.bagScene(player.getBag(), player.getPokeTeam());
+            sceneController.bagScene(player.getBag(), playerTeam);
             bag.setStyle(buttonStyle());
         });
         setStyles(bag);

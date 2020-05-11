@@ -39,7 +39,7 @@ public class Player {
      * @param pw gives the constructor the player's password
      **/
     public Player(Boolean newUser, String un, String pw, boolean... test) {
-
+        System.out.println("does this ever run");
         if (newUser) {
             Date originalDate = new Date();
             //format
@@ -73,7 +73,6 @@ public class Player {
             this.time1 = timeFormat.format(currentTime);
             this.bag = Bag.getInstance();
             this.bag.loadData(this.name);
-            System.out.println(this.bag.toString());
             this.time2 = time1;
         }
     }
@@ -82,6 +81,14 @@ public class Player {
      */
     public  Player () {
 
+    }
+
+    public void setUpPlayer(){
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+        Date currentTime = new Date();
+        this.time1 = timeFormat.format(currentTime);
+        this.bag = Bag.getInstance();
+        this.bag.loadData(this.name);
     }
 
     public void setName(String username) {
@@ -190,7 +197,7 @@ public class Player {
             this.bag.saveData(this.name,true);
         }else{
             file = new File("./pokemon/databaseFiles/userProfiles/" + this.name + "_profile.txt");
-            this.bag.saveData(this.name);
+          //  this.bag.saveData(this.name);
         }
 
         try {
@@ -220,7 +227,7 @@ public class Player {
         Date date1;
         Date date2;
         try {
-             date1 = timeFormat.parse(time1);
+             date1 = timeFormat.parse(this.time1);
              date2 = timeFormat.parse(time2);
              long diff = date2.getTime() - date1.getTime();
              time1 = timeFormat.format(new Date(diff));
@@ -256,4 +263,6 @@ public class Player {
     public Bag getBag() {
         return this.bag;
     }
+
+    public Team getPokeTeam() { return this.pokeTeam; }
 }

@@ -77,6 +77,7 @@ public class PoketeamGUI {
     }
 
     private void  renderSlots(GridPane col1, GridPane col2, String... sceneType){
+        team.displayTeam();
         if(sceneType.length > 0 && sceneType[0] == "bag" ){
             for (int i = 0; i < 3; i++) {
                 if (team.getPokemonAtIndex(i) == null) {

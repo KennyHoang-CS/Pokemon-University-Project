@@ -108,7 +108,7 @@ public class BagGUI {
 
         Button amt = new Button("x"+qty);
         amt.setStyle(style +"-fx-text-alignment: right;");
-
+        item.toLowerCase();
         gp.add(arrow,0,0);
         gp.add(name,1,0);
         gp.add(amt,2,0);

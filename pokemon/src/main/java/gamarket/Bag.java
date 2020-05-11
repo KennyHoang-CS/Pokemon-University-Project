@@ -11,8 +11,6 @@ import java.util.Scanner;
 public class Bag {
     private List<PokeBall> pokeballs;
     private List<Potion> potions;
-    //private PokeBall pokeBalls[];
-    //private Potion potions[];
 
     protected static Bag bag;
     protected Bag(){ }
@@ -42,6 +40,7 @@ public class Bag {
             filePath = "./pokemon/databaseFiles/bagFiles/" + fileName + "_bag.txt";
         }
         File inFile = new File(filePath);
+
         if(inFile.exists()){
             try {
                 Scanner scanner = new Scanner(inFile);
@@ -49,10 +48,13 @@ public class Bag {
                 String temp[] = data.split(":");
                 String item1[] = temp[0].split(",");
                 String item2[] = temp[1].split(",");
+
+
                 pokeballs = new ArrayList<PokeBall>();
                 for(int i = 0; i < Integer.parseInt(item1[1]); i++){
                     pokeballs.add(new PokeBall());
                 }
+
                 potions = new ArrayList<Potion>();
                 for(int i = 0; i < Integer.parseInt(item2[1]); i++){
                     potions.add(new Potion());

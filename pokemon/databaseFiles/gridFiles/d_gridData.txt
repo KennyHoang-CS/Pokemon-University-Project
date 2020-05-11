@@ -1,5 +1,5 @@
 Grid dimensions:20,20
-Player position is:6,6
+Player position is:6,7
 The grid State: 
 T T T T T T T T T T T T T T T T T T T T 
 T T T T T T T T T T T T T T T T T T T T 
@@ -7,8 +7,8 @@ T T R R R R R R R R R R R R G G G G T T
 T T R R NUL NBL R R R R R R R G G G G G T T 
 T T R R NUR NBR B R R R R R R R G G G G T T 
 T T R R R R R R R R R R R G G G G G T T 
-T T R R MUL MBL RP R R R R R R R R G G G T T 
-T T R R MUR MBR S R R R R R R R R R R G T T 
+T T R R MUL MBL R R R R R R R R R G G G T T 
+T T R R MUR MBR SP R R R R R R R R R R G T T 
 T T R R R R R R R R R R R R R R R R T T 
 R R R R R R R R R R R R R R R R R R T T 
 R R R R R R R R R R R R R R R R R R T T 

@@ -47,6 +47,7 @@ public class Client extends Application {
         StartMenuGUI startMenu = new StartMenuGUI();
         startMenu.display();
         player = startMenu.getClientPlayer();
+        player.setUpPlayer();
         stackPane = gameInterface(startMenu.getNewUser());
         Scene scene = new Scene(stackPane);
         window.setScene(scene);
@@ -111,9 +112,6 @@ public class Client extends Application {
                             }else{
                                 stackPane.getChildren().add(menu.display());
                                 stackPane.getChildren().get(0).setDisable(true);
-
-                                System.out.println(window.getScene());
-                                System.out.println(stackPane.getChildren());
                             }
                         }
                     }else if(input.contains("F")){
@@ -143,8 +141,6 @@ public class Client extends Application {
      * instantiates the player class and loads in their new or saved information, and creates the GUI.
      *
      * @param newPlayer lets gameInterface know whether we have a new player
-     * @param username  is used to instantiate the player
-     * @param password  is usded to instantiate the player
      * @return returns the GUI
      */
     public StackPane gameInterface(Boolean newPlayer) {
@@ -272,7 +268,8 @@ public class Client extends Application {
                 break;
         }
         TileGUI playerNew = (TileGUI) this.gameGUI.getChildren().get(location);
-        playerNew.renderPlayer();
+        playerNew.renderPlayer(direction);
+        lastDir = direction;
     }
 
 
@@ -322,13 +319,11 @@ public class Client extends Application {
 
     private void renderStore(){
         Store store = new Store(this.player.getBag(), this.player.getMoney());
-        StoreGUI storeGUI = new StoreGUI(store ,this.window);
+        StoreGUI storeGUI = new StoreGUI(store, this.window);
         this.stackPane.getChildren().add(storeGUI.display());
-        stackPane.getChildren().get(0).setDisable(true);
     }
     private void renderNurse(){
-        Nurse nurse = new Nurse(this.player.getPokeTeam());
+        Nurse nurse = new Nurse(this.playerTeam);
         this.stackPane.getChildren().add(nurse.display());
-        stackPane.getChildren().get(0).setDisable(true);
     }
 }
