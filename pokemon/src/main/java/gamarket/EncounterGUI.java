@@ -348,10 +348,10 @@ public class EncounterGUI{
     /**  Updates the pokemon health, name, and level. */
     public String updateHP(Pokemon myPoke) {
         // update the player's pokemon status bars: name, level, health.
-        return playerPokemon.getIdentStats().getName() + "       Lv."
-                + Integer.toString(playerPokemon.getIdentStats().getLevel()) + "\n    "
-                + Integer.toString(playerPokemon.getDefensiveStats().getHPCurrent()) + " / "
-                + Integer.toString(playerPokemon.getDefensiveStats().getHP()) + " HP";
+        return myPoke.getIdentStats().getName() + "       Lv."
+                + Integer.toString(myPoke.getIdentStats().getLevel()) + "\n    "
+                + Integer.toString(myPoke.getDefensiveStats().getHPCurrent()) + " / "
+                + Integer.toString(myPoke.getDefensiveStats().getHP()) + " HP";
     }
 
     /**
@@ -538,13 +538,15 @@ public class EncounterGUI{
         // if run was successful, exit the battle.
         if (!(runOutcome.equals("Run away was unsuccessful"))) {
             // code here to switch back into previous screen.
+            exitEncounter();
+        }
+    }
+    private void exitEncounter() {
             Soundtrack.stopMusic();
             Soundtrack.loadMusic("in_game1.wav");
             Soundtrack.startMusic();
             sceneController.returnScene();
-        }
-    }
-
+    } 
     /**
      * Calculates the move outcome in the wild pokemon encounter.
      * @param moveNumber this indicates what move was used 0-3.
@@ -553,13 +555,17 @@ public class EncounterGUI{
         // Determines if the first move was used.
         playerPokemon = aEncounter.getPlayerTeam().getActivePokemon();
         wasMove1Used = true;
-        text.setText(aEncounter.fight(moveNumber, playerPokemon));
+        String fightOutcome = aEncounter.fight(moveNumber, playerPokemon);
+        text.setText(fightOutcome);
+        
+        
         // Update pokemons health
         hp1.setText(this.updateHP(playerPokemon));
-        hp2.setText(wildPokemon.getIdentStats().getName() + "       Lv."
-                + Integer.toString(wildPokemon.getIdentStats().getLevel()) + "\n    "
-                + Integer.toString(wildPokemon.getDefensiveStats().getHPCurrent()) + " / "
-                + Integer.toString(wildPokemon.getDefensiveStats().getHP()) + " HP");
+        hp2.setText(this.updateHP(wildPokemon));
+        // if(wildPokemon.hasPokemonFainted()) {
+            
+        //     exitEncounter();
+        // }
         // Update text box.
         if (aEncounter.getAttacker()) {
             attackerStatus = " \n You are attacking.";
