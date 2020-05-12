@@ -120,13 +120,14 @@ public class Pokemon{
 				   + Integer.toString(this.OS.getATK()) + ","
 				   + Integer.toString(this.OS.getSPATK()) + ","
 				   + Integer.toString(this.OS.getSpeed()) + ","
-			       + Integer.toString(this.DS.getHP()) + ","
+				   + Integer.toString(this.DS.getHP()) + ","
 			       + Integer.toString(this.DS.getDEF()) + ","
 				   + Integer.toString(this.DS.getSPDEF()) + ","
 				   + moveSet[0].getMoveName() + ","
 				   + moveSet[1].getMoveName() + ","
 				   + moveSet[2].getMoveName() + ","
-				   + moveSet[3].getMoveName();
+				   + moveSet[3].getMoveName() + ","
+				   + Integer.toString(this.DS.getHPCurrent()) ;
 		}
 		return temp; 
 	}

@@ -58,7 +58,7 @@ public class Team {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // TODO Auto-generated method stub
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    System.out.println(snapshot.getValue());
+                    //System.out.println(snapshot.getValue());
                     Pokemon newPokemon = stringToPokemon((String)snapshot.getValue());
                     addPokemon(newPokemon);
                     //myTeam[Integer.parseInt(snapshot.getKey())] = newPokemon;
@@ -248,6 +248,10 @@ public class Team {
         Move m3 = mc.searchMove(pokeData[13].trim());
         Move m4 = mc.searchMove(pokeData[14].trim());
         
+        //so works with old data
+        if(pokeData.length > 15) {
+            myPoke.getDefensiveStats().setHPCurrent(Integer.parseInt(pokeData[15]));
+        }
         // add the move-set to the Pokemon's default move-set.
         myPoke.setMoves(m1, m2, m3, m4);
         return myPoke;

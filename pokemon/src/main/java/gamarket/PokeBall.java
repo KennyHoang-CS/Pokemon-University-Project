@@ -5,7 +5,8 @@ public class PokeBall extends Item {
     private String type = "Pokeball";
     public PokeBall () {
         this.description = "Use to catch Pokemon";
-        this.cost = 1.50;
+        this.buyCost = 1.50;
+        this.sellCost = 1.50;
         this.type = "Pokeball";
     }
 
