@@ -1,0 +1,1248 @@
+commit 1fa7bae36c7794be8cd940e74610482c85a1b3a0
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Tue May 12 15:31:12 2020 -0700
+
+    Delete NUL.png
+
+commit e378ef1ca4751704e7a8be2d38ebf3775444104c
+Merge: e610bf2 cfb8d92
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Tue May 12 15:27:10 2020 -0700
+
+    Merge pull request #8 from ChiralAlchemist/master
+    
+    updating
+
+commit cfb8d92faad168b561d900f6545508c9780c6db9
+Merge: 08654fe c59dc22
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Tue May 12 15:26:25 2020 -0700
+
+    Merge pull request #28 from ChiralAlchemist/KennyCSUEB-patch-3
+    
+    Testing for general pokemon and pokemon team
+
+commit c59dc2285b7e242feb38e72651b6ed514c964e3b
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Tue May 12 14:58:58 2020 -0700
+
+    Testing for general pokemon and pokemon team
+
+commit 08654fe0652b9cbf0e749607321a373d7714d98a
+Merge: 8e9ece4 79a2175
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Tue May 12 00:25:21 2020 -0700
+
+    Merge pull request #26 from ChiralAlchemist/wildFix
+    
+    fix wild pokemon correct name
+
+commit 8e9ece46a5f6ffc3f7727c673773aeae5e6d5a02
+Merge: 5019d79 e610bf2
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Mon May 11 23:24:07 2020 -0700
+
+    Merge pull request #27 from KennyCSUEB/master
+    
+    adding missing images attempt 2
+
+commit e610bf20da53dfcfb5ea92b418f5ef7a26956707
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Mon May 11 23:20:28 2020 -0700
+
+    missing images for buttons
+
+commit 1934e026923ffa77a4f7f97e945a6366bdbf9946
+Merge: f8dddc9 5019d79
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Mon May 11 23:08:54 2020 -0700
+
+    Merge pull request #7 from ChiralAlchemist/master
+    
+    updating
+
+commit 5019d7929e9bea9e986ea0d4505a2f3f44c6e075
+Merge: c1956cd f8dddc9
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Mon May 11 22:57:26 2020 -0700
+
+    Merge pull request #22 from KennyCSUEB/master
+    
+    Extending wild encounter music, since its pretty short, found a longe…
+
+commit 79a217506210065b2571fcda1b6c937ae599b991
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Mon May 11 22:14:34 2020 -0700
+
+    fix wild pokemon correct name
+
+commit c1956cdf853fc5e228f6074fc61e54716e1daeb8
+Merge: 2209fb7 41c970a
+Author: davidlserrano <47878688+davidlserrano@users.noreply.github.com>
+Date:   Mon May 11 16:39:04 2020 -0700
+
+    Merge pull request #25 from ChiralAlchemist/hpFix
+    
+    Hp fix
+
+commit 41c970a888d3b68e988e940994bc9c84c43e4484
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Mon May 11 15:49:49 2020 -0700
+
+    made hp fix backwards compatable
+
+commit 2dd867f6a918ff4c4890162531a24b7abbb2b16f
+Merge: 1d44159 2209fb7
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Mon May 11 15:43:40 2020 -0700
+
+    Merge branch 'master' of https://github.com/ChiralAlchemist/cs401proj
+
+commit 2209fb7d06dc458afe3f77720928d38b24694851
+Merge: b95b84d 491a0bf
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Mon May 11 15:43:21 2020 -0700
+
+    Merge pull request #23 from ChiralAlchemist/New Tiles and NPCS
+    
+    Fixed conflicts
+
+commit 491a0bfedd5ccb9b0d9870719d784e027b2c48b1
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Mon May 11 15:31:02 2020 -0700
+
+    set music back to default
+
+commit 4c780a29ccd07f79691b5b19150f72f7b580875a
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Mon May 11 15:20:30 2020 -0700
+
+    fixed bg
+
+commit 39a4acd071d2d25d449a8d8e8a975782fa607d8e
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Mon May 11 01:16:56 2020 -0700
+
+    updated and fixed master branch to work with NPCs and bag related stuff
+
+commit 1d44159d06463c6f01b65f6f64d6335a502f1d9f
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Mon May 11 00:37:50 2020 -0700
+
+    fix current hp bug
+
+commit a5bfb74f337eeb614cb3fd7ad3e3d0d50ab673fe
+Merge: e73b833 b95b84d
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Sun May 10 21:59:00 2020 -0700
+
+    fixing conflicts
+
+commit f8dddc9109993b4eb0be6ccc16fdc799f76b537d
+Author: Kenny Hoang <khoang15@horizon.csueastbay.edu>
+Date:   Sun May 10 16:36:09 2020 -0700
+
+    Extending wild encounter music, since its pretty short, found a longer version
+
+commit e73b83394efd8edee6ceaefc99eac2a54569e7ac
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Sun May 10 13:57:25 2020 -0700
+
+    added an option parameter to distinguish if the player is coming into the PoketeamGUI from the in-game Menu or from the bag when trying to use a potion on a pokemon
+
+commit b7221866976977d98c938313ce6fae0e2c1c8a76
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Sun May 10 13:56:13 2020 -0700
+
+    new grid layout
+
+commit 329411298d830b09a6979bdac8b6f472b3d2a51e
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Sun May 10 13:54:58 2020 -0700
+
+    added changes to account for the new Bag, Store, NPCs, and any other subsequent classes created
+
+commit 11f11009d61a16f5c764952f76d9973ab1321bdf
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Sun May 10 13:49:53 2020 -0700
+
+    added small changes to the items/potion/pokeball class to allow for a functional store and test class. StoreGUI is implementede but buy & sell buttons are not functional yet
+
+commit 8b6752bd2d4212f0b5a815543783d4edc2ac5a77
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Sun May 10 13:43:38 2020 -0700
+
+    created an abstract NPC class for different in-game NPC's to extend from. added a functional Nurse NPC along with a test for it
+
+commit 89096d371789c9581b43de6b2e22ab40adbf9652
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Sun May 10 13:40:45 2020 -0700
+
+    created a functional Bag class, BagGUI counterpart, dedicated bag files database, and a BagTest suite
+
+commit 043e97494ebf8828d48f2fb2fe483ceb490865be
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Sun May 10 13:36:49 2020 -0700
+
+    added new tile types for in-game structures and NPCs, along with an interaction check for an NPC block
+
+commit b95b84d4ce00121a79e902fd123eba4b45174e49
+Merge: ae80d0c 040d111
+Author: davidlserrano <47878688+davidlserrano@users.noreply.github.com>
+Date:   Fri May 8 13:51:51 2020 -0700
+
+    Merge pull request #21 from KennyCSUEB/master
+    
+    EncounterGUI is fully implemented.
+
+commit 040d11126c25e77ae0b0f5d05cf7fee6ad91cbed
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Fri May 8 04:04:32 2020 -0700
+
+    Housecleaning, reduced about 300 lines of code.
+
+commit 9776d30d0a9723a51584b14a669ed607d3717fb0
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Thu May 7 22:49:24 2020 -0700
+
+    Implementing EncounterGUI fully into the project.
+    
+    Implementing EncounterGUI fully into the project. The EncounterGUI gives a visual representation of the wild encounter via pokemons, health, menu control: switch pokemon, use a pokeball, use pokemon moves and so on.
+
+commit 7f4caf4a5f3da67fe3b97e593bc6e7624a39e6dc
+Merge: 8f7b525 ae80d0c
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Thu May 7 22:43:10 2020 -0700
+
+    Merge pull request #6 from ChiralAlchemist/master
+    
+    getting fresh content
+
+commit ae80d0cb0908945d40185f627b5c5601c941f864
+Merge: 455996f 8b7cad3
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Thu May 7 17:41:31 2020 -0700
+
+    Merge pull request #20 from ChiralAlchemist/server
+    
+    Player and team info loaded from db instead of files
+
+commit 8b7cad33d2d0e21f70fc9f4222b3046f55b25cfd
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Sat May 2 16:39:08 2020 -0700
+
+    clean up some system.outs
+
+commit b28d3596360d7e382cc974007aa3a49fe2c6e96f
+Merge: ffffb80 455996f
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Sat May 2 15:39:54 2020 -0700
+
+    Merge branch 'master' of https://github.com/ChiralAlchemist/cs401proj into server
+
+commit 455996f54dfb5cfd77398d57bb1b2a2067dfc19d
+Merge: 5cf01ed 858d7b9
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Sat May 2 14:16:39 2020 -0700
+
+    Merge pull request #19 from ChiralAlchemist/sceneSwitcher
+    
+    Scene switcher
+
+commit 858d7b937cabf71cf9ac4a6bee2c2ce537425ccb
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Sat May 2 14:09:01 2020 -0700
+
+    fix getting stuck in encounters bug
+
+commit 95d7111d95285f642e9ef8fe4bba1cd0f1f2c12e
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Sat May 2 01:00:02 2020 -0700
+
+    code cleanup
+
+commit e39617674e0b148886ade5c59322e852b9dbcf8b
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Sat May 2 00:21:24 2020 -0700
+
+    turned SceneController into a singleton class and fixed where it was called in other classes. can now return from encounter GUI back to game
+
+commit 657c2f7645a2d8864de8f98f13703eb964ee3e0b
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Fri May 1 23:19:58 2020 -0700
+
+    fixed uncloseable menu bug. can now be closed with exit button.
+
+commit 335cca48612e0457da5e250ab665dc6582b54fdb
+Author: David Serrano <davidserrano@Davids-MacBook-Pro-2.local>
+Date:   Fri May 1 19:02:12 2020 -0700
+
+    finished implementation of pokemon team
+
+commit ffffb80170a2e95056f9f6a1874e46295b960472
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Thu Apr 30 19:11:28 2020 -0700
+
+    new user team saved instantly
+
+commit 3dae9cdafc9ee54f6982a8c9357a2ae38bebaf1c
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Thu Apr 30 19:08:37 2020 -0700
+
+    fixed login/register class & implemented pressing 'enter' button to login
+
+commit 9f4d4412b86a183dfcecaed84f40a03f02e38ca5
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Thu Apr 30 19:05:56 2020 -0700
+
+    implemented scene controller to navigate through different screens, along with TrainerCard GUI and skeleton of PokeTreamGUI
+
+commit f991f3bd7478898de3f61b846f20821bf0eade6c
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Thu Apr 30 19:02:02 2020 -0700
+
+    manually implemented kenny's encounter GUI class
+
+commit 109d088f1ea3e279a461698b122957f00694b231
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Thu Apr 30 19:01:42 2020 -0700
+
+    clean up
+
+commit 24c459822d13a9e4d46f196421aa0ba1e49fc281
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Thu Apr 30 18:55:11 2020 -0700
+
+    can register new players
+
+commit 17b770bd944773287445c84132e73cd0799546c8
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Thu Apr 30 14:47:10 2020 -0700
+
+    loads existing user from db
+
+commit 13d1ea910dad447bf59110a854c1b2c2f28c450c
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Tue Apr 28 19:13:11 2020 -0700
+
+    implementing scene controller
+
+commit c6e0566384abf7279f20671802bc87588c06b90c
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Tue Apr 28 19:12:33 2020 -0700
+
+    implemented TrainerCard class for menu
+
+commit 0f4c616ab7cc07c54168de6a73ff98e26017cae3
+Merge: 0af5045 5cf01ed
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Tue Apr 28 19:11:30 2020 -0700
+
+    updated with master updates and fixed conflicts
+
+commit 0af50453890c2c57d42db1dd0df63766f6f97f20
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Mon Apr 27 22:05:18 2020 -0700
+
+    fixed register/login bugs
+
+commit b831fb088ae100a7c85dd59a77c870dbab9d0139
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Mon Apr 27 22:02:56 2020 -0700
+
+    seperated menu into it's own class and made small tweaks to client and player class in order for program to work
+
+commit de22b423682a11ba6fcd4cc17d712bcc327d1937
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Mon Apr 27 22:01:09 2020 -0700
+
+    implemented trainer card GUI, still work in progress
+
+commit 5cf01edc0abff1561e65515de5ccc5b3a9995900
+Merge: 54cb22c 8f7b525
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Mon Apr 27 17:10:54 2020 -0700
+
+    Merge pull request #18 from KennyCSUEB/master
+    
+    Sound files
+
+commit 8f7b525d07ab18d54f67f9c234f2eea6f7a0dacd
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Sun Apr 26 21:26:07 2020 -0700
+
+    Added a change to protect your ear buds.
+
+commit 2d23c6c760cdd2621f67be3c4254324b36f2bc86
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Sun Apr 26 21:23:44 2020 -0700
+
+    in game menu skeleton method implemented
+
+commit a9643173aab84a352527796ff1668286691837b3
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Sun Apr 26 20:52:20 2020 -0700
+
+    Minor Encounter changes
+
+commit db8638340f9d233b27e3b58e3af1baf8bf7fc593
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Sun Apr 26 20:47:08 2020 -0700
+
+    Adding sound files.
+
+commit 102e2e1882f6badd1990e8a25a07beee2f22ba81
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Sun Apr 26 20:45:33 2020 -0700
+
+    Add files via upload
+
+commit 333f8a2fb128c05e41f07ade9002112f0e25bb1e
+Merge: 719029a 54cb22c
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Sat Apr 25 18:16:20 2020 -0700
+
+    Merge branch 'master' of https://github.com/ChiralAlchemist/cs401proj into server
+
+commit 54cb22cc8baf385d1b4027ebeb903e7f5a87891a
+Merge: 484410c e6185a0
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Sat Apr 25 18:08:28 2020 -0700
+
+    Merge pull request #17 from ChiralAlchemist/demo
+    
+    Adds encounter class with battles and few basic item
+
+commit e6185a06eb28a867a80dc2755047b295de9ac492
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Sat Apr 25 18:03:19 2020 -0700
+
+    address PR changes
+
+commit 719029a1b9bf434cbeb41988d3b26e2926ec3c5c
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Sat Apr 25 17:46:17 2020 -0700
+
+    Add firebase key
+
+commit 172a149aa914e12a9d3fc54c2c03c8227db65f7a
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Sat Apr 25 14:59:14 2020 -0700
+
+    add firebase dependency
+
+commit fae9eff9587de4328ee7970338ba89903a060825
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Sat Apr 25 14:57:11 2020 -0700
+
+    player and team load and save to db
+
+commit f681922d834f5c434f0a168dce21a0e377a55805
+Merge: 21f11cf ab922e6
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Sat Apr 25 02:19:49 2020 -0700
+
+    Merge pull request #4 from ChiralAlchemist/demo
+    
+    Demo
+
+commit ab922e63f0901b688e8b97fda6ddd7655ce3a795
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Fri Apr 24 02:05:26 2020 -0700
+
+    Correctly deletes test file
+
+commit 3468acf1ab591ab799f2fd1b20c0304c3496468f
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Fri Apr 24 01:56:46 2020 -0700
+
+    make load change
+
+commit 227f1fdd3d2fc2064cfc6a8b118636b291586578
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Fri Apr 24 01:30:39 2020 -0700
+
+    add javadocs to files
+
+commit 1a6af6e97caca6c62101f350f63cc6ed71af592d
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Fri Apr 24 01:27:43 2020 -0700
+
+    Deleted testgrid files
+
+commit 875e9c6b622f5fdc3c670c461e94199e2e3b92cf
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Fri Apr 24 00:38:09 2020 -0700
+
+    clean up player class
+
+commit f220d28a905a701d815a5ec37ae4837d5cf2fe5a
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Fri Apr 24 00:37:32 2020 -0700
+
+    add javadoc to encounter class
+
+commit c8284b2128b3dccc320ed2218c46aec62f9fb457
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Thu Apr 23 17:18:56 2020 -0700
+
+    demo build
+
+commit 70565d2916e68e25446b42926725b4dbd256639b
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Wed Apr 22 17:37:32 2020 -0700
+
+    Encounter Pokemon working
+
+commit 59980f849c737a44bd8a9ece92caf3e1bfe6a80f
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Wed Apr 22 16:03:56 2020 -0700
+
+    refactor some pokemon functions
+
+commit 474ed9d48cc4c49b46dcec5c668adc2d01c13955
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Wed Apr 22 15:59:05 2020 -0700
+
+    Add display moves to encounters
+
+commit b6908bf8470e3eb4bee26121b955838131aec784
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Wed Apr 22 15:54:14 2020 -0700
+
+    Add Encounter to client
+
+commit 844a0290db0938c9a7a2211ccb9c674de4fb3974
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Wed Apr 22 15:52:01 2020 -0700
+
+    Add loadData to Movecollection Constructor
+
+commit c04cbfa3e180e33d682ee717eee4e10f42c937a0
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Wed Apr 22 15:50:24 2020 -0700
+
+    Add load PokemonCollection constructor
+
+commit 090d262345098bc73b6bb21081baecd3607d5c3f
+Merge: 5101568 484410c
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Wed Apr 22 13:29:39 2020 -0700
+
+    Merge branch 'master' of https://github.com/ChiralAlchemist/cs401proj into encounterClass
+
+commit 510156874368d4bd5dc7c74f42fd85379ab67787
+Merge: 6caf0bc 3f094c0
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Wed Apr 22 13:26:20 2020 -0700
+
+    Merge branch 'master' of https://github.com/ChiralAlchemist/cs401proj into encounterClass
+
+commit 484410c79b11bbfd29da4c716fb5ad1a2c4b3f5c
+Merge: 3f094c0 21f11cf
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Tue Apr 21 23:41:20 2020 -0700
+
+    Merge pull request #16 from KennyCSUEB/master
+    
+    Missing text database files
+
+commit 21f11cfaae69be3a8a8d1369403f665524c2a9c4
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Tue Apr 21 22:52:09 2020 -0700
+
+    database text files for pokemon and moves
+    
+    Needed for pokemon collection and move collection
+
+commit 6caf0bca89f800edc931e281203d1a812fcef9fe
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Tue Apr 21 22:31:26 2020 -0700
+
+    encounter pre-merge
+
+commit 3f094c0375ddf08945bca245b5eea4a24d5c0209
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Tue Apr 21 22:22:20 2020 -0700
+
+    Update README.md
+
+commit 6de114b5ba61e95f298364414b07a46420a87f9e
+Merge: 44c444d 8a75901
+Author: davidlserrano <47878688+davidlserrano@users.noreply.github.com>
+Date:   Tue Apr 21 22:21:12 2020 -0700
+
+    Merge pull request #15 from ChiralAlchemist/davidlserrano-patch-1
+    
+    Update README.md
+
+commit 8a75901a63b254159ec781c921b7287f6c6cbe0d
+Author: davidlserrano <47878688+davidlserrano@users.noreply.github.com>
+Date:   Tue Apr 21 22:19:32 2020 -0700
+
+    Update README.md
+
+commit caafc861df8f575aeee08011b8b4d61114f5e360
+Merge: 22d77a5 44c444d
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Tue Apr 21 22:11:27 2020 -0700
+
+    Merge pull request #3 from ChiralAlchemist/master
+    
+    getting updated files
+
+commit 44c444da3883281d80bd22fd049875048d4b9ddd
+Merge: 5294298 7c7a522
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Tue Apr 21 22:08:39 2020 -0700
+
+    Merge pull request #13 from ChiralAlchemist/playerUI
+    
+    Player UI
+
+commit 7c7a522d75893b40a3bfe0ece4535319cca0a5b4
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Tue Apr 21 22:02:23 2020 -0700
+
+    fixed grid tests and added boolean check for gridLoad & gridSave
+
+commit 54d9998c3c8a70fe3a48bffb110581dddfa6d765
+Merge: 1cbe322 7e80e61
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Tue Apr 21 22:00:26 2020 -0700
+
+    updating code
+
+commit 1cbe322978e041d084177bf4287b40f69d2f36e8
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Tue Apr 21 20:52:13 2020 -0700
+
+    fixed .gitignore for _gridData.txt files
+
+commit 7e80e615aa8ceb456518e4c86a03659f30a165bf
+Merge: 5294298 8497345
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Tue Apr 21 20:24:51 2020 -0700
+
+    Merge branch 'playerUI' of https://github.com/ChiralAlchemist/cs401proj into PR_Player_UI
+
+commit 529429890742f10f938254a18dd2596a31c101b1
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Tue Apr 21 20:11:31 2020 -0700
+
+    HotFix missed ;
+
+commit 5920752c26efa16375810791c517578722d87351
+Merge: 4262392 22d77a5
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Tue Apr 21 20:05:53 2020 -0700
+
+    Merge pull request #14 from KennyCSUEB/master
+    
+    Updated the files based on Joe's comments.
+
+commit 22d77a5c3a888e972ebb90bdfc9a0930af964f62
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Tue Apr 21 19:45:35 2020 -0700
+
+    Updated the files based on Joe's comments.
+    
+    Trimmed java-doc comments, used the mc.search(...) function instead of @index, and added the feature to Team class to save a Pokemon's move if a Player decides to change it.
+
+commit 4262392c0a24694f698709bab98ac0e5e16a5c8f
+Merge: 731ef4c b79e501
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Tue Apr 21 19:41:38 2020 -0700
+
+    Merge pull request #12 from KennyCSUEB/master
+    
+    Added more functionality update dealing with moves
+
+commit b79e501a8b047d5f9f1ee44e1f28dfea3b258a11
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Tue Apr 21 06:11:05 2020 -0700
+
+    Added more functionality update dealing with moves
+    
+    Pokemons now have their default move-set of four moves. Added a feature to change a selected Pokemon's move to another move. Added helper functions to print a selected Pokemon's move-set, return a Pokemon or a Move at a given index, and printer functions.
+
+commit 6c0c4e13cdfe675829975b1266ff1df14edb8602
+Merge: 7748d76 731ef4c
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Tue Apr 21 06:02:35 2020 -0700
+
+    Merge pull request #2 from ChiralAlchemist/master
+    
+    Updating my branch
+
+commit 8497345101a94a14ac3d250393b01116d0cff5dc
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Mon Apr 20 23:48:10 2020 -0700
+
+    images for the GUI
+
+commit be7c22f3841b8bc9063b63e19d6e934ea30acf02
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Mon Apr 20 23:44:38 2020 -0700
+
+    added description comments
+
+commit dc0c591541c6be8a8333255f3dc233aa785202f7
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Mon Apr 20 23:42:37 2020 -0700
+
+    removed commented code
+
+commit 8681591e30883fb4ba7491424a3f73768139fec9
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Mon Apr 20 23:41:40 2020 -0700
+
+    implemented GUI for the start menu along with register and login functionality
+
+commit ef843913da90188e069fa3f67d7c296f86e046c2
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Mon Apr 20 23:40:38 2020 -0700
+
+    removed unneccessary toString print statements
+
+commit 7e8c74be880492fe12a4448e52fb8ea48d8b18f6
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Mon Apr 20 23:39:50 2020 -0700
+
+    removed commented code
+
+commit aa0c53e7a9e3cd4956a9a4633b76fbce04c64d73
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Mon Apr 20 23:36:25 2020 -0700
+
+    implemented startMenu, proper player/grid loading, and save on quit functionality
+
+commit dfa015785d0b6537f040f36fa59d7d8c2ffab3d2
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Sun Apr 19 00:33:54 2020 -0700
+
+    cleaned up grid refactor
+
+commit e9d0520a60904d79c2c458cfea64f4cc259315c7
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Sun Apr 19 00:17:56 2020 -0700
+
+    refactor working
+
+commit c7a3897029bc94d1f0b0a6f8e1fe8c4b86c3a8fc
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Sat Apr 18 20:51:55 2020 -0700
+
+    seperated grid functions from GUI
+
+commit f4e503d82a988e2c6a63f1d2be9e8761fe2c39a6
+Merge: 731ef4c 2517c74
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Sat Apr 18 18:20:14 2020 -0700
+
+    smoothed out movement
+
+commit 2517c74f132138bbbabc57adbbbd36c75ca51f13
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Sat Apr 18 16:45:05 2020 -0700
+
+    implemented player movement functionality, fixed tile constructor, and fixed database file paths
+
+commit 208c88536120908dd4fd9f5996f3eedd9d08de5c
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Sat Apr 18 16:40:52 2020 -0700
+
+    enounter work.java
+
+commit 4bfa547ae5e7aa60cbe1e0d913c7798fe18e9914
+Merge: f59d357 731ef4c
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Sat Apr 18 13:54:23 2020 -0700
+
+    Merge branch 'master' of https://github.com/ChiralAlchemist/cs401proj into encounterClass
+
+commit 731ef4cb2d89b89ea7bbef72197fab23b1ff07fe
+Merge: da57af4 538c4c8
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Sat Apr 18 13:54:10 2020 -0700
+
+    Merge pull request #8 from ChiralAlchemist/david
+    
+    Implemented player class as well as included a folder for different types of database files to be held. Implemented a small start menu GUI as well, turned the Client class into a singleton
+
+commit 6a09d387a892da5d1bce044d5722a08c36e89ed1
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Fri Apr 17 10:05:17 2020 -0700
+
+    implemented player movement
+
+commit da57af4178a203dbfe10f9840452a0b3db62424c
+Merge: 5f592b4 fd1540a
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Thu Apr 16 22:05:01 2020 -0700
+
+    Merge pull request #11 from ChiralAlchemist/KennyCSUEB-patch-2
+    
+    Updated Mova.java
+
+commit fd1540a298faee9e210dc27775e2e9f087b5fb56
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Thu Apr 16 22:02:12 2020 -0700
+
+    add missing semi-colon
+
+commit 86c817e01b5c7681e933cd9f4fa434366afa53b8
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Thu Apr 16 19:21:18 2020 -0700
+
+    fix grid.setplayer position
+
+commit c6316214f9fd06597b38eeb0cbe68830390e43d4
+Merge: 7658021 a2af5b5
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Thu Apr 16 18:16:38 2020 -0700
+
+    Merge branch 'UI' of https://github.com/ChiralAlchemist/cs401proj into UI
+
+commit a2af5b591f44988ef12ef85769a6d8f74c5b5eee
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Thu Apr 16 18:12:02 2020 -0700
+
+    added images file for the game interface
+
+commit 42acd07c4dd0244fff12f897c422d7afa67ac047
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Thu Apr 16 18:11:15 2020 -0700
+
+    these classes currently need to commneted out in order for the client class to work
+
+commit a85790cd0e57f3eb89ce09b4a83c3f48d3be542c
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Thu Apr 16 18:08:23 2020 -0700
+
+    updated classes for them to work with the gui and implemented the game interface
+
+commit df19c6d7c13c7e5a046f3c158d2012d196e7f7f5
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Mon Apr 13 19:47:42 2020 -0700
+
+    Updated Mova.java
+    
+    Seem to be like old version of the code got mixed in with the recently submitted Move.java
+
+commit 5f592b4529073013472455a38dfe14b8c0c0091a
+Merge: 79645aa 0b80444
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Fri Apr 10 14:58:15 2020 -0700
+
+    Merge pull request #10 from ChiralAlchemist/updatedMaster
+    
+    Updated Documents
+
+commit 0b804441e75a7f0dacec88a584285b8f9a53d1a9
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Fri Apr 10 14:52:16 2020 -0700
+
+    moved old teams documentation into oldDocumentation folder
+
+commit c8ca0184387eefb246c5088d618e38d7c9bc53d3
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Fri Apr 10 14:49:39 2020 -0700
+
+    new documentation added
+
+commit 7748d76116e510b431488ff5dd29264556a47c3e
+Merge: c52d049 79645aa
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Fri Apr 10 12:34:43 2020 -0700
+
+    Merge pull request #1 from ChiralAlchemist/master
+    
+    test
+
+commit 79645aa837d92b760d7bb87b3e0e2f75226375b0
+Merge: 7658021 287023d
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Thu Apr 9 21:42:10 2020 -0700
+
+    Merge pull request #9 from ChiralAlchemist/KennyCSUEB
+    
+    slight changes and adding new Team class
+
+commit 287023d6fcfc0f4fb4609679c981b99554897490
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Thu Apr 9 21:41:30 2020 -0700
+
+    Update PokemonCollection.java
+    
+    took out  2 un-used variables
+
+commit 7658021b5410db97009b86a174e0d52fa5c37b1b
+Merge: 8facd3c b9bfbe3
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Thu Apr 9 21:31:19 2020 -0700
+
+    Merge pull request #7 from ChiralAlchemist/KennyCSUEB-patch-1
+    
+    Updated Move.java with javadoc style comments + toString()
+
+commit b9bfbe3b6e12c9ff8cd9090122698449733f4145
+Merge: a072472 8facd3c
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Thu Apr 9 21:29:13 2020 -0700
+
+    Merge branch 'master' into KennyCSUEB-patch-1
+
+commit 8c30d2607e6e8b2706216dfd25fb8a8587b21174
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Thu Apr 9 21:29:07 2020 -0700
+
+    small test fix
+
+commit b45555149bab36daf4cf5931c98e75866e28c71a
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Thu Apr 9 21:27:32 2020 -0700
+
+    player profile testing files
+
+commit c69710011e132712540d8ee6b2e638091fd6320b
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Thu Apr 9 21:22:49 2020 -0700
+
+    slight changes and adding new Team class
+    
+    slightly modified Pokemon, PokemonCollection, & added new Team class
+
+commit 538c4c84ce6aaa3f59f98e24fd226da667321be5
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Thu Apr 9 21:22:43 2020 -0700
+
+    added tileCheck method
+
+commit affba9e24127fad9fe75a9c0fefddd2d81074e86
+Merge: f896096 a498541
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Thu Apr 9 18:33:46 2020 -0700
+
+    resolved conflict in client.java
+
+commit f8960967d0dd154ba7c8178e258aef4f0cd88407
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Thu Apr 9 17:34:54 2020 -0700
+
+    small fixes from pull request comments
+
+commit ef907978a056ce17682ebc647cb5bd2c5f759913
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Thu Apr 9 17:27:16 2020 -0700
+
+    fixed loadData method with String.split
+
+commit beac24b7652d378731dfb6670717b5f61889cb1d
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Thu Apr 9 17:25:27 2020 -0700
+
+    created folder for source data files
+
+commit f59d357facdce58eac53e41a86701cf514be8069
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Sat Apr 4 23:36:48 2020 -0700
+
+    encounter and item work
+
+commit a4985413dd9b29be562098a1b4cce43223fd233c
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Fri Apr 3 16:51:41 2020 -0700
+
+    fix the client startupgui bug
+
+commit 461e49dbb990facb9772738675ca7158be01bc26
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Fri Apr 3 16:50:18 2020 -0700
+
+    add javafx as dependency to pom.xml
+
+commit f82f44a5af6e71aed74d930e96ffda370caf3e0f
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Fri Apr 3 16:09:18 2020 -0700
+
+    add skeleton encounter class and test
+
+commit c637202b56e6596b87956e5f4600a5888d0527c8
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Tue Mar 31 18:45:26 2020 -0700
+
+    removing to fix filepaths
+
+commit df4ac4867a5b3999a014822c213296db7a428560
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Tue Mar 31 18:40:22 2020 -0700
+
+    implemented driver in order to test with out maven/jUnit due to filepath issues
+
+commit b39becb2af371cab1f90e360567592b55bcec2ae
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Tue Mar 31 18:39:22 2020 -0700
+
+    relative file paths fixed
+
+commit 4981395feb360a9db45ada7aeb7e6741637e87f6
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Tue Mar 31 18:38:13 2020 -0700
+
+    player class implemented and relative pathfiles fixed
+
+commit d0444da32dcf88717a156819631d74a6b6076ffc
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Tue Mar 31 18:29:29 2020 -0700
+
+    relative file path fixed
+
+commit 3d1520c9c45630a390d4d4ab14cd205b1c68338f
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Tue Mar 31 18:26:41 2020 -0700
+
+    player class implemented
+
+commit 6606256c8db876f337cfa15addc31284146ce0c7
+Merge: 3e37d9d 8facd3c
+Author: David Serrano <davidserrano@Davids-MBP-2.attlocal.net>
+Date:   Tue Mar 31 18:25:20 2020 -0700
+
+    encounterCheck method implemented
+
+commit 8facd3c986fcc2b6392a5b14d48589b5a62dcbc0
+Merge: 8d03eff a3bcfba
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Sun Mar 29 17:36:06 2020 -0700
+
+    Merge pull request #4 from ChiralAlchemist/gridDoc
+    
+    add save and load grid functions
+
+commit a3bcfba62ea585de6f15dd6421189f4109ec43cf
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Sun Mar 29 17:34:12 2020 -0700
+
+    fix move class
+
+commit 157b7d2eac7dd2f76425996bcfb38bd4b3eb2e22
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Sun Mar 29 17:21:31 2020 -0700
+
+    spelling and formatting cleanup
+
+commit 2dcb7d840c915eaceabec6818b65807367e9a918
+Merge: bbd2b9f 8d03eff
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Sun Mar 29 17:11:13 2020 -0700
+
+    Merge branch 'master' of https://github.com/ChiralAlchemist/cs401proj into gridDoc
+
+commit a072472324e0ddfeda1f2b64a48f5cf65f9932ca
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Sun Mar 29 17:02:35 2020 -0700
+
+    Updated Move.java to show the proper code.
+
+commit 8d03effd1592ebe3448f9eb396846e7eda6ee1c7
+Author: Kenny Hoang <khoang15@horizon.csueastbay.edu>
+Date:   Sat Mar 28 21:18:18 2020 -0700
+
+    House Keeping, added javadoc comments style, added the package gamarket to all the files
+
+commit 3e37d9d653f378c7b6411236e1d4a355c1e2e4bb
+Author: David Serrano <davidserrano@davids-mbp-2.attlocal.net>
+Date:   Thu Mar 26 17:53:12 2020 -0700
+
+     Client, StartMenuGui, Player skeleton classes implemented along with a couple of their functions implemented, not fully comlete. ClientTest test class created with one test, more tests need to be created as well as a Player class test.
+
+commit 68dec9bf59d87829fb6460caac9375c64d3ca9c1
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Thu Mar 26 13:40:41 2020 -0700
+
+    Delete pokedata.txt
+
+commit f32505a4b24a80af8c15e909f5c96b6a0a7856c0
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Thu Mar 26 13:40:32 2020 -0700
+
+    Delete movedata.txt
+
+commit b8355e759efbfa4d2334b9e53965d10ef7944dd4
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Thu Mar 26 13:40:20 2020 -0700
+
+    Delete PokemonCollection.java
+
+commit b182a50d11a55beb389584d7407ba56d7f0074c7
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Thu Mar 26 13:40:10 2020 -0700
+
+    Delete Pokemon.java
+
+commit a5735293d22dca64c44cd15d97db77770fbd2a86
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Thu Mar 26 13:39:55 2020 -0700
+
+    Delete MoveCollection.java
+
+commit 4339bda2752268468eba23be68ba04e86a6ac7a6
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Thu Mar 26 13:39:39 2020 -0700
+
+    Delete Move.java
+
+commit 8f9705bcd767d3dceb3f36dd562b3b8d441d0bda
+Merge: 0d19b5a c52d049
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Thu Mar 26 02:01:43 2020 -0700
+
+    Merge pull request #5 from KennyCSUEB/master
+    
+    Adding classes for Pokemon,PokemonCollection, Move, MoveCollection pl…
+
+commit c52d0491290f6d6ffbb4dc14fa73deb7f3e2ae9e
+Author: Kenny Hoang <khoang15@horizon.csueastbay.edu>
+Date:   Wed Mar 25 18:08:13 2020 -0700
+
+    Adding classes for Pokemon,PokemonCollection, Move, MoveCollection plus the two data text files.
+
+commit bbd2b9f109db82c99dd94eca90a38ecb8225340c
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Wed Mar 25 12:49:19 2020 -0700
+
+    add save and load grid functions
+
+commit 0d19b5af096a5cada1ad3859d9a0957309481a8d
+Merge: 7621f50 7603e76
+Author: KennyCSUEB <60386092+KennyCSUEB@users.noreply.github.com>
+Date:   Sat Mar 21 17:32:14 2020 -0700
+
+    Merge pull request #3 from ChiralAlchemist/gridDoc
+    
+    Add java doc comments to all of grid functions and  grid test class
+
+commit 7603e76542638b222f08c29767e1890ffa37b456
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Sat Mar 21 16:43:01 2020 -0700
+
+    add new tiletypes and can move test
+
+commit d5d0a5eee2fbce816d1685bc12387242dfab2f0c
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Sat Mar 21 01:56:31 2020 -0700
+
+    add tests for grid class
+
+commit 48e5f5b2aae950b7f5733a73dcd0536fa2ff23ca
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Sat Mar 21 01:55:36 2020 -0700
+
+    add javadocs to grid class
+
+commit 87badab65296eb1d0b3b429060c5f1570cc1546c
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Fri Mar 20 17:42:23 2020 -0700
+
+    made project maven project
+
+commit 7621f5069bfcbab4e027470d5d1174d65ec9b8b2
+Merge: e0b2c86 02c755c
+Author: davidlserrano <47878688+davidlserrano@users.noreply.github.com>
+Date:   Wed Mar 18 21:48:17 2020 -0700
+
+    Merge pull request #1 from ChiralAlchemist/dev
+    
+    Grid and Tile skeleton classes implemented.
+
+commit 02c755c2634ec0f8224a7e2fcccfb59f4fa699e5
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Wed Mar 18 21:37:04 2020 -0700
+
+    add docs folder and add Version 2 uml
+
+commit 3c6cb78c2c0d395c4de33a88940bcd7bf4421cb5
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Wed Mar 18 20:13:19 2020 -0700
+
+    add ablitity to move
+
+commit 75e51068c19e6db9de3357e9c103fa21e9993bee
+Author: Joseph Ashby <jashby473@gmail.com>
+Date:   Mon Mar 16 22:56:09 2020 -0700
+
+    add basic tiles and grid
+
+commit e0b2c860c13024dcdb7afd6953245ce800165a25
+Merge: 5edd71a 17e7676
+Author: jaybee707 <56205955+jaybee707@users.noreply.github.com>
+Date:   Fri Feb 21 15:53:17 2020 -0800
+
+    Merge pull request #3 from FawzanKhan/master
+    
+    Gantt Chart
+
+commit 17e7676a90df166e5a59010bd4196d2c6ef4b10b
+Author: Fawzan Khan <fawzankhan6@gmail.com>
+Date:   Fri Feb 21 15:46:02 2020 -0800
+
+    Gantt Chart
+
+commit 5edd71a7e54de501cb361c6821141bc931b4be47
+Merge: ea5a99c da220b7
+Author: jaybee707 <56205955+jaybee707@users.noreply.github.com>
+Date:   Fri Feb 21 02:41:33 2020 -0800
+
+    Merge pull request #2 from tmacdonald2/patch-1
+    
+    Create PokemonUML.png
+
+commit da220b7d131a9b4fb1fd53856776c3fcfe9f8f77
+Author: Trevor MacDonald <60413413+tmacdonald2@users.noreply.github.com>
+Date:   Fri Feb 21 01:14:56 2020 -0800
+
+    Create PokemonUML.png
+
+commit ea5a99c8a0ce95850ed164222120cedc11529f7e
+Merge: 0687aaa deb05af
+Author: jaybee707 <56205955+jaybee707@users.noreply.github.com>
+Date:   Tue Feb 4 17:43:25 2020 -0800
+
+    Merge pull request #1 from tmacdonald2/master
+    
+    merge branches
+
+commit deb05afb59b6a6711bada676b878380b90767b30
+Author: Trevor MacDonald <60413413+tmacdonald2@users.noreply.github.com>
+Date:   Sun Feb 2 23:48:31 2020 -0800
+
+    Update roles.txt
+
+commit 688fcd66fc97df030e529457d1d21c722de55a41
+Author: tmacdonald2 <60413413+tmacdonald2@users.noreply.github.com>
+Date:   Sun Feb 2 23:38:46 2020 -0800
+
+    Create roles.txt
+
+commit 8c788bced223e5ca136dfdf195b3bdce8edec4c1
+Author: tmacdonald2 <60413413+tmacdonald2@users.noreply.github.com>
+Date:   Sun Feb 2 23:33:42 2020 -0800
+
+    Project Schedule
+    
+    Expected development cycle, not final, subject to change.
+
+commit a3fed2236a789c57d7bbf8599acaaf936a8a8cc5
+Author: tmacdonald2 <60413413+tmacdonald2@users.noreply.github.com>
+Date:   Sun Feb 2 21:45:30 2020 -0800
+
+    Project Abstraction
+    
+    Breifly describes our project.
+
+commit 0687aaa6809ef4895a22780ffae0b1da1b5f13c2
+Author: Jesse Bond <jesse.o.bond@gmail.com>
+Date:   Thu Jan 30 17:52:28 2020 -0800
+
+    first commit

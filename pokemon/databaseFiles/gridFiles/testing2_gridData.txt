@@ -1,0 +1,13 @@
+Grid dimensions:10,10
+Player position is:0,0
+The grid State: 
+UP U U U U U U U U U 
+U U U U U U U U U U 
+U U U U U U U U U U 
+U U U U U U U U U U 
+U U U U U U U U U U 
+U U U U U U U U U U 
+U U U U U U U U U U 
+U U U U U U U U U U 
+U U U U U U U U U U 
+U U U U U U U U U U 
